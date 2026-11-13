@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Monitor de Cocina KDS | Chivo al Campo</title>
+  <link rel="stylesheet" href="/css/kds.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="kds-body">
+
+  <!-- HEADER PRINCIPAL (FORMATO 2 - PÁGINA 16 DEL PDF) -->
+  <header class="kds-header">
+    <div class="kds-header-title">
+      <span>MONITOR DE COCINA - CHIVO AL CAMPO</span>
+    </div>
+
+    <div class="kds-header-meta">
+      <i class="fa-solid fa-bell" onclick="testSound()" title="Alerta sonora" style="cursor: pointer;"></i>
+      <i class="fa-solid fa-volume-high" id="soundIcon" onclick="toggleMute()" title="Silenciar / Activar sonido" style="cursor: pointer;"></i>
+      <span class="kds-clock" id="kdsClockDisplay">15:10</span>
+    </div>
+  </header>
+
+  <!-- REJILLA DE COMANDAS EN TIEMPO REAL -->
+  <main class="kds-cards-grid" id="kdsCardsGrid">
+    <div class="kds-empty-msg">
+      <i class="fa-solid fa-circle-check" style="font-size: 3rem; margin-bottom: 1rem; color: #10b981; display: block;"></i>
+      Sin comandas pendientes en cocina.
+    </div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/audio.js"></script>
+  <script src="/js/cocina.js"></script>
+</body>
+</html>

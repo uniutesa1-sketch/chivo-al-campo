@@ -1,0 +1,169 @@
+/* =========================================================
+   PGM_COCINA: KDS MONITOR DE COCINA (FORMATO 2 - PÁGINA 16)
+   ========================================================= */
+
+body.kds-body {
+  background-color: #0b0d10;
+  color: #f8fafc;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header de Cocina exacto al PDF */
+.kds-header {
+  background: #111418;
+  border-bottom: 2px solid #202734;
+  padding: 0.75rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.kds-header-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.01em;
+}
+.kds-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+.kds-clock {
+  font-family: monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Rejilla de Tarjetas KDS */
+.kds-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+/* Tarjeta de Comanda idéntica al Formato 2 del PDF */
+.kds-order-card {
+  background: #151921;
+  border: 1px solid #242c3b;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.kds-order-header {
+  padding: 0.85rem 1rem 0.5rem;
+  text-align: center;
+}
+.kds-table-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.kds-meta-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Lista de Platos en Tarjeta */
+.kds-dish-list {
+  padding: 0.85rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex-grow: 1;
+}
+.kds-dish-line {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  color: #f1f5f9;
+  font-weight: 600;
+}
+.kds-bullet {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  display: inline-block;
+}
+
+/* Botón de Acción Grande en Tarjeta (Página 16) */
+.kds-action-btn-wrap {
+  padding: 0.75rem 1rem;
+}
+.kds-state-btn {
+  width: 100%;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.kds-state-btn:active {
+  transform: scale(0.97);
+}
+
+/* Colores de Botones según el PDF */
+.btn-prep-pdf {
+  background: #dc2626; /* Rojo de "EN PREPARACIÓN" como en la página 16 */
+  color: #fff;
+}
+.btn-prep-pdf:hover {
+  background: #b91c1c;
+}
+.btn-ready-pdf {
+  background: #16a34a; /* Verde de "LISTO PARA ENTREGAR" como en la página 16 */
+  color: #fff;
+  animation: pulse-kds 2s infinite;
+}
+.btn-ready-pdf:hover {
+  background: #15803d;
+}
+@keyframes pulse-kds {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6); }
+  50% { box-shadow: 0 0 15px 4px rgba(22, 163, 74, 0.4); }
+}
+
+.kds-empty-msg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 1rem;
+  color: #475569;
+  font-size: 1.2rem;
+  font-weight: 600;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chivo al Campo | Sistema Interactivo Multi-Modo</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="main-router-body">
+
+  <header class="router-hero">
+    <img src="/assets/images/logo.jpg" alt="Chivo al Campo" class="router-logo">
+    <div class="badge badge-gold" style="margin-bottom: 0.8rem;">
+      <i class="fa-solid fa-graduation-cap"></i> UTESA • PROYECTO INTEGRADOR • PROF. IVÁN MENDOZA
+    </div>
+    <h1 class="router-title">Restaurante "Chivo al Campo"</h1>
+    <p class="router-subtitle">
+      Ecosistema Web Multi-Rol de Autoservicio en Mesa, Monitor de Cocina KDS y Facturación Fiscal DGII (Villa Elisa, Monte Cristi).
+    </p>
+    <div style="margin-top: 0.8rem; font-size: 0.88rem; color: var(--text-muted);">
+      Diseñado y Desarrollado por: <strong style="color: var(--accent-gold);">Jeremi Santos Fabian</strong> (Matrícula: 1-197223)
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="router-cards-grid">
+      
+      <!-- PGM_CLIENTE: Modo Tablet Mesa -->
+      <div class="role-card">
+        <div class="role-icon-box">
+          <i class="fa-solid fa-tablet-screen-button"></i>
+        </div>
+        <span class="role-code">PGM_CLIENTE</span>
+        <h2 class="role-title">Tablet en Mesa (Comensal)</h2>
+        <p class="role-desc">
+          Frontend interactivo de autoservicio para el cliente: protector de pantalla táctil, catálogo con fotos, motor de sugerencias IA (Upselling), tracking de preparación en cocina y módulo de pago con NCF (B01/B02) y QR PayPal.
+        </p>
+
+        <div style="width: 100%; margin-bottom: 1rem;">
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Seleccionar Mesa de prueba:</label>
+          <select id="selectMesa" style="width: 100%; padding: 0.6rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.9rem;">
+            <option value="4">Mesa 04 (Mesa VIP Principal)</option>
+            <option value="1">Mesa 01 (Terraza)</option>
+            <option value="2">Mesa 02 (Salón Principal)</option>
+            <option value="3">Mesa 03 (Jardín)</option>
+            <option value="5">Mesa 05 (Familiar)</option>
+          </select>
+        </div>
+
+        <button onclick="abrirTablet()" class="btn btn-primary" style="width: 100%;">
+          <i class="fa-solid fa-play"></i> Iniciar Modo Tablet
+        </button>
+      </div>
+
+      <!-- PGM_COCINA: Monitor KDS -->
+      <div class="role-card">
+        <div class="role-icon-box" style="color: #38bdf8; background: rgba(56, 189, 248, 0.12); border-color: rgba(56, 189, 248, 0.3);">
+          <i class="fa-solid fa-fire-burner"></i>
+        </div>
+        <span class="role-code" style="color: #38bdf8; background: rgba(56, 189, 248, 0.12);">PGM_COCINA</span>
+        <h2 class="role-title">Monitor de Cocina (KDS)</h2>
+        <p class="role-desc">
+          Kitchen Display System táctil de alto contraste. Emite alerta sonora audible en tiempo real ante nuevas comandas, separa pedidos de salón vs DELIVERY y permite actualizar el estatus de cocción con un solo toque.
+        </p>
+        <div style="flex-grow: 1;"></div>
+        <a href="/cocina.html" target="_blank" class="btn btn-outline" style="width: 100%; border-color: #38bdf8; color: #38bdf8;">
+          <i class="fa-solid fa-desktop"></i> Abrir Monitor KDS
+        </a>
+      </div>
+
+      <!-- PGM_ADMIN: Gerencia y Caja -->
+      <div class="role-card">
+        <div class="role-icon-box" style="color: #10b981; background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3);">
+          <i class="fa-solid fa-cash-register"></i>
+        </div>
+        <span class="role-code" style="color: #10b981; background: rgba(16, 185, 129, 0.12);">PGM_ADMIN & PGM_INVENT</span>
+        <h2 class="role-title">Administración, Caja y Delivery</h2>
+        <p class="role-desc">
+          Panel gerencial completo: control de facturación del día, toma telefónica de Delivery ("Mesa Virtual 99"), auditoría de secuencias NCF DGII sin saltos, IA predictiva de inventario y pago SaaS PayPal.
+        </p>
+        <div style="flex-grow: 1;"></div>
+        <a href="/admin.html" target="_blank" class="btn btn-success" style="width: 100%;">
+          <i class="fa-solid fa-chart-line"></i> Acceder a Gerencia
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Barra de estado del sistema -->
+    <div style="text-align: center; margin: 2rem 0; padding: 1.25rem; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span class="status-dot"></span>
+        <span style="font-size: 0.9rem; font-weight: 600;">Servidor Cloud Local Activo</span>
+      </div>
+      <div style="font-size: 0.85rem; color: var(--text-secondary);">
+        <i class="fa-solid fa-receipt" style="color: var(--accent-gold);"></i> Normativa DGII: <strong>NCF B01 / B02 (18% ITBIS + 10% Propina)</strong>
+      </div>
+      <div style="font-size: 0.85rem; color: var(--text-secondary);">
+        <i class="fa-brands fa-paypal" style="color: #0079C1;"></i> Pasarela Digital: <strong>PayPal QR Checkout</strong>
+      </div>
+      <div style="font-size: 0.85rem; color: var(--text-secondary);">
+        <i class="fa-solid fa-brain" style="color: #a855f7;"></i> IA Integrada: <strong>Upselling & Demanda Predictiva</strong>
+      </div>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border-color);">
+    Restaurante Chivo al Campo SRL • RNC 131-48293-1 • Villa Elisa, Monte Cristi, República Dominicana • 2026
+  </footer>
+
+  <script>
+    function abrirTablet() {
+      const mesa = document.getElementById('selectMesa').value || '4';
+      window.open(`/tablet.html?mesa=${mesa}`, '_blank');
+    }
+  </script>
+</body>
+</html>

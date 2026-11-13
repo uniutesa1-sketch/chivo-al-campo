@@ -1,0 +1,800 @@
+/* =========================================================
+   SISTEMA DE DISEÑO - CHIVO AL CAMPO (RESTAURANTE SAAS)
+   Fiel al Documento de Diseño de Sistemas (UTESA)
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #12100e;
+  --bg-surface: #1a1614;
+  --bg-surface-elevated: #26201c;
+  --bg-card: rgba(32, 26, 22, 0.95);
+  
+  --primary: #d97706;
+  --primary-hover: #b45309;
+  --primary-glow: rgba(217, 119, 6, 0.35);
+
+  --accent-gold: #f59e0b;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-blue: #0284c7;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: rgba(217, 119, 6, 0.22);
+  --border-highlight: rgba(245, 158, 11, 0.45);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.4;
+  user-select: none;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .brand-font {
+  font-family: var(--font-heading);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-full);
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  outline: none;
+  text-decoration: none;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+.btn-paypal {
+  background: #0079C1;
+  color: #fff;
+}
+.btn-paypal:hover {
+  background: #005ea6;
+}
+.btn-success {
+  background: #10b981;
+  color: #fff;
+}
+.btn-success:hover {
+  background: #059669;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent-gold);
+}
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+}
+.btn-lg {
+  padding: 1rem 1.8rem;
+  font-size: 1.1rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.badge-gold {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-gold);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+.badge-green {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+/* =========================================================
+   PGM_CLIENTE: INTERFAZ DE TABLET (FORMATO 1 - PÁGINA 16)
+   ========================================================= */
+
+/* Top Header Bar Exacta al PDF */
+.tablet-top-bar {
+  background: #181412;
+  border-bottom: 2px solid #28211b;
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+.tablet-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.tablet-header-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+/* Status Pill exacto al PDF */
+.status-pill-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #064e3b;
+  color: #34d399;
+  border: 1px solid #059669;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+  transition: all 0.3s ease;
+}
+.status-pill-pdf.status-prep {
+  background: #1e3a8a;
+  color: #60a5fa;
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+}
+.status-pill-pdf.status-ready {
+  background: #065f46;
+  color: #a7f3d0;
+  border-color: #10b981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+  animation: pulse-ready 2s infinite;
+}
+@keyframes pulse-ready {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+.tablet-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+.tablet-clock {
+  font-family: monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Pantalla Dividida: Resumen a la Izquierda, Menú a la Derecha */
+.tablet-split-container {
+  display: grid;
+  grid-template-columns: 370px 1fr;
+  height: calc(100vh - 58px);
+  overflow: hidden;
+}
+
+/* Columna Izquierda: Resumen del Pedido */
+.order-summary-sidebar {
+  background: #161210;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  height: 100%;
+  overflow: hidden;
+}
+.summary-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.summary-items-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-right: 0.25rem;
+}
+.summary-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  gap: 0.5rem;
+}
+.summary-item-desc {
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.summary-item-val {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+.item-qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+}
+.btn-qty {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--bg-surface-elevated);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-qty:hover {
+  background: var(--accent-gold);
+  color: #000;
+  border-color: var(--accent-gold);
+}
+.btn-delete-item {
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-delete-item:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+/* Caja de Cálculos Fiscales */
+.summary-fiscal-card {
+  background: #1e1916;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  margin: 0.85rem 0;
+}
+.fiscal-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+.fiscal-line.total-line {
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+}
+.fiscal-line.total-line span:last-child {
+  color: var(--accent-gold);
+}
+
+/* Botonera de Acción en Resumen */
+.summary-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+/* Columna Derecha: Catálogo de Menú */
+.catalog-main-area {
+  background: #0f0d0b;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  padding: 1.25rem 1.5rem;
+}
+
+/* Barra de Categorías estilo PDF */
+.pdf-categories-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+}
+.pdf-categories-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.pdf-category-tab {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.pdf-category-tab.active, .pdf-category-tab:hover {
+  background: #26201c;
+  color: var(--accent-gold);
+  border-color: var(--border-color);
+}
+
+/* Grilla de Platos */
+.catalog-dishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-auto-rows: max-content;
+  gap: 1.15rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 2.5rem;
+  align-content: start;
+}
+.dish-card-compact {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 340px;
+  height: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.dish-card-compact:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-gold);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+}
+.dish-card-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 165px;
+  min-height: 165px;
+  max-height: 165px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #1a1614;
+}
+.dish-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.dish-card-compact:hover .dish-card-img-wrap img {
+  transform: scale(1.06);
+}
+.dish-card-price-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(18, 16, 14, 0.94);
+  color: #f59e0b;
+  border: 1.5px solid #f59e0b;
+  font-family: Outfit, sans-serif;
+  padding: 0.28rem 0.7rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.7);
+  text-align: right;
+  line-height: 1.1;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+.dish-card-compact img {
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  background: #26201c;
+}
+.dish-card-compact-body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.dish-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.25rem;
+}
+.dish-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  flex-grow: 1;
+}
+.dish-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 0.6rem;
+}
+.dish-price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent-gold);
+}
+
+/* =========================================================
+   PANTALLA DE PAGO EXACTA A LA PÁGINA 18 DEL PDF
+   ========================================================= */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  padding: 1rem;
+}
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: #1c1917;
+  color: #f8fafc;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(217, 119, 6, 0.15);
+  padding: 1.75rem;
+  position: relative;
+  z-index: 1001;
+  animation: modalCardPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalCardPop {
+  from { opacity: 0; transform: scale(0.96) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.admin-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 440px;
+  pointer-events: none;
+}
+
+.admin-toast {
+  pointer-events: auto;
+  background: #1e1b18;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s ease;
+}
+
+.admin-toast.success {
+  border-left: 4px solid #10b981;
+}
+
+.admin-toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.pdf-pago-modal-window {
+  background: #f8fafc;
+  color: #1e293b;
+  width: 100%;
+  max-width: 820px;
+  border-radius: 8px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.pdf-pago-header {
+  background: #0284c7;
+  color: #fff;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.pdf-pago-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1.5rem;
+  gap: 1.75rem;
+}
+
+/* Columna Izquierda: Comprobante y Numpad */
+.pdf-section-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #334155;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+}
+.fiscal-type-options {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.fiscal-type-btn {
+  flex: 1;
+  padding: 0.6rem 0.5rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+.fiscal-type-btn.active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+.rnc-input-display {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  background: #fff;
+  color: #0f172a;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.85rem;
+}
+
+.pdf-numpad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  max-width: 260px;
+  margin: 0 auto 1rem;
+}
+.pdf-numpad-key {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.pdf-numpad-key:active {
+  background: #e2e8f0;
+}
+
+.pdf-comprobante-alert {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 6px;
+  padding: 0.6rem 0.85rem;
+  color: #0369a1;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Columna Derecha: Totales y PayPal */
+.pdf-totals-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+.pdf-tot-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+.pdf-tot-row.grand-total {
+  border-top: 1px solid #cbd5e1;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.paypal-checkout-block {
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+/* =========================================================
+   PROTECTOR DE PANTALLA KIOSCO
+   ========================================================= */
+.screensaver-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: radial-gradient(circle at center, #241913 0%, #0d0a09 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.screensaver-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: none !important;
+}
+.screensaver-logo {
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-full);
+  border: 4px solid var(--accent-gold);
+  box-shadow: 0 0 50px var(--primary-glow);
+  margin-bottom: 1.5rem;
+}
+.screensaver-touch-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--accent-gold);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 860px) {
+  .tablet-split-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+  .order-summary-sidebar {
+    height: auto;
+    border-right: none;
+    border-bottom: 2px solid var(--border-color);
+  }
+  .pdf-pago-body {
+    grid-template-columns: 1fr;
+  }
+}

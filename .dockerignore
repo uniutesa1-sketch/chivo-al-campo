@@ -1,0 +1,22 @@
+# Ignorar dependencias locales (se instalan limpias dentro del contenedor)
+node_modules
+
+# Ignorar control de versiones y configuración local
+.git
+.gitignore
+.vscode
+.idea
+
+# Ignorar credenciales sensibles
+.env
+.env.*
+!.env.example
+
+# Ignorar archivos innecesarios para producción
+*.pdf
+iniciar_sistema.bat
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db

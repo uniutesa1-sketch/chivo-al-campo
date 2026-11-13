@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración & Caja | Chivo al Campo</title>
+  <link rel="stylesheet" href="/css/style.css?v=20261017-6">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .admin-nav {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+    }
+    .admin-nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+    .admin-nav-btn:hover {
+      color: #fff;
+    }
+    .admin-nav-btn.active {
+      color: var(--accent-gold);
+      border-bottom-color: var(--accent-gold);
+      background: rgba(242, 184, 75, 0.05);
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      backdrop-filter: blur(8px);
+    }
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .data-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .data-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+    }
+    .data-table tr:hover td {
+      background: rgba(223, 136, 40, 0.04);
+    }
+
+    /* Estilos de Alerta Flotante de Mesero */
+    .floating-waiter-banner {
+      background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+      color: #fff;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 2px solid #f87171;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: pulseGlow 1.8s infinite ease-in-out;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(185, 28, 28, 0.5);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+      50% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.9); }
+    }
+    .bell-vibrate {
+      display: inline-block;
+      animation: bellShake 0.6s infinite ease-in-out;
+      font-size: 1.4rem;
+      color: #fef08a;
+    }
+    @keyframes bellShake {
+      0%, 100% { transform: rotate(0); }
+      20% { transform: rotate(-20deg); }
+      40% { transform: rotate(20deg); }
+      60% { transform: rotate(-10deg); }
+      80% { transform: rotate(10deg); }
+    }
+
+    /* Estilos del Salón de Mesas */
+    .mesas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.25rem;
+    }
+    .mesa-box {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      position: relative;
+      transition: all 0.25s ease;
+    }
+    .mesa-box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .mesa-box.disponible {
+      border-color: rgba(16, 185, 129, 0.4);
+    }
+    .mesa-box.ocupada {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, var(--bg-surface) 100%);
+    }
+    .mesa-box.llamando_mesero {
+      border-color: #ef4444;
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.15) 0%, var(--bg-surface) 100%);
+      animation: pulseGlow 1.5s infinite;
+    }
+
+    .badge-calling {
+      background: #ef4444;
+      color: #fff;
+      font-weight: 800;
+      animation: bellShake 1.2s infinite;
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-primary);">
+
+  <!-- =========================================================
+       OVERLAY DE SEGURIDAD & LOGIN ADMINISTRATIVO
+       ========================================================= -->
+  <div id="loginOverlay" style="position: fixed; inset: 0; background: linear-gradient(135deg, rgba(14, 11, 10, 0.98) 0%, rgba(26, 20, 16, 0.98) 100%); z-index: 99999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px); padding: 1.5rem;">
+    <div style="background: var(--bg-surface); border: 2px solid var(--accent-gold); border-radius: var(--radius-lg); width: 100%; max-width: 460px; padding: 2.25rem; box-shadow: 0 25px 60px rgba(0,0,0,0.85); text-align: center;">
+      
+      <!-- Logo y Encabezado Institucional -->
+      <div style="margin-bottom: 1.5rem;">
+        <img src="/assets/images/logo.jpg" alt="Logo" style="width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--accent-gold); margin: 0 auto 0.75rem auto; display: block; object-fit: cover;">
+        <h2 style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 0.2rem;">RESTAURANTE CHIVO AL CAMPO</h2>
+        <span style="font-size: 0.8rem; color: var(--accent-gold); font-weight: 700; letter-spacing: 1px;">SISTEMA GERENCIAL • ACCESO RESTRINGIDO</span>
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem;">Villa Elisa, Monte Cristi, R.D. • Proyecto Integrador</p>
+      </div>
+
+      <!-- Selector de Modo de Acceso (Usuario/Clave o PIN rápido de Cajero) -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; background: var(--bg-surface-elevated); padding: 0.3rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+        <button id="btnLoginTabPass" onclick="cambiarModoLogin('pass')" class="btn btn-sm" style="flex: 1; background: var(--accent-gold); color: #000; font-weight: 700;">
+          <i class="fa-solid fa-key"></i> Usuario & Clave
+        </button>
+        <button id="btnLoginTabPin" onclick="cambiarModoLogin('pin')" class="btn btn-sm btn-outline" style="flex: 1; border: none; color: var(--text-secondary);">
+          <i class="fa-solid fa-hashtag"></i> PIN de Cajero
+        </button>
+      </div>
+
+      <!-- Formulario Modo 1: Usuario & Clave -->
+      <div id="loginPassForm" style="display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.25rem; text-align: left;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">Usuario o Correo:</label>
+          <div style="position: relative;">
+            <i class="fa-solid fa-user" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+            <input type="text" id="loginUsername" value="admin" placeholder="Ej: admin" style="width: 100%; padding: 0.7rem 0.75rem 0.7rem 2.4rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">Contraseña de Seguridad:</label>
+          <div style="position: relative;">
+            <i class="fa-solid fa-lock" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+            <input type="password" id="loginPassword" value="admin123" placeholder="••••••••" style="width: 100%; padding: 0.7rem 0.75rem 0.7rem 2.4rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario Modo 2: PIN Rápido -->
+      <div id="loginPinForm" style="display: none; margin-bottom: 1.25rem;">
+        <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">PIN Rápido (4 dígitos):</label>
+        <input type="password" id="loginPinInput" maxlength="4" placeholder="••••" readonly style="width: 100%; font-size: 1.8rem; text-align: center; letter-spacing: 0.5rem; padding: 0.5rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: var(--accent-gold); border: 1px solid var(--border-color); font-weight: 800; margin-bottom: 0.8rem;">
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem;">
+          <button onclick="teclearPin('1')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">1</button>
+          <button onclick="teclearPin('2')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">2</button>
+          <button onclick="teclearPin('3')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">3</button>
+          <button onclick="teclearPin('4')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">4</button>
+          <button onclick="teclearPin('5')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">5</button>
+          <button onclick="teclearPin('6')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">6</button>
+          <button onclick="teclearPin('7')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">7</button>
+          <button onclick="teclearPin('8')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">8</button>
+          <button onclick="teclearPin('9')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">9</button>
+          <button onclick="borrarPin()" class="btn btn-outline btn-sm" style="color: #f87171;"><i class="fa-solid fa-delete-left"></i></button>
+          <button onclick="teclearPin('0')" class="btn btn-outline btn-sm" style="font-size: 1.1rem; padding: 0.6rem;">0</button>
+          <button onclick="ejecutarLoginPin()" class="btn btn-primary btn-sm" style="font-weight: 800;"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Alerta de Error -->
+      <div id="loginErrorMsg" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 0.6rem; border-radius: var(--radius-sm); font-size: 0.8rem; margin-bottom: 1rem;">
+        Credenciales incorrectas.
+      </div>
+
+      <button id="btnSubmitLogin" onclick="ejecutarLoginPass()" class="btn btn-primary" style="width: 100%; font-size: 1rem; font-weight: 800; padding: 0.75rem;">
+        <i class="fa-solid fa-shield-halved"></i> Ingresar a Gerencia
+      </button>
+
+      <!-- Botones de Demostración Rápida para el Profesor -->
+      <div style="margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.75rem; color: var(--text-muted);">
+        <div style="margin-bottom: 0.5rem; font-weight: 600;">Accesos Rápidos (Evaluación / Demo):</div>
+        <div style="display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap;">
+          <button onclick="loginDemo('admin', 'admin123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+            👤 Gerente (admin)
+          </button>
+          <button onclick="loginDemo('caja', 'caja123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+            💵 Cajera (caja)
+          </button>
+          <button onclick="loginDemo('chef', 'chef123')" class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;">
+            🍳 Chef (chef)
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BANNER FLOTANTE DE ALERTA DE MESERO EN TIEMPO REAL -->
+  <div id="floatingWaiterAlert" class="floating-waiter-banner" style="display: none;">
+    <div style="display: flex; align-items: center; gap: 1.2rem;">
+      <i class="fa-solid fa-bell bell-vibrate"></i>
+      <div>
+        <div style="font-weight: 800; font-size: 1.05rem;" id="floatingWaiterTitle">
+          🔔 ¡ATENCIÓN MESERO! MESA SOLICITA ASISTENCIA
+        </div>
+        <div style="font-size: 0.85rem; color: #fecdd3;" id="floatingWaiterSub">
+          El comensal ha presionado "Llamar Mesero" desde su tablet.
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 0.6rem; align-items: center;">
+      <button onclick="atenderLlamadaDesdeBanner()" class="btn btn-sm" style="background: #fff; color: #b91c1c; font-weight: 800; padding: 0.5rem 1rem; border-radius: var(--radius-sm);">
+        <i class="fa-solid fa-check-double"></i> Atender y Silenciar
+      </button>
+      <button onclick="irAPestanaMesero()" class="btn btn-sm btn-outline" style="border-color: rgba(255,255,255,0.6); color: #fff;">
+        <i class="fa-solid fa-list-check"></i> Ver Todas
+      </button>
+    </div>
+  </div>
+
+  <!-- HEADER PRINCIPAL -->
+  <header style="background: var(--bg-surface); border-bottom: 1px solid var(--border-color); padding: 0.85rem 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <img src="/assets/images/logo.jpg" alt="Logo" style="width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--accent-gold); object-fit: cover;">
+      <div>
+        <h2 style="font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.1;">Chivo al Campo • Gerencia</h2>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">PGM_ADMIN & PGM_INVENT • Villa Elisa, Monte Cristi</span>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <!-- Perfil de Usuario Autenticado -->
+      <div id="userHeaderBadge" style="display: flex; align-items: center; gap: 0.6rem; background: var(--bg-surface-elevated); padding: 0.35rem 0.75rem; border-radius: 9999px; border: 1px solid var(--border-color);">
+        <i class="fa-solid fa-circle-user" style="color: var(--accent-gold); font-size: 1.1rem;"></i>
+        <div style="text-align: left; line-height: 1.1;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: #fff;" id="headerUserName">Jeremi Santos</div>
+          <div style="font-size: 0.68rem; color: var(--accent-gold);" id="headerUserRole">Gerente General</div>
+        </div>
+        <button onclick="cerrarSesionAdmin()" title="Cerrar Sesión" style="background: transparent; border: none; color: #f87171; cursor: pointer; padding-left: 0.4rem; font-size: 0.85rem;">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+      </div>
+
+      <!-- Indicador Activo de Llamadas de Mesero -->
+      <div id="headerWaiterCounter" onclick="cambiarPestana('mesero', document.getElementById('btnNavMesero'))" style="display: none; cursor: pointer;" class="badge badge-red">
+        <i class="fa-solid fa-bell bell-vibrate"></i> <span id="headerWaiterCountText">1 Mesa Llamando</span>
+      </div>
+
+      <div class="badge badge-green">
+        <span class="status-dot"></span> DGII Sincronizado
+      </div>
+      <a href="/" class="btn btn-outline btn-sm">
+        <i class="fa-solid fa-arrow-left"></i> Volver al Portal
+      </a>
+    </div>
+  </header>
+
+  <!-- BARRA DE NAVEGACIÓN COMPLETA DE MÓDULOS DE RESTAURANTE -->
+  <nav class="admin-nav">
+    <button class="admin-nav-btn active" onclick="cambiarPestana('dashboard', this)">
+      <i class="fa-solid fa-chart-pie"></i> Dashboard
+    </button>
+    <button class="admin-nav-btn" id="btnNavMesas" onclick="cambiarPestana('mesas', this)">
+      <i class="fa-solid fa-table-cells-large"></i> Mesas & Salón
+    </button>
+    <button class="admin-nav-btn" id="btnNavMesero" onclick="cambiarPestana('mesero', this)">
+      <i class="fa-solid fa-bell"></i> Llamadas Mesero <span id="navMeseroBadge" style="display:none; background:#ef4444; color:#fff; font-size:0.7rem; padding:0.15rem 0.45rem; border-radius:9999px; margin-left:0.3rem;">0</span>
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('delivery', this)">
+      <i class="fa-solid fa-cash-register"></i> Caja / Delivery (Mesa 99)
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('ncf', this)">
+      <i class="fa-solid fa-receipt"></i> Auditoría Fiscal NCF
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('inventario', this)">
+      <i class="fa-solid fa-boxes-stacked"></i> Almacén & Insumos
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('proveedores', this)">
+      <i class="fa-solid fa-handshake"></i> Proveedores & Compras
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('empleados', this)">
+      <i class="fa-solid fa-users-gear"></i> Personal & Empleados
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('cuadre', this)">
+      <i class="fa-solid fa-file-invoice-dollar"></i> Cuadre de Caja (Reporte Z)
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('r607', this)">
+      <i class="fa-solid fa-file-csv"></i> Reporte 607 DGII
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('catalogo', this)">
+      <i class="fa-solid fa-utensils"></i> Menú de Platos
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('ia', this)">
+      <i class="fa-solid fa-brain"></i> IA Predictiva (Google Gemini)
+    </button>
+    <button class="admin-nav-btn" onclick="cambiarPestana('saas', this)">
+      <i class="fa-brands fa-paypal"></i> Licencia SaaS
+    </button>
+  </nav>
+
+  <!-- CONTENEDOR PRINCIPAL DE PESTAÑAS -->
+  <main class="container" style="padding-top: 2rem; padding-bottom: 3rem;">
+
+    <!-- ================= PESTAÑA 1: DASHBOARD ================= -->
+    <div id="tab-dashboard" class="tab-content">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+        
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">VENTAS TOTALES HOY</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #fff;" id="dashVentas">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(223, 136, 40, 0.15); color: var(--accent-gold);">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">ITBIS (18%) RECAUDADO</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: var(--accent-gold);" id="dashItbis">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">PROPINA LEY (10%)</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #3b82f6;" id="dashPropina">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
+            <i class="fa-solid fa-check-to-slot"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">FACTURAS EMITIDAS</div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #fff;" id="dashFacturas">0</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tarjeta gráfica y estado de secuencias -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+          <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+            <span><i class="fa-solid fa-chart-line" style="color: var(--accent-gold);"></i> Tendencia Semanal de Ventas (Villa Elisa)</span>
+            <span class="badge badge-gold">Actualizado en Vivo</span>
+          </h3>
+          <!-- Simulación visual de barra / gráfico SVG elegante -->
+          <div style="display: flex; align-items: flex-end; gap: 1.2rem; height: 180px; padding-top: 1.5rem; border-bottom: 1px solid var(--border-color);">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: rgba(223, 136, 40, 0.3); border-radius: 6px 6px 0 0; height: 45%;"></div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Lun</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: rgba(223, 136, 40, 0.4); border-radius: 6px 6px 0 0; height: 55%;"></div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Mar</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: rgba(223, 136, 40, 0.5); border-radius: 6px 6px 0 0; height: 70%;"></div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Mié</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: linear-gradient(180deg, var(--accent-gold), var(--primary)); border-radius: 6px 6px 0 0; height: 95%;"></div>
+              <span style="font-size: 0.75rem; color: #fff; font-weight: 700;">Hoy (Jue)</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 6px 6px 0 0; height: 85%;"></div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Vie (Est.)</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; height: 100%; justify-content: flex-end;">
+              <div style="width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 6px 6px 0 0; height: 100%;"></div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Sáb (Pico)</span>
+            </div>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-secondary); display: flex; justify-content: space-between;">
+            <span>Ticket Promedio: <strong id="dashTicketPromedio" style="color: #fff;">RD$ 0.00</strong></span>
+            <span style="color: var(--accent-green);"><i class="fa-solid fa-arrow-trend-up"></i> +24% vs semana anterior</span>
+          </div>
+        </div>
+
+        <!-- Auditoría de Secuencia DGII -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+              <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i> Control Secuencial DGII
+            </h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+              Cumplimiento de la Norma General 06-18 sobre Comprobantes Fiscales Electrónicos. 0% saltos numéricos.
+            </p>
+
+            <div style="background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem; border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Último e-NCF E32 (Consumo Electrónico):</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: var(--accent-gold); font-family: monospace;" id="dashUltimoE32">E320000000001</div>
+            </div>
+
+            <div style="background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem; border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Último e-NCF E31 (Crédito Fiscal):</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: #38bdf8; font-family: monospace;" id="dashUltimoE31">E310000000001</div>
+            </div>
+
+            <div style="background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="font-size: 0.75rem; color: var(--text-muted);">Último e-NCF E34 (Nota de Crédito):</div>
+              <div style="font-size: 1.15rem; font-weight: 800; color: #f87171; font-family: monospace;" id="dashUltimoE34">E340000000001</div>
+            </div>
+          </div>
+
+          <div class="badge badge-green" style="margin-top: 1rem; width: 100%; justify-content: center; padding: 0.6rem;">
+            <i class="fa-solid fa-circle-check"></i> Integridad Secuencial 100%
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 2: CAJA / DELIVERY (MESA 99) ================= -->
+    <div id="tab-delivery" class="tab-content" style="display: none;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        
+        <!-- Formulario de Pedido Telefónico -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">
+            <i class="fa-solid fa-headset" style="color: var(--accent-gold);"></i> Toma de Pedido a Domicilio (Mesa Virtual 99)
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.2rem;">
+            Módulo simplificado para registrar llamadas telefónicas de comensales en Monte Cristi / Villa Elisa y despachar a cocina.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.2rem;">
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nombre del Cliente:</label>
+              <input type="text" id="delivNombre" placeholder="Ej: Don Pedro Ramos" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Teléfono de Contacto:</label>
+              <input type="text" id="delivTelefono" placeholder="Ej: (809) 555-4321" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Dirección de Entrega:</label>
+              <textarea id="delivDireccion" rows="2" placeholder="Ej: Calle Duarte #45, frente al parque, Villa Elisa" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);"></textarea>
+            </div>
+          </div>
+
+          <!-- Selección de Platos para Delivery -->
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 0.5rem;">Agregar Platos a la Comanda:</h4>
+          <div id="delivPlatosList" style="max-height: 240px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem;">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
+
+        <!-- Resumen y Despacho a Cocina -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Comanda de Delivery</h3>
+              <span class="badge badge-red"><i class="fa-solid fa-motorcycle"></i> DELIVERY</span>
+            </div>
+
+            <div id="delivCartItems" style="min-height: 180px; max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem;">
+              <div style="text-align: center; color: var(--text-muted); padding: 3rem 1rem;">
+                No hay productos seleccionados en la comanda de delivery.
+              </div>
+            </div>
+
+            <!-- Totales -->
+            <div class="cart-fiscal-box">
+              <div class="fiscal-row">
+                <span>Subtotal:</span>
+                <span id="delivSubtotal">RD$ 0.00</span>
+              </div>
+              <div class="fiscal-row">
+                <span>ITBIS (18%):</span>
+                <span id="delivItbis">RD$ 0.00</span>
+              </div>
+              <div class="fiscal-row">
+                <span>Propina Legal (10%):</span>
+                <span id="delivPropina">RD$ 0.00</span>
+              </div>
+              <div class="fiscal-row total-row">
+                <span>TOTAL DELIVERY:</span>
+                <span class="total-highlight" id="delivTotal">RD$ 0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem;">
+            <button onclick="limpiarDelivery()" class="btn btn-outline" style="flex: 1;">
+              Cancelar
+            </button>
+            <button onclick="enviarDeliveryCocina()" class="btn btn-primary" style="flex: 2;">
+              <i class="fa-solid fa-fire"></i> [F4] Enviar a Cocina (Delivery)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 3: AUDITORÍA FISCAL NCF (DGII) ================= -->
+    <div id="tab-ncf" class="tab-content" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">
+              <i class="fa-solid fa-receipt" style="color: var(--accent-gold);"></i> Registro y Auditoría de Facturas NCF
+            </h3>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">
+              RNC Emisor: 132-90740-1 • Dirección General de Impuestos Internos (DGII) • e-CF Live
+            </span>
+          </div>
+          <div style="display: flex; gap: 0.6rem; align-items: center;">
+            <button onclick="cargarFacturas()" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-rotate"></i> Actualizar
+            </button>
+            <button onclick="abrirModalReiniciarFacturas()" class="btn btn-outline btn-sm" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.08);" title="Purgar facturas de prueba y reiniciar secuencias e-NCF">
+              <i class="fa-solid fa-trash-can"></i> Reiniciar Facturas (Reset)
+            </button>
+          </div>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>e-NCF OFICIAL</th>
+                <th>TIPO</th>
+                <th>ESTADO</th>
+                <th>ORIGEN</th>
+                <th>CLIENTE / RNC</th>
+                <th>FECHA</th>
+                <th>SUBTOTAL</th>
+                <th>ITBIS (18%)</th>
+                <th>TOTAL</th>
+                <th>PAGO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="ncfTableBody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 4: GESTIÓN DE CATÁLOGO ================= -->
+    <div id="tab-catalogo" class="tab-content" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">
+            <i class="fa-solid fa-utensils" style="color: var(--accent-gold);"></i> Catálogo de Platos del Restaurante
+          </h3>
+          <button onclick="abrirModalPlato()" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus"></i> Nuevo Plato
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem;" id="adminPlatosGrid">
+          <!-- Renderizado dinámico -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 5: IA PREDICTIVA (PGM_INVENT) ================= -->
+    <div id="tab-ia" class="tab-content" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem;">
+        
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 55px; height: 55px; border-radius: 50%; background: rgba(168, 85, 247, 0.2); color: #c084fc; display: flex; align-items: center; justify-content: center; font-size: 1.8rem;">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; color: #fff;">PGM_INVENT • Asistente Predictivo de Inventario (Google Gemini)</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Algoritmo de Inteligencia Artificial Google Gemini para optimización de cadena de suministro (Monte Cristi)</p>
+            </div>
+          </div>
+          <button id="btnRecalcularIA" onclick="generarReporteIA()" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-arrows-rotate"></i> Recalcular con Gemini AI
+          </button>
+        </div>
+
+        <!-- Tarjeta de Diagnóstico y Recomendación de la IA con Telemetría en Vivo -->
+        <div style="background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(223, 136, 40, 0.1) 100%); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem; position: relative;">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.9rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div id="iaBadgeEstado" class="badge badge-gold" style="font-size: 0.8rem;">
+              <i class="fa-solid fa-sparkles"></i> ALERTA PREDICTIVA EN LENGUAJE NATURAL
+            </div>
+            <!-- Telemetría de Gemini en Vivo -->
+            <div style="display: flex; gap: 0.6rem; font-size: 0.75rem; color: var(--text-muted); font-family: monospace; flex-wrap: wrap;">
+              <span style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);">
+                <i class="fa-regular fa-clock" style="color: var(--accent-gold);"></i> <strong id="iaHoraGeneracion" style="color: #fff;">--:--:--</strong>
+              </span>
+              <span style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);">
+                <i class="fa-solid fa-bolt" style="color: #38bdf8;"></i> <strong id="iaLatencia" style="color: #fff;">-- ms</strong>
+              </span>
+            </div>
+          </div>
+
+          <!-- Barra de Parámetros de Entrada analizados por Gemini -->
+          <div style="display: flex; gap: 1rem; margin-bottom: 1.1rem; background: rgba(0,0,0,0.25); padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid rgba(255,255,255,0.05); font-size: 0.78rem; flex-wrap: wrap; align-items: center;">
+            <span style="color: var(--text-muted); font-weight: 600;"><i class="fa-solid fa-database" style="color: var(--accent-gold); margin-right: 0.25rem;"></i> Variables de entrada al prompt:</span>
+            <span style="color: #cbd5e1;">Facturas hoy: <strong id="iaFacturasCount" style="color: #fff;">0</strong></span>
+            <span style="color: #cbd5e1;">Porciones chivo vendidas: <strong id="iaChivoVendido" style="color: var(--accent-gold);">0</strong></span>
+            <span style="color: #cbd5e1;">Stock en almacén: <strong id="iaStockAlmacen" style="color: #10b981;">65 Libras</strong></span>
+          </div>
+
+          <p id="iaDiagnosticoTxt" style="font-size: 1.05rem; color: #f8fafc; line-height: 1.6; margin-bottom: 1rem;">
+            Cargando análisis predictivo de ventas semanales...
+          </p>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1rem;">
+            <span style="font-size: 0.9rem; color: var(--accent-gold);" id="iaAhorroTxt">
+              <i class="fa-solid fa-piggy-bank"></i> Ahorro estimado por compra anticipada: RD$ 8,450.00
+            </span>
+            <button onclick="aprobarCompraProveedor()" class="btn btn-success btn-sm">
+              <i class="fa-solid fa-check"></i> Aprobar Orden a Proveedores
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabla de Insumos Sugeridos -->
+        <h4 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">
+          Insumos y Materia Prima a Solicitar:
+        </h4>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>INSUMO / MATERIA PRIMA</th>
+                <th>CANTIDAD SUGERIDA</th>
+                <th>PRIORIDAD</th>
+                <th>PROVEEDOR RECOMENDADO</th>
+              </tr>
+            </thead>
+            <tbody id="iaInsumosTbody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 6: SUSCRIPCIÓN SAAS PAYPAL ================= -->
+    <div id="tab-saas" class="tab-content" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; max-width: 750px; margin: 0 auto;">
+        
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 121, 193, 0.15); color: #0079C1; display: inline-flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 0.8rem;">
+            <i class="fa-brands fa-paypal"></i>
+          </div>
+          <h3 style="font-size: 1.5rem; font-weight: 800; color: #fff;">Suscripción Cloud SaaS Restaurante</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            Mantenimiento y sincronización de Tablets en Mesa, KDS Cocina y Servidor Fiscal DGII
+          </p>
+        </div>
+
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <span style="font-weight: 700; color: #fff; font-size: 1.1rem;">Plan Profesional Chivo al Campo</span>
+            <span class="badge badge-green">Licencia Activa</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Incluye hasta 20 Tablets en mesa simultáneas, monitores de cocina ilimitados, secuencias fiscales NCF garantizadas y reportes de IA semanales.
+          </p>
+          <div style="background: rgba(0, 121, 193, 0.08); border: 1px dashed rgba(0, 121, 193, 0.35); border-radius: 6px; padding: 0.65rem 0.85rem; margin-bottom: 1rem; font-size: 0.8rem; font-family: monospace; color: #94a3b8;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+              <span><i class="fa-brands fa-paypal" style="color: #0079C1;"></i> App: <strong style="color: #fff;">Chivo al Campo POS</strong></span>
+              <span style="color: #38bdf8;">REST API Live</span>
+            </div>
+            <div style="color: #64748b; font-size: 0.73rem; word-break: break-all;">
+              Client ID: <span style="color: #cbd5e1;">BAAdqETzdOHmEhCAtv6vmA6dOceI199iJ8UoW...4VAA</span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 800; color: var(--accent-gold); border-top: 1px solid var(--border-color); padding-top: 0.75rem;">
+            <span>Tarifa Mensual:</span>
+            <span>$49.99 USD <small style="font-size: 0.8rem; color: var(--text-muted);">(~RD$ 3,024.40)</small></span>
+          </div>
+        </div>
+
+        <button onclick="pagarSuscripcionPayPal()" class="btn btn-primary btn-lg" style="width: 100%; background: linear-gradient(135deg, #0079C1 0%, #00457C 100%);">
+          <i class="fa-brands fa-paypal"></i> Pagar Mensualidad con PayPal Developer
+        </button>
+
+        <div id="saasFeedback" style="display: none; margin-top: 1.5rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); padding: 1rem; border-radius: var(--radius-sm); color: #6ee7b7; font-size: 0.9rem;">
+          <!-- Comprobante simulado -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 7: MESAS Y SALÓN EN VIVO ================= -->
+    <div id="tab-mesas" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">Plano de Mesas & Salón en Vivo</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Supervisión en tiempo real de ocupación, comensales y llamados de asistencia.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <button onclick="cargarMesasAdmin()" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-rotate"></i> Actualizar Salón
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumen de Ocupación -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid #10b981;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">MESAS DISPONIBLES</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;" id="statMesasLibres">0</div>
+        </div>
+        <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid #f59e0b;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">MESAS OCUPADAS</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: #f59e0b;" id="statMesasOcupadas">0</div>
+        </div>
+        <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid #ef4444;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">SOLICITANDO MESERO</div>
+          <div style="font-size: 1.4rem; font-weight: 800; color: #ef4444;" id="statMesasLlamando">0</div>
+        </div>
+      </div>
+
+      <!-- Cuadrícula de Mesas -->
+      <div class="mesas-grid" id="mesasGridContainer">
+        <!-- Renderizado dinámico -->
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 8: CENTRO DE LLAMADAS DE MESERO ================= -->
+    <div id="tab-mesero" class="tab-content" style="display: none;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff;">
+              <i class="fa-solid fa-bell bell-vibrate" style="color: #ef4444;"></i> Centro de Asistencia de Mesero en Vivo
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Mesas que han solicitado atención desde la tablet.</p>
+          </div>
+          <button onclick="probarSonidoMesero()" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-volume-high"></i> Probar Timbre
+          </button>
+        </div>
+
+        <div id="llamadasMeseroContainer">
+          <!-- Renderizado dinámico -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 9: ALMACÉN E INVENTARIO ================= -->
+    <div id="tab-inventario" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 0.6rem;">
+            <i class="fa-solid fa-boxes-stacked" style="color: var(--accent-gold);"></i> Control de Almacén & Materia Prima
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Monitoreo en tiempo real con descarga automática de insumos por facturación de platos.</p>
+        </div>
+        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+          <button onclick="cargarInventario()" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-rotate"></i> Actualizar
+          </button>
+          <button onclick="abrirModalAjusteInventario('SALIDA')" class="btn btn-outline btn-sm" style="color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i> Registrar Salida / Merma
+          </button>
+          <button onclick="abrirModalAjusteInventario('ENTRADA')" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-truck-ramp-box"></i> Registrar Entrada de Insumos
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjeta 1: Stock Actual de Insumos -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 2rem;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-size: 1rem; font-weight: 700; color: #fff; margin: 0;">
+            <i class="fa-solid fa-cubes-stacked" style="color: var(--accent-gold);"></i> Stock Actual de Insumos en Almacén
+          </h4>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Actualización automática por cada venta</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>INSUMO / INGREDIENTE</th>
+                <th>CATEGORÍA</th>
+                <th>STOCK ACTUAL</th>
+                <th>STOCK MÍNIMO</th>
+                <th>ESTADO</th>
+                <th>COSTO ESTIMADO (RD$)</th>
+                <th>PROVEEDOR RECOMENDADO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="inventarioTbody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Trazabilidad y Kardex de Salidas Automáticas & Entradas -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+        <div style="padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+          <div>
+            <h4 style="font-size: 1.05rem; font-weight: 700; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-receipt" style="color: #38bdf8;"></i> Kardex de Movimientos: Salidas Automáticas por Factura y Entradas
+            </h4>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">
+              Cada vez que se emite una factura fiscal en la tablet o en caja, los insumos requeridos por la receta se descuentan automáticamente.
+            </span>
+          </div>
+          <span class="badge badge-gold" id="kardexTotalBadge">0 movimientos registrados</span>
+        </div>
+        <div style="overflow-x: auto; max-height: 480px; overflow-y: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>FECHA Y HORA</th>
+                <th>TIPO</th>
+                <th>INSUMO</th>
+                <th>CANTIDAD</th>
+                <th>STOCK RESULTANTE</th>
+                <th>MOTIVO / REFERENCIA FISCAL</th>
+                <th>RESPONSABLE</th>
+              </tr>
+            </thead>
+            <tbody id="kardexTbody">
+              <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                  No hay movimientos registrados aún en este turno.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 10: PERSONAL Y EMPLEADOS ================= -->
+    <div id="tab-empleados" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">Gestión de Personal & Colaboradores</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Nómina de cocina, meseros, cajera y motoristas de Chivo al Campo.</p>
+        </div>
+        <button onclick="abrirModalEmpleado()" class="btn btn-primary btn-sm">
+          <i class="fa-solid fa-user-plus"></i> Registrar Colaborador
+        </button>
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>NOMBRE DEL COLABORADOR</th>
+                <th>CÉDULA</th>
+                <th>CARGO / FUNCIÓN</th>
+                <th>TURNO</th>
+                <th>TELÉFONO</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+              </tr>
+            </thead>
+            <tbody id="empleadosTbody">
+              <!-- Renderizado dinámico -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA 11: CUADRE DE CAJA (REPORTE Z) ================= -->
+    <div id="tab-cuadre" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">Cuadre de Caja & Reporte Z Fiscal Diario</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Consolidación de ingresos fiscales, retenciones de ITBIS 18% y propina legal 10%.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button onclick="window.print()" class="btn btn-outline btn-sm">
+            <i class="fa-solid fa-print"></i> Imprimir Reporte Z
+          </button>
+          <button onclick="cerrarTurnoCaja()" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-lock"></i> Emitir Cierre Z de Caja
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjetas de Cuadre -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+            <i class="fa-solid fa-cash-register"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">VENTAS TOTALES BRUTAS</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: #fff;" id="cuadreTotalVentas">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold);">
+            <i class="fa-solid fa-coins"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">TOTAL EFECTIVO EN CAJA</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--accent-gold);" id="cuadreEfectivo">RD$ 0.00</div>
+            <div style="font-size: 0.7rem; color: var(--text-muted);">(Inc. Fondo RD$ 5,000)</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(0, 121, 193, 0.15); color: #0079C1;">
+            <i class="fa-brands fa-paypal"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">TOTAL PAYPAL / TARJETAS</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: #0079C1;" id="cuadreDigital">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">ITBIS (18%) + PROPINA (10%)</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: #3b82f6;" id="cuadreImpuestos">RD$ 0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desglose Fiscal Oficial Reporte Z -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.75rem; max-width: 800px; margin: 0 auto; font-family: monospace;">
+        <div style="text-align: center; border-bottom: 2px dashed rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1rem;">
+          <h4 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.2rem;">RESTAURANTE CHIVO AL CAMPO SRL</h4>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">RNC: 131-48293-1 • Villa Elisa, Monte Cristi</div>
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--accent-gold); margin-top: 0.5rem;">*** CIERRE FISCAL DIARIO - REPORTE Z ***</div>
+          <div style="font-size: 0.8rem; color: var(--text-muted);" id="cuadreFecha">Fecha: --</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; color: #f1f5f9; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span>FONDO INICIAL DE APERTURA:</span>
+            <span style="font-weight: 700;">RD$ 5,000.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>VENTAS EXENTAS DE ITBIS:</span>
+            <span>RD$ 0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>VENTAS GRAVADAS CON ITBIS (18%):</span>
+            <span id="cuadreSubtotalGravado">RD$ 0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: var(--accent-gold);">
+            <span>TOTAL ITBIS FACTURADO (18%):</span>
+            <span id="cuadreItbisVal">RD$ 0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; color: #3b82f6;">
+            <span>PROPINA LEGAL DE LEY (10%):</span>
+            <span id="cuadrePropinaVal">RD$ 0.00</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.1rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 0.6rem; color: #fff;">
+            <span>VENTA TOTAL DEL DÍA:</span>
+            <span id="cuadreGranTotal">RD$ 0.00</span>
+          </div>
+        </div>
+
+        <!-- Auditoría de Comprobantes Electrónicos DGII -->
+        <div style="font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 1rem; margin-bottom: 1rem;">
+          <div style="font-weight: 700; color: #fff; margin-bottom: 0.4rem;">AUDITORÍA DE COMPROBANTES ELECTRÓNICOS (e-CF):</div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Consumo Electrónico (E32):</span>
+            <span id="cuadreE32Count">0 facturas</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Crédito Fiscal Electrónico (E31):</span>
+            <span id="cuadreE31Count">0 facturas</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Notas de Crédito Electrónicas (E34):</span>
+            <span id="cuadreE34Count">0 emitidas</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 0.35rem;">
+            <span>Último e-NCF E32 Emitido:</span>
+            <span id="cuadreUltimoE32" style="color: var(--accent-gold); font-weight: 700; font-family: monospace;">--</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Último e-NCF E31 Emitido:</span>
+            <span id="cuadreUltimoE31" style="color: #38bdf8; font-weight: 700; font-family: monospace;">--</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Último e-NCF E34 Emitido:</span>
+            <span id="cuadreUltimoE34" style="color: #f87171; font-weight: 700; font-family: monospace;">--</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; font-size: 0.8rem; color: var(--text-muted);">
+          FIRMA DEL CAJERO / GERENTE DE TURNO: ___________________________
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA: PROVEEDORES & COMPRAS ================= -->
+    <div id="tab-proveedores" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
+            <i class="fa-solid fa-handshake" style="color: var(--accent-gold);"></i> Directorio de Suplidores & Cadena de Suministro
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Gestión de proveedores locales de Villa Elisa, Guayubín y Monte Cristi</p>
+        </div>
+        <button onclick="abrirModalProveedor()" class="btn btn-primary">
+          <i class="fa-solid fa-plus"></i> Registrar Nuevo Proveedor
+        </button>
+      </div>
+
+      <!-- Métricas Rápidas de Proveedores -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold);">
+            <i class="fa-solid fa-truck-field"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">PROVEEDORES ACTIVOS</div>
+            <div style="font-size: 1.5rem; font-weight: 800; color: #fff;" id="provCountTotal">4 Suplidores</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+            <i class="fa-solid fa-cow"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">INSUMO ESTRATÉGICO</div>
+            <div style="font-size: 1rem; font-weight: 800; color: #10b981;">Chivo Fresco Liniero</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">DÍAS CLAVE DE ABASTO</div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Jueves & Sábados</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Proveedores -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Proveedor / Razón Social</th>
+                <th>RNC</th>
+                <th>Insumo / Categoría</th>
+                <th>Contacto Directo</th>
+                <th>Teléfono / WhatsApp</th>
+                <th>Dirección Local</th>
+                <th>Días de Entrega</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProveedores">
+              <!-- Carga dinámica -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PESTAÑA: REPORTE 607 DGII ================= -->
+    <div id="tab-r607" class="tab-content" style="display: none;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
+            <span class="badge badge-green" style="font-size: 0.75rem;">Norma General 07-2018 DGII</span>
+            <span class="badge badge-gold" style="font-size: 0.75rem;">Formato 607 Oficial</span>
+          </div>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 0.25rem;">
+            <i class="fa-solid fa-file-invoice" style="color: #10b981;"></i> Reporte de Ventas de Bienes y Servicios (Formato 607)
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">
+            Consolidado tributario para declaración jurada mensual con auditoría de e-NCF (E31 / E32 / E34)
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 0.6rem;">
+          <button onclick="descargarReporte607CSV()" class="btn btn-primary">
+            <i class="fa-solid fa-download"></i> Descargar CSV para DGII
+          </button>
+        </div>
+      </div>
+
+      <!-- Ficha Tributaria del Restaurante -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">RNC CONTRIBUYENTE</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: #fff;">131-48293-1</div>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">RAZÓN SOCIAL REGISTRADA</div>
+          <div style="font-size: 1rem; font-weight: 800; color: #fff;">Restaurante Chivo al Campo SRL</div>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">PERÍODO FISCAL</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-gold);" id="r607Periodo">202610</div>
+        </div>
+        <div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">TOTAL OPERACIONES REPORTADAS</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: #10b981;" id="r607TotalRegistros">0 Facturas</div>
+        </div>
+      </div>
+
+      <!-- Resumen de Impuestos 607 -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">BASE IMPONIBLE (VENTAS GRAVADAS)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #fff;" id="r607BaseTotal">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold);">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">TOTAL ITBIS FACTURADO (18%)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: var(--accent-gold);" id="r607ItbisTotal">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+            <i class="fa-solid fa-coins"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">PROPINA LEGAL (LEY 5432 - 10%)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #10b981;" id="r607PropinaTotal">RD$ 0.00</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">TOTAL FACTURADO (CON ITBIS)</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #fff;" id="r607TotalCobrado">RD$ 0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla Oficial Formato 607 -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
+        <div style="padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0;">
+            <i class="fa-solid fa-table-list"></i> Matriz Fiscal de Ventas con NCF
+          </h4>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Estructura estándar compatible con validador DGII</span>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Línea</th>
+                <th>RNC / Cédula Comprador</th>
+                <th>Tipo Id</th>
+                <th>NCF Emitido</th>
+                <th>Tipo Ingreso</th>
+                <th>Fecha Comprobante</th>
+                <th>Monto Gravado (RD$)</th>
+                <th>ITBIS Facturado 18%</th>
+                <th>Propina 10%</th>
+                <th>Monto Total Facturado</th>
+                <th>Forma Pago</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyReporte607">
+              <!-- Carga dinámica -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL REGISTRAR EMPLEADO -->
+  <div id="modalEmpleado" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 1.2rem;">
+        <i class="fa-solid fa-user-plus" style="color: #3b82f6;"></i> Registrar Colaborador
+      </h3>
+      <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.2rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nombre Completo:</label>
+          <input type="text" id="empNombre" placeholder="Ej: Manuel Alejandro Ramos" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Cédula:</label>
+          <input type="text" id="empCedula" placeholder="047-0000000-0" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Cargo / Función:</label>
+          <select id="empCargo" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+            <option value="Chef de Cocina">Chef de Cocina</option>
+            <option value="Cocinero / Ayudante">Cocinero / Ayudante</option>
+            <option value="Mesero de Salón">Mesero de Salón</option>
+            <option value="Cajera / Cobros">Cajera / Cobros</option>
+            <option value="Repartidor Delivery">Repartidor Delivery</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Turno:</label>
+          <select id="empTurno" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+            <option value="Matutino">Matutino (8:00 AM - 4:00 PM)</option>
+            <option value="Vespertino">Vespertino (4:00 PM - 12:00 AM)</option>
+            <option value="Completo">Turno Completo</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Teléfono:</label>
+          <input type="text" id="empTelefono" placeholder="(809) 555-0000" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <button onclick="cerrarModalEmpleado()" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+        <button onclick="guardarEmpleado()" class="btn btn-primary" style="flex: 1;">Guardar Empleado</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE DE MESA EN VIVO -->
+  <div id="modalDetalleMesa" class="modal-overlay">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;" id="modalMesaTitulo">Detalle de Mesa</h3>
+        <span id="modalMesaBadge" class="badge">Estado</span>
+      </div>
+      <div id="modalMesaContent" style="margin-bottom: 1.2rem; min-height: 120px;">
+        <!-- Items de comanda -->
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <button onclick="cerrarModalDetalleMesa()" class="btn btn-outline" style="flex: 1;">Cerrar</button>
+        <button id="btnLiberarMesaModal" onclick="liberarMesaDesdeModal()" class="btn btn-primary" style="flex: 1; background: #dc2626;">Liberar Mesa</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR / CREAR PLATO -->
+  <div id="modalPlato" class="modal-overlay">
+    <div class="modal-card" style="max-width: 600px; width: 100%; max-height: 92vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+          <i class="fa-solid fa-utensils" style="color: var(--accent-gold);"></i> 
+          <span id="modalPlatoTitulo">Detalles del Plato</span>
+        </h3>
+        <button onclick="cerrarModalPlato()" class="btn-icon" style="background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <input type="hidden" id="editPlatoId">
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.4rem;">
+        <!-- Nombre del Plato -->
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+            Nombre del Plato <span style="color: #ef4444;">*</span>:
+          </label>
+          <input type="text" id="editNombre" placeholder="Ej: Chivo Guisado al Romero" style="width: 100%; padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.95rem;">
+        </div>
+
+        <!-- Categoría y Nueva Categoría -->
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+            <label style="font-size: 0.82rem; color: #fff; font-weight: 600;">
+              Categoría del Menú <span style="color: #ef4444;">*</span>:
+            </label>
+            <button type="button" onclick="activarNuevaCategoriaInput()" class="btn btn-outline btn-sm" style="font-size: 0.72rem; padding: 0.2rem 0.6rem; color: var(--accent-gold); border-color: rgba(245, 158, 11, 0.4);">
+              <i class="fa-solid fa-plus"></i> Nueva Categoría
+            </button>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;" id="gridCategoriasPlato">
+            <div>
+              <select id="editCategoria" onchange="cambioCategoriaPlato()" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.9rem;">
+                <option value="Carnes">Carnes</option>
+                <option value="Guarniciones">Guarniciones</option>
+                <option value="Bebidas">Bebidas</option>
+                <option value="Postres">Postres</option>
+                <option value="__NUEVA__">+ [Crear Nueva Categoría...]</option>
+              </select>
+            </div>
+            <div id="colNuevaCategoria" style="display: none;">
+              <input type="text" id="editNuevaCategoria" placeholder="Nombre nueva categoría..." style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: #221c16; color: var(--accent-gold); border: 1.5px solid var(--accent-gold); font-size: 0.9rem; font-weight: 600;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Precio y Estado -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div>
+            <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+              Precio Final RD$ (con ITBIS) <span style="color: #ef4444;">*</span>:
+            </label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--accent-gold); font-weight: 700; font-size: 0.85rem;">RD$</span>
+              <input type="number" id="editPrecio" step="5" placeholder="0.00" style="width: 100%; padding: 0.65rem 0.75rem 0.65rem 2.8rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.95rem; font-weight: 700;">
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+              Estado del Plato:
+            </label>
+            <select id="editDisponible" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.9rem;">
+              <option value="true">Activo / Disponible en Carta</option>
+              <option value="false">Agotado / Desactivado</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">Descripción del Plato:</label>
+          <textarea id="editDescripcion" rows="2" placeholder="Detalle ingredientes, guarnición y notas culinarias..." style="width: 100%; padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.88rem;"></textarea>
+        </div>
+
+        <!-- MÓDULO DE FOTO / IMAGEN DEL PLATO -->
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
+            <label style="font-size: 0.85rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+              <i class="fa-solid fa-image" style="color: var(--accent-gold);"></i> Imagen del Plato
+            </label>
+            <label class="btn btn-outline btn-sm" style="font-size: 0.75rem; padding: 0.25rem 0.65rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.35rem; color: #38bdf8; border-color: rgba(56, 189, 248, 0.4);">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Subir de mi Dispositivo
+              <input type="file" id="editImagenFile" accept="image/*" style="display: none;" onchange="manejarSubidaImagenPlato(event)">
+            </label>
+          </div>
+
+          <div style="display: flex; gap: 0.85rem; align-items: flex-start;">
+            <!-- Vista Previa de Imagen -->
+            <div style="width: 120px; height: 90px; flex-shrink: 0; border-radius: var(--radius-sm); overflow: hidden; background: #1a1614; border: 1.5px solid var(--border-color); position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+              <img id="editImagenPreview" src="/assets/images/logo.jpg" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/assets/images/logo.jpg';">
+            </div>
+
+            <!-- Input URL -->
+            <div style="flex: 1; display: flex; flex-direction: column; gap: 0.45rem;">
+              <input type="text" id="editImagen" placeholder="URL o ruta de imagen (ej: /assets/images/chivo_asado.jpg)" oninput="actualizarPreviewImagenPlato(this.value)" style="width: 100%; padding: 0.6rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+              <small style="color: var(--text-muted); font-size: 0.73rem;">
+                Puede escribir una URL web, subir una foto de su PC/móvil, o elegir una foto rápida de la galería abajo:
+              </small>
+            </div>
+          </div>
+
+          <!-- Galería rápida de fotos del restaurante -->
+          <div style="margin-top: 0.8rem; border-top: 1px dashed rgba(255, 255, 255, 0.08); padding-top: 0.6rem;">
+            <div style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 700; text-transform: uppercase;">
+              Fotos disponibles del restaurante (clic para asignar):
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;" id="chipsFotosDisponibles">
+              <!-- Renderizado dinámico de chips de fotos -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" onclick="cerrarModalPlato()" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+        <button type="button" onclick="guardarPlato()" class="btn btn-primary" style="flex: 1; font-weight: 700;">
+          <i class="fa-solid fa-floppy-disk"></i> Guardar Plato
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL REGISTRAR NUEVO PROVEEDOR LOCAL -->
+  <div id="modalProveedor" class="modal-overlay">
+    <div class="modal-card">
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 1.2rem;">
+        <i class="fa-solid fa-handshake" style="color: var(--accent-gold);"></i> Registrar Suplidor Local
+      </h3>
+      <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.2rem;">
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Nombre / Razón Social:</label>
+          <input type="text" id="provNombre" placeholder="Ej: Ganadería Caprina del Yaque SRL" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">RNC o Cédula:</label>
+            <input type="text" id="provRnc" placeholder="130-00000-0" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Categoría de Insumo:</label>
+            <input type="text" id="provCategoria" placeholder="Ej: Chivo Fresco, Plátanos..." style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Contacto / Representante:</label>
+            <input type="text" id="provContacto" placeholder="Nombre del vendedor" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Teléfono / WhatsApp:</label>
+            <input type="text" id="provTelefono" placeholder="(809) 555-0000" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Dirección / Ubicación Local:</label>
+          <input type="text" id="provDireccion" placeholder="Carretera Duarte Km..., Villa Elisa, Monte Cristi" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+        <div>
+          <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 0.3rem;">Frecuencia / Días de Entrega:</label>
+          <input type="text" id="provDias" placeholder="Ej: Lunes, Jueves y Sábados" style="width: 100%; padding: 0.65rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color);">
+        </div>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" onclick="cerrarModalProveedor()" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+        <button type="button" onclick="guardarProveedor()" class="btn btn-primary" style="flex: 1;">Guardar Suplidor</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL AJUSTE DE INVENTARIO (ENTRADA / SALIDA) -->
+  <div id="modalInventario" class="modal-overlay">
+    <div class="modal-card" style="max-width: 520px; width: 100%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem;">
+        <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
+          <i class="fa-solid fa-boxes-packing" id="modalInvIcon" style="color: var(--accent-gold);"></i>
+          <span id="modalInvTitulo">Registrar Movimiento de Inventario</span>
+        </h3>
+        <button onclick="cerrarModalInventario()" class="btn-icon" style="background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer;">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.4rem;">
+        <!-- Tipo de Movimiento -->
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+            Tipo de Movimiento:
+          </label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;">
+            <button type="button" id="btnTipoEntrada" onclick="seleccionarTipoMovimiento('ENTRADA')" class="btn btn-primary btn-sm" style="font-size: 0.85rem; padding: 0.6rem;">
+              <i class="fa-solid fa-truck-ramp-box"></i> + Entrada (Compra)
+            </button>
+            <button type="button" id="btnTipoSalida" onclick="seleccionarTipoMovimiento('SALIDA')" class="btn btn-outline btn-sm" style="font-size: 0.85rem; padding: 0.6rem; color: #f87171; border-color: rgba(239, 68, 68, 0.4);">
+              <i class="fa-solid fa-arrow-up-from-bracket"></i> - Salida / Merma
+            </button>
+          </div>
+          <input type="hidden" id="invTipoMovimiento" value="ENTRADA">
+        </div>
+
+        <!-- Insumo / Materia Prima -->
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+            Insumo o Materia Prima <span style="color: #ef4444;">*</span>:
+          </label>
+          <select id="invInsumoSelect" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.9rem;">
+            <!-- Se pobla dinámicamente -->
+          </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+            Cantidad a Registrar <span style="color: #ef4444;">*</span>:
+          </label>
+          <input type="number" id="invCantidad" step="0.5" placeholder="Ej: 20" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.95rem; font-weight: 700;">
+        </div>
+
+        <!-- Motivo o Referencia -->
+        <div>
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.35rem;">
+            Motivo o Detalle del Movimiento:
+          </label>
+          <input type="text" id="invMotivo" placeholder="Ej: Factura suplidor #402, merma en cocina, reposición semanal..." style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.88rem;">
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" onclick="cerrarModalInventario()" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+        <button type="button" onclick="guardarAjusteInventario()" class="btn btn-primary" id="btnGuardarInv" style="flex: 1; font-weight: 700;">
+          <i class="fa-solid fa-check"></i> Registrar Entrada
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL REINICIAR FACTURAS (PURGA FISCAL DE PRUEBAS) -->
+  <div id="modalReiniciarFacturas" class="modal-overlay">
+    <div class="modal-card" style="max-width: 480px; width: 100%;">
+      <div style="text-align: center; margin-bottom: 1.25rem;">
+        <div style="width: 55px; height: 55px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); color: #ef4444; display: inline-flex; align-items: center; justify-content: center; font-size: 1.7rem; margin-bottom: 0.75rem;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem;">Reiniciar Facturación y NCF</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+          Esta acción vaciará el historial de facturas emitidas en las pruebas y restablecerá los contadores de comprobantes fiscales e-NCF (E31, E32 y E34) a cero para empezar en limpio.
+        </p>
+      </div>
+
+      <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); padding: 0.85rem; margin-bottom: 1.25rem;">
+        <label style="font-size: 0.82rem; color: #fff; font-weight: 700; display: block; margin-bottom: 0.4rem;">
+          Ingrese PIN de Gerencia para Autorizar:
+        </label>
+        <input type="password" id="reiniciarFacturasPin" placeholder="PIN (por defecto: 1234)" maxlength="8" style="width: 100%; padding: 0.75rem; text-align: center; font-size: 1.25rem; font-weight: 800; letter-spacing: 4px; border-radius: var(--radius-sm); background: #1a1614; color: var(--accent-gold); border: 1.5px solid var(--accent-gold);">
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button type="button" onclick="cerrarModalReiniciarFacturas()" class="btn btn-outline" style="flex: 1;">Cancelar</button>
+        <button type="button" onclick="ejecutarReinicioFacturas()" class="btn btn-primary" style="flex: 1.2; background: #dc2626; border-color: #dc2626; font-weight: 700;">
+          <i class="fa-solid fa-trash-can"></i> Confirmar Reinicio
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CANCELACIÓN DE FACTURA (NOTA DE CRÉDITO ELECTRÓNICA E34 DGII) -->
+  <div id="modalCancelarFactura" class="modal-overlay" onclick="if (event.target === this) cerrarModalCancelarFactura()">
+    <div class="modal-card" style="max-width: 500px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(239, 68, 68, 0.3);" onclick="event.stopPropagation()">
+      
+      <!-- PASO 1: CONFIRMAR CANCELACIÓN Y SELECCIONAR MOTIVO -->
+      <div id="cancelarFacturaPasoConfirmar">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: #f87171; display: flex; align-items: center; gap: 0.6rem; margin: 0;">
+            <i class="fa-solid fa-ban"></i> Cancelar Factura (Emitir E34)
+          </h3>
+          <button type="button" onclick="cerrarModalCancelarFactura()" class="btn-close" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+
+        <div style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); padding: 0.9rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-size: 0.85rem; color: #fca5a5; line-height: 1.45;">
+          <i class="fa-solid fa-triangle-exclamation"></i> Esta acción anulará el comprobante ante la <strong>DGII</strong> emitiendo una <strong>Nota de Crédito Electrónica (E34)</strong> y reintegrará automáticamente los insumos al almacén.
+        </div>
+
+        <div style="margin-bottom: 1rem; background: var(--bg-surface-elevated); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">COMPROBANTE A ANULAR:</div>
+          <div id="cancelarFacturaNcfTxt" style="font-family: monospace; font-size: 1.25rem; font-weight: 800; color: #fff; margin-top: 0.2rem;">--</div>
+          <div id="cancelarFacturaMontoTxt" style="font-size: 0.9rem; color: var(--accent-gold); font-weight: 700; margin-top: 0.2rem;">--</div>
+        </div>
+
+        <div style="margin-bottom: 1.25rem;">
+          <label style="font-size: 0.82rem; color: #fff; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            Motivo de Modificación / Anulación (DGII):
+          </label>
+          <select id="cancelarFacturaMotivoSelect" style="width: 100%; padding: 0.65rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface-elevated); color: #fff; border: 1px solid var(--border-color); font-size: 0.88rem;">
+            <option value="1 - Error en la orden o comanda del cliente">1 - Error en la orden o comanda del cliente</option>
+            <option value="1 - Devolución total del consumo">1 - Devolución total del consumo</option>
+            <option value="1 - Cancelación por solicitud del cliente">1 - Cancelación por solicitud del cliente</option>
+            <option value="1 - Corrección de tipo de comprobante fiscal">1 - Corrección de tipo de comprobante fiscal</option>
+            <option value="1 - Error de digitación o precio facturado">1 - Error de digitación o precio facturado</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" onclick="cerrarModalCancelarFactura()" class="btn btn-outline" style="flex: 1;">Volver</button>
+          <button type="button" id="btnConfirmarE34" onclick="confirmarCancelacionFacturaE34()" class="btn btn-primary" style="flex: 1.5; background: #dc2626; border-color: #dc2626; font-weight: 700;">
+            <i class="fa-solid fa-file-circle-xmark"></i> Emitir E34 y Anular
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 2: PROCESANDO ANTE LA DGII -->
+      <div id="cancelarFacturaPasoProcesando" style="display: none; text-align: center; padding: 1.5rem 0.5rem;">
+        <div style="width: 55px; height: 55px; border: 4px solid rgba(220, 38, 38, 0.2); border-top-color: #dc2626; border-radius: 50%; margin: 0 auto 1.25rem auto; animation: spin 0.8s linear infinite;"></div>
+        <h4 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">
+          Timbrando Nota de Crédito E34...
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.45; max-width: 380px; margin: 0 auto;">
+          Firmando digitalmente el comprobante Tipo 34 y comunicando con la plataforma oficial DGII / IMECF. Por favor espere...
+        </p>
+      </div>
+
+      <!-- PASO 3: ÉXITO CONFIRMADO -->
+      <div id="cancelarFacturaPasoExito" style="display: none; text-align: center; padding: 1rem 0.5rem;">
+        <div style="width: 55px; height: 55px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); color: #10b981; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1rem;">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; color: #10b981; margin-bottom: 0.3rem;">
+          ¡Factura Anulada con Éxito!
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+          Se ha emitido y timbrado formalmente la Nota de Crédito Electrónica ante la DGII.
+        </p>
+
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.85rem; margin-bottom: 1.25rem; text-align: left; font-size: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Nota de Crédito e-NCF:</span>
+            <strong id="exitoE34NCF" style="font-family: monospace; color: var(--accent-gold); font-size: 1.1rem;">--</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Comprobante Modificado:</span>
+            <span id="exitoE34Modificado" style="font-family: monospace; color: #fff;">--</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Estado DGII:</span>
+            <span id="exitoE34Estado" class="badge badge-green">Aceptado</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" onclick="cerrarModalCancelarFactura()" class="btn btn-outline" style="flex: 1;">
+            Cerrar
+          </button>
+          <button type="button" id="btnImprimirNotaE34Modal" class="btn btn-primary" style="flex: 1.5; background: var(--accent-gold); color: #000; font-weight: 800; border-color: var(--accent-gold); cursor: pointer;">
+            <i class="fa-solid fa-print"></i> Imprimir Nota E34
+          </button>
+        </div>
+      </div>
+
+      <!-- PASO 4: ERROR REPORTADO -->
+      <div id="cancelarFacturaPasoError" style="display: none; text-align: center; padding: 1rem 0.5rem;">
+        <div style="width: 55px; height: 55px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); color: #ef4444; display: inline-flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1rem;">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <h4 style="font-size: 1.25rem; font-weight: 800; color: #ef4444; margin-bottom: 0.4rem;">
+          No se pudo anular la factura
+        </h4>
+        <p id="cancelarFacturaErrorDetalle" style="font-size: 0.85rem; color: #fca5a5; line-height: 1.45; margin-bottom: 1.25rem;">
+          --
+        </p>
+        <button type="button" onclick="cerrarModalCancelarFactura()" class="btn btn-outline" style="width: 100%;">
+          Entendido / Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="adminToastContainer" class="admin-toast-container"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/audio.js"></script>
+  <script src="/js/admin.js?v=20261017-6"></script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chivo al Campo | Tablet de Autoservicio</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- PROTECTOR DE PANTALLA TÁCTIL (KIOSCO) -->
+  <div id="screensaver" class="screensaver-overlay" onclick="despertarTablet()">
+    <img src="/assets/images/logo.jpg" alt="Chivo al Campo" class="screensaver-logo">
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <h1 style="font-size: 2.8rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">Restaurante Chivo al Campo</h1>
+      <p style="color: var(--accent-gold); font-size: 1.25rem; font-weight: 600;">Sabor Auténtico Liniero • Villa Elisa, Monte Cristi</p>
+      <div id="screensaverMesaBadge" class="badge badge-gold" style="margin-top: 0.8rem; font-size: 1rem; padding: 0.5rem 1.2rem;">
+        MESA ASIGNADA: MESA 04
+      </div>
+    </div>
+    <div class="screensaver-touch-hint">
+      <i class="fa-solid fa-hand-pointer"></i> TOQUE LA PANTALLA PARA ORDENAR
+    </div>
+  </div>
+
+  <!-- HEADER PRINCIPAL (FORMATO 1 - PÁGINA 16 DEL PDF) -->
+  <header class="tablet-top-bar">
+    <div class="tablet-header-left">
+      <span class="tablet-header-title" id="tabletHeaderTitle">CHIVO AL CAMPO - MESA 04</span>
+      <div id="tabletStatusBadge" class="status-pill-pdf">
+        <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i>
+        <span id="tabletStatusText">ESTATUS: ORDEN ABIERTA</span>
+      </div>
+    </div>
+
+    <div class="tablet-header-right">
+      <i class="fa-solid fa-user-circle" title="Comensal"></i>
+      <i class="fa-solid fa-bell" onclick="solicitarMesero()" title="Llamar Mesero" style="cursor: pointer;"></i>
+      <i class="fa-solid fa-lock" onclick="bloquearTablet()" title="Bloquear Tablet" style="cursor: pointer;"></i>
+      <span class="tablet-clock" id="tabletClock">13:28</span>
+    </div>
+  </header>
+
+  <!-- BANNER DINÁMICO DE ESTADO EN COCINA -->
+  <div id="kitchenStatusBanner" style="display: none; background: #0284c7; color: #fff; padding: 0.6rem 1.5rem; text-align: center; font-weight: 700; font-size: 0.92rem; align-items: center; justify-content: center; gap: 0.75rem;">
+    <i class="fa-solid fa-fire-burner" id="kitchenIcon"></i>
+    <span id="kitchenStatusMsg">El chef está preparando su comida</span>
+  </div>
+
+  <!-- PANTALLA DIVIDIDA: RESUMEN IZQUIERDA | CATÁLOGO DERECHA (PÁGINA 16) -->
+  <div class="tablet-split-container">
+    
+    <!-- COLUMNA IZQUIERDA: RESUMEN DEL PEDIDO (PERMANENTE) -->
+    <aside class="order-summary-sidebar">
+      <div class="summary-title" style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span>RESUMEN DEL PEDIDO</span>
+          <span id="summaryOrderTag" style="font-size: 0.8rem; color: var(--accent-gold); font-weight: 600; display: block;">Mesa 04</span>
+        </div>
+        <button id="btnVaciarPedido" onclick="confirmarVaciarPedido()" class="btn btn-outline btn-sm" style="font-size: 0.72rem; padding: 0.25rem 0.6rem; color: #fca5a5; border-color: rgba(239, 68, 68, 0.4); display: none;" title="Vaciar orden o iniciar nueva cuenta">
+          <i class="fa-solid fa-trash-can"></i> Vaciar
+        </button>
+      </div>
+
+      <!-- Lista de Ítems del Pedido (Consumo acumulado y visibles en pantalla) -->
+      <div class="summary-items-list" id="summaryItemsList">
+        <div style="text-align: center; color: var(--text-muted); padding: 3rem 1rem; font-size: 0.9rem;">
+          <i class="fa-solid fa-utensils" style="font-size: 2rem; opacity: 0.3; margin-bottom: 0.75rem; display: block;"></i>
+          Seleccione platos del menú para armar su orden.
+        </div>
+      </div>
+
+      <!-- Desglose Fiscal Exacto -->
+      <div class="summary-fiscal-card">
+        <div class="fiscal-line">
+          <span>Subtotal (Base Imponible):</span>
+          <span id="sumSubtotal">RD$ 0.00</span>
+        </div>
+        <div class="fiscal-line" style="color: var(--accent-gold);">
+          <span>ITBIS (18% Desglosado):</span>
+          <span id="sumItbis">RD$ 0.00</span>
+        </div>
+        <div class="fiscal-line">
+          <span>Propina Legal (10% Ley):</span>
+          <span id="sumPropina">RD$ 0.00</span>
+        </div>
+        <div class="fiscal-line total-line">
+          <span>TOTAL A PAGAR:</span>
+          <span id="sumTotal">RD$ 0.00</span>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="summary-actions-stack">
+        <button id="btnEnviarCocina" onclick="abrirModalUpsellingIA()" class="btn btn-primary" style="width: 100%;">
+          <i class="fa-solid fa-paper-plane"></i> Enviar a Cocina con IA
+        </button>
+
+        <button onclick="iniciarProcesoPago()" class="btn btn-paypal" style="width: 100%;">
+          <i class="fa-brands fa-paypal"></i> Pagar con PayPal / Facturar NCF
+        </button>
+
+        <button onclick="solicitarMesero()" class="btn btn-outline" style="width: 100%;">
+          <i class="fa-solid fa-bell"></i> Llamar Mesero
+        </button>
+      </div>
+    </aside>
+
+    <!-- COLUMNA DERECHA: CATÁLOGO DE PLATOS -->
+    <main class="catalog-main-area">
+      <!-- Barra de Categorías estilo PDF -->
+      <div class="pdf-categories-nav">
+        <span class="pdf-categories-label">Menú: Categorías |</span>
+        <div id="categoriesTabsContainer" style="display: flex; align-items: center; gap: 0.85rem; overflow-x: auto;">
+          <button class="pdf-category-tab active" onclick="filtrarCategoria('Todos', this)">Todo el Menú</button>
+          <button class="pdf-category-tab" onclick="filtrarCategoria('Carnes', this)">Carnes</button>
+          <button class="pdf-category-tab" onclick="filtrarCategoria('Guarniciones', this)">Plátanos / Guarnición</button>
+          <button class="pdf-category-tab" onclick="filtrarCategoria('Bebidas', this)">Bebidas</button>
+          <button class="pdf-category-tab" onclick="filtrarCategoria('Postres', this)">Postres</button>
+        </div>
+      </div>
+
+      <!-- Grilla de Platos -->
+      <div class="catalog-dishes-grid" id="dishesGrid">
+        <!-- Renderizado dinámico -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================
+       MODAL 1: SUGERENCIA DE UPSELLING DE INTELIGENCIA ARTIFICIAL
+       ========================================================= -->
+  <div id="modalUpselling" class="modal-overlay">
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-highlight); border-radius: var(--radius-lg); width: 100%; max-width: 520px; padding: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.8);">
+      <div style="text-align: center; margin-bottom: 1.25rem;">
+        <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="badge badge-gold">Sugerencia Inteligente de la Casa</div>
+        <h3 style="font-size: 1.35rem; font-weight: 800; color: #fff; margin-top: 0.5rem;">¿Desea complementar su orden?</h3>
+      </div>
+
+      <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;">
+        <img id="iaPlatoImg" src="/assets/images/tostones.jpg" alt="Sugerencia" style="width: 72px; height: 72px; border-radius: 6px; object-fit: cover;">
+        <div>
+          <h4 id="iaPlatoNombre" style="color: #fff; font-size: 1.05rem;">Tostones Crujientes Criollos</h4>
+          <p id="iaMensaje" style="color: var(--text-secondary); font-size: 0.88rem; margin: 0.25rem 0;">
+            Excelente elección con el auténtico Chivo Liniero. ¿Le gustaría acompañarlo con una ración de tostones por RD$ 150.00?
+          </p>
+          <span id="iaPlatoPrecio" style="color: var(--accent-gold); font-weight: 800; font-size: 1.15rem;">RD$ 150.00</span>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button onclick="rechazarUpsellingYEnviar()" class="btn btn-outline" style="flex: 1;">
+          No, enviar orden actual
+        </button>
+        <button onclick="aceptarUpselling()" class="btn btn-primary" style="flex: 1.2;">
+          <i class="fa-solid fa-plus"></i> ¡Sí, Agregar Sugerencia!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 2: PROCESO DE PAGO Y FACTURACIÓN (FORMATO PÁGINA 18 DEL PDF)
+       ========================================================= -->
+  <div id="modalPagoPDF" class="modal-overlay">
+    <div class="pdf-pago-modal-window">
+      
+      <!-- Barra Superior Azul -->
+      <div class="pdf-pago-header">
+        <span id="modalPagoHeaderTitle">MESA 04 - PROCESO DE PAGO Y FACTURACIÓN</span>
+        <div style="display: flex; align-items: center; gap: 0.8rem; font-size: 1rem;">
+          <i class="fa-solid fa-wifi"></i>
+          <i class="fa-solid fa-battery-full"></i>
+          <span onclick="cerrarModalPago()" style="cursor: pointer; margin-left: 0.5rem; font-size: 1.4rem;">&times;</span>
+        </div>
+      </div>
+
+      <!-- Cuerpo en Dos Columnas (Página 18) -->
+      <div class="pdf-pago-body">
+        
+        <!-- Columna Izquierda: SELECCIÓN DE COMPROBANTE FISCAL -->
+        <div>
+          <div class="pdf-section-title">SELECCIÓN DE COMPROBANTE FISCAL</div>
+          
+          <div class="fiscal-type-options">
+            <button id="pdfBtnE32" class="fiscal-type-btn active" onclick="setFiscalType('E32')">
+              <i class="fa-solid fa-check"></i> Consumo Electrónico (E32)
+            </button>
+            <button id="pdfBtnE31" class="fiscal-type-btn" onclick="setFiscalType('E31')">
+              <i class="fa-solid fa-minus"></i> Crédito Fiscal (E31)
+            </button>
+          </div>
+
+          <input type="text" id="pdfRncInput" readonly class="rnc-input-display" placeholder="Digite con el teclado">
+          
+          <!-- Razón Social Consultada en Vivo en la DGII -->
+          <div id="pdfRncValidadoBox" style="display: none; background: #f0fdf4; border: 1px solid #86efac; border-radius: 4px; padding: 6px 8px; margin-bottom: 8px; font-size: 0.78rem; color: #166534; line-height: 1.3;">
+            <i class="fa-solid fa-building-circle-check" style="color: #15803d;"></i>
+            <span id="pdfRazonSocialTxt" style="font-weight: 700;"></span>
+          </div>
+
+          <!-- Teclado Numérico en Pantalla de la Página 18 -->
+          <div class="pdf-numpad-grid">
+            <button class="pdf-numpad-key" onclick="pressNumpad('1')">1</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('2')">2</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('3')">3</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('4')">4</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('5')">5</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('6')">6</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('7')">7</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('8')">8</button>
+            <button class="pdf-numpad-key" onclick="pressNumpad('9')">9</button>
+            <div style="visibility: hidden;"></div>
+            <button class="pdf-numpad-key" onclick="pressNumpad('0')">0</button>
+            <button class="pdf-numpad-key" onclick="backspaceNumpad()"><i class="fa-solid fa-delete-left"></i></button>
+          </div>
+
+          <!-- Caja de Comprobante Generado -->
+          <div class="pdf-comprobante-alert">
+            <i class="fa-solid fa-certificate" style="color: #10b981;"></i>
+            <span>Comprobante Oficial: <strong id="pdfComprobantePreview">E3200000001</strong></span>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: CARRITO Y TOTALES + ESCANEA Y PAGA CON PAYPAL -->
+        <div style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="pdf-section-title">CARRITO Y TOTALES</div>
+            
+            <div class="pdf-totals-box">
+              <div class="pdf-tot-row">
+                <span>Subtotal (Base Imponible):</span>
+                <span id="pdfSubtotalVal">RD$ 0.00</span>
+              </div>
+              <div class="pdf-tot-row" style="color: var(--accent-gold);">
+                <span>ITBIS (18% Desglosado):</span>
+                <span id="pdfItbisVal">RD$ 0.00</span>
+              </div>
+              <div class="pdf-tot-row">
+                <span>Propina de Ley (10%):</span>
+                <span id="pdfPropinaVal">RD$ 0.00</span>
+              </div>
+              <div class="pdf-tot-row grand-total">
+                <span>TOTAL A PAGAR:</span>
+                <span id="pdfGrandTotalVal">RD$ 0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="pdf-section-title">ESCANEA Y PAGA CON PAYPAL</div>
+            
+            <div class="paypal-checkout-block">
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-bottom: 0.85rem;">
+                <button onclick="confirmarPagoFinal('PayPal QR')" class="btn btn-paypal btn-lg" style="flex: 1.2; font-size: 1rem;">
+                  <i class="fa-brands fa-paypal"></i> Pagar con PayPal
+                </button>
+                <div style="text-align: center;">
+                  <img id="pdfQrPayPalImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffffff'/%3E%3Ctext x='50' y='50' fill='%2364748b' font-size='10' text-anchor='middle' dominant-baseline='middle'%3EGenerando QR...%3C/text%3E%3C/svg%3E" alt="QR PayPal" style="width: 100px; height: 100px; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px; background: #fff;">
+                  <div style="font-size: 0.68rem; color: #64748b; font-weight: 600; margin-top: 3px;">
+                    <i class="fa-solid fa-mobile-screen"></i> Escanear con móvil
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info de Conexión de Red para el Móvil -->
+              <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 0.45rem 0.75rem; margin-bottom: 0.75rem; text-align: center;">
+                <div style="font-size: 0.72rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                  <i class="fa-solid fa-wifi" style="color: #10b981;"></i>
+                  <span>IP Servidor: <strong id="pdfQrIpDisplay" style="color: var(--accent-gold);">Detectando...</strong></span>
+                  <button type="button" onclick="editarIpManual()" style="background: none; border: none; color: #38bdf8; font-size: 0.68rem; text-decoration: underline; cursor: pointer; padding: 0 0.25rem;">(cambiar)</button>
+                </div>
+                <div id="pdfQrUrlDisplay" style="font-size: 0.65rem; color: #64748b; font-family: monospace; word-break: break-all; margin-top: 2px;">
+                  Cargando pasarela móvil...
+                </div>
+              </div>
+
+              <div style="text-align: center; font-size: 0.72rem; color: #64748b; margin-bottom: 0.6rem;">
+                <i class="fa-brands fa-paypal" style="color: #0079C1;"></i> Pasarela Oficial PayPal REST API • App: Chivo al Campo POS
+              </div>
+
+              <button onclick="confirmarPagoFinal('Efectivo con el mesero')" class="btn btn-success" style="width: 100%;">
+                <i class="fa-solid fa-money-bill-wave"></i> O pagar en efectivo con el mesero
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL 3: TICKET FISCAL TERMICO EXACTO A LA PÁGINA 18
+       ========================================================= -->
+  <div id="modalFactura" class="modal-overlay">
+    <div style="background: #fff; border-radius: 8px; width: 100%; max-width: 410px; padding: 1.5rem; color: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
+      <button onclick="finalizarTurnoCliente()" style="position: absolute; top: 10px; right: 12px; background: none; border: none; font-size: 1.25rem; color: #64748b; cursor: pointer; padding: 4px;" title="Cerrar ticket">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div id="thermalReceiptPrint">
+        <div style="font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.4;">
+          <div style="text-align: center; border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 8px;">
+            <strong style="font-size: 15px;">CHIVO AL CAMPO SRL</strong><br>
+            RNC: 131-48293-1<br>
+            VILLA ELISA, MONTE CRISTI, RD<br>
+            TEL: 809-555-0199
+          </div>
+
+          <div style="border-bottom: 1px dashed #333; padding-bottom: 8px; margin-bottom: 8px;">
+            <div style="text-align: center; font-weight: bold;" id="recTipoComprobante">
+              FACTURA DE CONSUMIDOR FINAL
+            </div>
+            <div><strong>e-NCF:</strong> <span id="recNCF">E320000000001</span></div>
+            <div id="recRncClienteRow" style="display: none;"><strong>RNC CLIENTE:</strong> <span id="recRncCliente"></span></div>
+            <div id="recRazonSocialRow" style="display: none;"><strong>RAZÓN SOCIAL:</strong> <span id="recRazonSocial"></span></div>
+            <div><strong>FECHA:</strong> <span id="recFecha"></span></div>
+            <div><strong>MESA:</strong> <span id="recMesa">04</span> &nbsp;&nbsp; <strong>TIPO PAGO:</strong> <span id="recMetodoPago">PAYPAL (QR)</span></div>
+          </div>
+
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 8px;">
+            <tbody id="recItemsTbody">
+              <!-- Detalle dinámico -->
+            </tbody>
+          </table>
+
+          <div style="border-top: 1px dashed #333; padding-top: 6px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between;"><span>Subtotal Gravado (Base):</span><span id="recSubtotal">RD$ 0.00</span></div>
+            <div style="display: flex; justify-content: space-between;"><span>ITBIS (18% Desglosado):</span><span id="recItbis">RD$ 0.00</span></div>
+            <div style="display: flex; justify-content: space-between;"><span>Propina Legal (10% Ley 5432):</span><span id="recPropina">RD$ 0.00</span></div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; margin-top: 4px; border-top: 1px solid #333; padding-top: 2px;">
+              <span>TOTAL FACTURADO</span><span id="recTotal">RD$ 0.00</span>
+            </div>
+          </div>
+
+          <!-- SELLO DE TIMBRADO FISCAL ELECTRÓNICO e-CF (DGII) -->
+          <div id="recEcfBox" style="border: 1px solid #111; padding: 6px; margin: 8px 0; background: #fafafa; text-align: center; font-size: 10px;">
+            <div style="font-weight: bold; font-size: 11px;">*** TIMBRE FISCAL ELECTRÓNICO DGII ***</div>
+            <div style="display: flex; justify-content: space-between; margin-top: 3px;">
+              <span><strong>e-NCF:</strong> <span id="recEncfVal">E3200000015</span></span>
+              <span><strong>SEGURIDAD:</strong> <span id="recCodigoSeguridad">2454EF</span></span>
+            </div>
+            <div style="font-size: 9px; color: #333; margin-top: 2px;">
+              Estado: <span style="font-weight: bold; color: #15803d;">CERTIFICADO Y RECIBIDO DGII</span>
+            </div>
+            <div style="font-size: 8.5px; color: #555; margin-top: 2px;">
+              Ambiente: e-CF Producción Live • TrackID: <span id="recTrackId">TRK-849201</span>
+            </div>
+            
+            <div style="margin-top: 6px; text-align: center;">
+              <img id="recQrFiscalImg" src="https://api.qrserver.com/v1/create-qr-code/?size=95x95&data=https%3A%2F%2Fdgii.gov.do%2Fecf%2Fconsulta" alt="QR DGII" style="width: 80px; height: 80px; border: 1px solid #ddd; padding: 2px; background: #fff; display: inline-block;">
+              <div style="font-size: 8px; color: #64748b; margin-top: 2px;">Escanear con celular para validar en DGII</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; border-top: 1px dashed #333; padding-top: 8px; font-size: 10px;">
+            ¡Gracias por su visita al auténtico sabor de Villa Elisa!<br>
+            Comprobante fiscal emitido con API e-CF Live • Chivo al Campo
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem;">
+        <button onclick="window.print()" class="btn btn-primary" style="flex: 1;">
+          <i class="fa-solid fa-print"></i> Imprimir Ticket
+        </button>
+        <button onclick="finalizarTurnoCliente()" class="btn btn-outline" style="flex: 1; color: #111; border-color: #cbd5e1;">
+          <i class="fa-solid fa-check"></i> Finalizar y Salir
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js" onerror="this.onerror=null;this.src='https://cdn.socket.io/4.7.5/socket.io.min.js';"></script>
+  <script src="/js/audio.js"></script>
+  <script src="/js/tablet.js"></script>
+</body>
+</html>
