@@ -333,14 +333,8 @@
     <button class="admin-nav-btn" onclick="cambiarPestana('empleados', this)">
       <i class="fa-solid fa-users-gear"></i> Personal & Empleados
     </button>
-    <button class="admin-nav-btn" onclick="cambiarPestana('cuadre', this)">
-      <i class="fa-solid fa-file-invoice-dollar"></i> Cuadre de Caja (Reporte Z)
-    </button>
-    <button class="admin-nav-btn" onclick="cambiarPestana('r607', this)">
-      <i class="fa-solid fa-file-csv"></i> Reporte 607 DGII
-    </button>
-    <button class="admin-nav-btn" id="btnNavReportes30" onclick="cambiarPestana('reportes30', this)" style="color: var(--accent-gold); font-weight: 700;">
-      <i class="fa-solid fa-chart-pie"></i> Consultas & Reportes (30)
+    <button class="admin-nav-btn" id="btnNavReportes" onclick="cambiarPestana('reportes30', this)" style="color: var(--accent-gold); font-weight: 700;">
+      <i class="fa-solid fa-chart-pie"></i> Consultas y Reportes
     </button>
     <button class="admin-nav-btn" onclick="cambiarPestana('catalogo', this)">
       <i class="fa-solid fa-utensils"></i> Menú de Platos
@@ -1268,14 +1262,14 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
         <div>
           <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.3rem;">
-            <span class="badge badge-gold" style="font-size: 0.78rem;">Catálogo Oficial Académico • 30 Reportes</span>
+            <span class="badge badge-gold" style="font-size: 0.78rem;">Catálogo Maestro Oficial • Consultas y Reportes</span>
             <span class="badge badge-green" style="font-size: 0.78rem;">En Tiempo Real</span>
           </div>
           <h2 style="font-size: 1.6rem; font-weight: 800; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.6rem;">
             <i class="fa-solid fa-chart-pie" style="color: var(--accent-gold);"></i> Centro de Consultas y Reportes
           </h2>
           <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.3rem 0 0 0;">
-            Módulo integral con 30 reportes operativos, fiscales DGII, gastronómicos, de cocina KDS, inventario y finanzas.
+            Módulo integral centralizado de consultas y reportes operativos, fiscales DGII, gastronómicos, de cocina KDS, inventario y finanzas.
           </p>
         </div>
 
@@ -1291,13 +1285,13 @@
 
       <!-- Barra de Filtro Rápido por Categorías -->
       <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
-        <button class="btn btn-outline btn-sm cat-pill-btn active" onclick="filtrarCatalogoPorCategoria('todos', this)">Todos (30)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('ventas', this)"><i class="fa-solid fa-file-invoice-dollar"></i> Ventas & Facturación (6)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('fiscal', this)"><i class="fa-solid fa-landmark"></i> Fiscales DGII (5)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('menu', this)"><i class="fa-solid fa-utensils"></i> Menú & Platos (5)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('cocina', this)"><i class="fa-solid fa-fire-burner"></i> Cocina & KDS (4)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('inventario', this)"><i class="fa-solid fa-boxes-stacked"></i> Almacén & Kardex (5)</button>
-        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('caja', this)"><i class="fa-solid fa-cash-register"></i> Caja & Finanzas (5)</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn active" onclick="filtrarCatalogoPorCategoria('todos', this)">Todos</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('ventas', this)"><i class="fa-solid fa-file-invoice-dollar"></i> Ventas & Facturación</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('fiscal', this)"><i class="fa-solid fa-landmark"></i> Fiscales DGII</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('menu', this)"><i class="fa-solid fa-utensils"></i> Menú & Platos</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('cocina', this)"><i class="fa-solid fa-fire-burner"></i> Cocina & KDS</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('inventario', this)"><i class="fa-solid fa-boxes-stacked"></i> Almacén & Kardex</button>
+        <button class="btn btn-outline btn-sm cat-pill-btn" onclick="filtrarCatalogoPorCategoria('caja', this)"><i class="fa-solid fa-cash-register"></i> Caja & Finanzas</button>
       </div>
 
       <!-- Panel de Control y Filtros Dinámicos -->
@@ -1399,10 +1393,10 @@
         </div>
       </div>
 
-      <!-- Galería de Catálogo Rápido: Los 30 Reportes -->
+      <!-- Galería de Catálogo Rápido de Reportes -->
       <div style="margin-bottom: 1.2rem;">
         <h3 style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem;">
-          <i class="fa-solid fa-boxes-packing" style="color: var(--accent-gold);"></i> Catálogo Completo de los 30 Reportes del Sistema
+          <i class="fa-solid fa-boxes-packing" style="color: var(--accent-gold);"></i> Catálogo Maestro de Consultas y Reportes del Sistema
         </h3>
         <p style="font-size: 0.82rem; color: var(--text-muted);">
           Haz clic en cualquiera de las tarjetas para cargar y ejecutar inmediatamente su consulta y reporte.

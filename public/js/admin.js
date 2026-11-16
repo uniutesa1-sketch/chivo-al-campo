@@ -141,8 +141,16 @@ function cambiarPestana(tabName, btn) {
   if (tabName === 'inventario') cargarInventario();
   if (tabName === 'proveedores') cargarProveedores();
   if (tabName === 'empleados') cargarEmpleados();
-  if (tabName === 'cuadre') cargarCuadreCaja();
-  if (tabName === 'r607') cargarReporte607();
+  if (tabName === 'cuadre') {
+    cambiarPestana('reportes30');
+    if (typeof seleccionarReporte30 === 'function') seleccionarReporte30('rep_26');
+    return;
+  }
+  if (tabName === 'r607') {
+    cambiarPestana('reportes30');
+    if (typeof seleccionarReporte30 === 'function') seleccionarReporte30('rep_07');
+    return;
+  }
   if (tabName === 'reportes30' && typeof inicializarModuloReportes30 === 'function') inicializarModuloReportes30();
   if (tabName === 'ia') generarReporteIA();
 }
