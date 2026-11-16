@@ -562,7 +562,7 @@
     {
       "id": 1,
       "usuario": "admin",
-      "password": "admin123",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
       "nombre": "Jeremi Santos",
       "rol": "Gerente General",
       "email": "gerencia@chivoalcampo.com.do",
@@ -571,7 +571,7 @@
     {
       "id": 2,
       "usuario": "caja",
-      "password": "caja123",
+      "passwordHash": "69550b71946de3d414e5b72e50529944a958e998a96e95c1064f7b2c589000a6",
       "nombre": "Yomaira Cruz",
       "rol": "Cajera Principal",
       "email": "caja@chivoalcampo.com.do",
@@ -580,7 +580,7 @@
     {
       "id": 3,
       "usuario": "chef",
-      "password": "chef123",
+      "passwordHash": "443c683b544b82d338be985ef35e8d98d28a313e6d2bc6ec54a7cb08252277d3",
       "nombre": "Carlos Peña",
       "rol": "Chef Ejecutivo",
       "email": "cocina@chivoalcampo.com.do",

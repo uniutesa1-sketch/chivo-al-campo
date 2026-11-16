@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const os = require('os');
+const crypto = require('crypto');
 
 // Helper para detectar dinámicamente la IP de la máquina en la red local Wi-Fi / LAN
 function getNetworkInfo() {
@@ -132,7 +133,7 @@ function calcularTotalesFiscales(items, restaurante) {
 
 // ----------------- RUTAS API -----------------
 
-// Autenticación de usuarios / Login para Gerencia y Caja
+// Autenticación de usuarios / Login para Gerencia y Caja (Con hash seguro SHA-256)
 app.post('/api/auth/login', (req, res) => {
   const { usuario, password, pin } = req.body;
   const db = readDB();
@@ -140,25 +141,24 @@ app.post('/api/auth/login', (req, res) => {
 
   let user = null;
   if (pin) {
-    user = usuarios.find(u => u.pin === pin);
+    user = usuarios.find(u => String(u.pin).trim() === String(pin).trim());
   } else if (usuario && password) {
-    user = usuarios.find(u => (u.usuario.toLowerCase() === usuario.toLowerCase() || u.email.toLowerCase() === usuario.toLowerCase()) && u.password === password);
+    const pHash = crypto.createHash('sha256').update(String(password).trim()).digest('hex');
+    user = usuarios.find(u => 
+      (u.usuario.toLowerCase() === String(usuario).trim().toLowerCase() || u.email.toLowerCase() === String(usuario).trim().toLowerCase()) && 
+      (u.passwordHash === pHash || u.password === password)
+    );
   }
 
   if (!user) {
     return res.status(401).json({ error: 'Credenciales inválidas. Compruebe su usuario/PIN y contraseña.' });
   }
 
-  // Devolver usuario sin la contraseña sensible
+  // Devolver usuario sin credenciales sensibles
+  const { password: _, passwordHash: __, pin: ___, ...userSeguro } = user;
   res.json({
     success: true,
-    user: {
-      id: user.id,
-      usuario: user.usuario,
-      nombre: user.nombre,
-      rol: user.rol,
-      email: user.email
-    }
+    user: userSeguro
   });
 });
 
@@ -2063,7 +2063,7 @@ Debes responder ÚNICAMENTE con un objeto JSON válido con la siguiente estructu
 app.get('/api/paypal/config', (req, res) => {
   res.json({
     appName: process.env.PAYPAL_APP_NAME || 'Chivo al Campo POS',
-    clientId: process.env.PAYPAL_CLIENT_ID || 'BAAdqETzdOHmEhCAtv6vmA6dOceI199iJ8UoW17esdLXeDeyESUfotFhdfnyc-IDdxnyXx8CzrZFWK4VAA',
+    clientId: process.env.PAYPAL_CLIENT_ID || 'sandbox_client_id_placeholder',
     currency: 'USD',
     mode: process.env.PAYPAL_MODE || 'sandbox'
   });
@@ -2073,7 +2073,7 @@ app.get('/api/paypal/config', (req, res) => {
 app.post('/api/saas/pagar-suscripcion', (req, res) => {
   const meses = req.body.meses || 1;
   const montoUSD = 49.99 * meses;
-  const clientId = process.env.PAYPAL_CLIENT_ID || 'BAAdqETzdOHmEhCAtv6vmA6dOceI199iJ8UoW17esdLXeDeyESUfotFhdfnyc-IDdxnyXx8CzrZFWK4VAA';
+  const clientId = process.env.PAYPAL_CLIENT_ID || 'sandbox_client_id_placeholder';
   const appName = process.env.PAYPAL_APP_NAME || 'Chivo al Campo POS';
   const transactionId = `PP-LIVE-${Date.now().toString().slice(-8)}`;
 
@@ -2087,12 +2087,12 @@ app.post('/api/saas/pagar-suscripcion', (req, res) => {
     montoUSD,
     montoRD: (montoUSD * 60.5).toFixed(2),
     proximoCobro: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000 * meses).toLocaleDateString('es-DO'),
-    mensaje: `Suscripción SaaS renovada con éxito vía PayPal REST API (${appName} • Client ID: ${clientId.slice(0, 10)}...${clientId.slice(-6)}). Licencia activa.`
+    mensaje: `Suscripción SaaS renovada con éxito vía PayPal REST API (${appName} • Client ID: ${clientId.slice(0, 10)}...). Licencia activa.`
   });
 });
 
 // =========================================================
-// MÓDULO DE AUTENTICACIÓN Y CONTROL DE ACCESO
+// MÓDULO DE AUTENTICACIÓN Y CONTROL DE ACCESO (SHA-256)
 // =========================================================
 app.post('/api/auth/login', (req, res) => {
   const { usuario, password, pin } = req.body;
@@ -2102,11 +2102,12 @@ app.post('/api/auth/login', (req, res) => {
   let userEncontrado = null;
 
   if (pin) {
-    userEncontrado = usuarios.find(u => u.pin === String(pin).trim());
+    userEncontrado = usuarios.find(u => String(u.pin).trim() === String(pin).trim());
   } else if (usuario && password) {
+    const pHash = crypto.createHash('sha256').update(String(password).trim()).digest('hex');
     userEncontrado = usuarios.find(u => 
-      (u.usuario.toLowerCase() === usuario.trim().toLowerCase() || u.email.toLowerCase() === usuario.trim().toLowerCase()) &&
-      u.password === password
+      (u.usuario.toLowerCase() === String(usuario).trim().toLowerCase() || u.email.toLowerCase() === String(usuario).trim().toLowerCase()) &&
+      (u.passwordHash === pHash || u.password === password)
     );
   }
 
@@ -2115,7 +2116,7 @@ app.post('/api/auth/login', (req, res) => {
   }
 
   // Devolver datos seguros sin hash ni pin
-  const { password: _, pin: __, ...usuarioSeguro } = userEncontrado;
+  const { password: _, passwordHash: __, pin: ___, ...usuarioSeguro } = userEncontrado;
   res.json({
     success: true,
     usuario: usuarioSeguro,
@@ -2125,7 +2126,7 @@ app.post('/api/auth/login', (req, res) => {
 
 app.get('/api/auth/usuarios', (req, res) => {
   const db = readDB();
-  const usuariosSeguros = (db.usuarios || []).map(({ password, pin, ...u }) => u);
+  const usuariosSeguros = (db.usuarios || []).map(({ password, passwordHash, pin, ...u }) => u);
   res.json(usuariosSeguros);
 });
 
