@@ -34,3 +34,4 @@ EXPOSE 8080
 
 # 9. Comando de arranque de la aplicación
 CMD ["npm", "start"]
+
