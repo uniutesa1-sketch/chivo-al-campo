@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   cargarCuadreCaja();
   cargarReporte607();
   generarReporteIA();
+  if (typeof inicializarModuloReportes30 === 'function') inicializarModuloReportes30();
 
   // Socket.IO: Registrar dispositivo como Admin
   socket.emit('unirse_dispositivo', 'admin');
@@ -142,6 +143,7 @@ function cambiarPestana(tabName, btn) {
   if (tabName === 'empleados') cargarEmpleados();
   if (tabName === 'cuadre') cargarCuadreCaja();
   if (tabName === 'r607') cargarReporte607();
+  if (tabName === 'reportes30' && typeof inicializarModuloReportes30 === 'function') inicializarModuloReportes30();
   if (tabName === 'ia') generarReporteIA();
 }
 
