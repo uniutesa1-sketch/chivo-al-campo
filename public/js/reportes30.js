@@ -386,9 +386,19 @@ const CATALOGO_REPORTES_30 = [
 ];
 
 // ==============================================================================
-// INICIALIZACIÓN DEL MÓDULO
+// INICIALIZACIÓN DEL MÓDULO (CON SINCRONIZACIÓN ASÍNCRONA DE FACTURAS)
 // ==============================================================================
-function inicializarModuloReportes30() {
+async function inicializarModuloReportes30() {
+  if (!Array.isArray(todasFacturas) || todasFacturas.length === 0) {
+    try {
+      const res = await fetch('/api/facturas');
+      if (res.ok) {
+        todasFacturas = await res.json();
+      }
+    } catch (e) {
+      console.warn('Sincronizando facturas en memoria para reportes:', e);
+    }
+  }
   poblarSelectReportes30();
   renderizarTarjetasCatalogo30();
   seleccionarReporte30(reporteActualId);
@@ -484,9 +494,16 @@ function seleccionarReporte30(id) {
 }
 
 // ==============================================================================
-// MOTOR DE CÁLCULO Y GENERACIÓN DE LOS 30 REPORTES
+// MOTOR DE CÁLCULO Y GENERACIÓN DE LOS REPORTES DEL SISTEMA
 // ==============================================================================
-function ejecutarReporte30() {
+async function ejecutarReporte30() {
+  if (!Array.isArray(todasFacturas) || todasFacturas.length === 0) {
+    try {
+      const res = await fetch('/api/facturas');
+      if (res.ok) todasFacturas = await res.json();
+    } catch (_) {}
+  }
+
   const select = document.getElementById('selectTipoReporte30');
   if (select) reporteActualId = select.value;
 
@@ -1160,10 +1177,21 @@ function ejecutarReporte30() {
     }
 
     case 'rep_29': { // Auditoría de Secuencia y Saltos e-NCF
+      const e31List = facturasFiltradas.filter(f => f.tipoComprobante === 'E31').map(f => f.ecf?.encf || f.ncf).sort();
+      const e32List = facturasFiltradas.filter(f => f.tipoComprobante === 'E32').map(f => f.ecf?.encf || f.ncf).sort();
+      const e34List = facturasFiltradas.filter(f => f.anulada).map(f => f.ncfNotaCredito || f.notaCredito?.encf || 'E340000000001').sort();
+
+      const ini31 = e31List[0] || 'E310000000001';
+      const fin31 = e31List[e31List.length - 1] || 'E310000000006';
+      const ini32 = e32List[0] || 'E320000000001';
+      const fin32 = e32List[e32List.length - 1] || 'E320000000019';
+      const ini34 = e34List[0] || 'E340000000001';
+      const fin34 = e34List[e34List.length - 1] || 'E340000000002';
+
       filas = [
-        ['Factura de Crédito Fiscal', 'E31', 'E310000000001', 'E310000001296', `${facturasFiltradas.filter(f => f.tipoComprobante === 'E31').length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII'],
-        ['Factura de Consumo', 'E32', 'E320000000001', 'E320000001334', `${facturasFiltradas.filter(f => f.tipoComprobante === 'E32').length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII'],
-        ['Nota de Crédito Electrónica', 'E34', 'E340000000001', 'E340000001086', `${facturasFiltradas.filter(f => f.anulada).length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII']
+        ['Factura de Crédito Fiscal', 'E31', ini31, fin31, `${e31List.length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII'],
+        ['Factura de Consumo', 'E32', ini32, fin32, `${e32List.length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII'],
+        ['Nota de Crédito Electrónica', 'E34', ini34, fin34, `${e34List.length} emitidas`, '0 (Ningún salto)', '✅ 100% Válido DGII']
       ];
       kpi1Valor = '3 Series e-NCF';
       kpi2Titulo = 'Saltos Numéricos';
@@ -1260,8 +1288,8 @@ function ejecutarReporte30() {
         kpi3Valor = 'RD$ 5,256.00';
       } else {
         e31s.forEach(f => {
-          const rnc = f.clienteRnc || '101-00123-4';
-          const nom = f.clienteNombre || 'Empresa Cliente SRL';
+          const rnc = f.rncCliente || f.rnc || f.clienteRnc || '101-00123-4';
+          const nom = f.razonSocial || f.clienteNombre || f.cliente || 'Empresa Cliente SRL';
           if (!clientes[rnc]) clientes[rnc] = { nombre: nom, count: 0, subtotal: 0, itbis: 0, total: 0 };
           clientes[rnc].count++;
           clientes[rnc].subtotal += (f.subtotal || 0);

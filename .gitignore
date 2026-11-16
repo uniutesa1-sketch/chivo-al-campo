@@ -18,6 +18,7 @@ yarn-error.log*
 # Archivos de configuración del editor y sistema operativo
 .vscode/
 .idea/
+scratch/
 Thumbs.db
 [Dd]esktop.ini
 .DS_Store

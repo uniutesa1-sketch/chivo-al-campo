@@ -10,15 +10,15 @@
   },
   "ncfConfig": {
     "E31_prefijo": "E31",
-    "E31_secuencia": 0,
+    "E31_secuencia": 6,
     "E32_prefijo": "E32",
-    "E32_secuencia": 0,
+    "E32_secuencia": 19,
     "E34_prefijo": "E34",
-    "E34_secuencia": 0,
+    "E34_secuencia": 2,
     "B01_prefijo": "E31",
-    "B01_secuencia": 0,
+    "B01_secuencia": 6,
     "B02_prefijo": "E32",
-    "B02_secuencia": 0
+    "B02_secuencia": 19
   },
   "notasCredito": [
     {
@@ -242,12 +242,10 @@
   ],
   "pedidos": [
     {
-      "id": "ORD-7993",
-      "mesaId": 4,
-      "mesaNombre": "Mesa 04",
+      "id": "ORD-2001",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
       "origen": "MESA",
-      "fecha": "2026-10-20T21:19:57.993Z",
-      "estatus": "despachado",
       "items": [
         {
           "id": 1,
@@ -256,23 +254,123 @@
           "cantidad": 1,
           "categoria": "Carnes",
           "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
         }
       ],
-      "subtotal": 550.85,
-      "itbis": 99.15,
-      "propina": 55.09,
-      "total": 705.09,
+      "subtotal": 779.66,
+      "itbis": 140.34,
+      "propina": 77.97,
+      "total": 997.97,
+      "estado": "ENTREGADO",
       "pagado": true,
-      "ncf": "E310000000001",
-      "clienteDelivery": null
+      "fecha": "2026-11-16T11:45:00.000Z"
     },
     {
-      "id": "ORD-3094",
+      "id": "ORD-2002",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1152.54,
+      "itbis": 207.46,
+      "propina": 115.25,
+      "total": 1475.25,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T12:15:30.000Z"
+    },
+    {
+      "id": "ORD-2003",
       "mesaId": 4,
       "mesaNombre": "Mesa 04",
       "origen": "MESA",
-      "fecha": "2026-10-20T21:37:53.094Z",
-      "estatus": "despachado",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 320
+        }
+      ],
+      "subtotal": 1830.51,
+      "itbis": 329.49,
+      "propina": 183.05,
+      "total": 2343.05,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T12:40:10.000Z"
+    },
+    {
+      "id": "ORD-2004",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
       "items": [
         {
           "id": 1,
@@ -281,30 +379,934 @@
           "cantidad": 1,
           "categoria": "Carnes",
           "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
         }
       ],
-      "subtotal": 550.85,
-      "itbis": 99.15,
-      "propina": 55.09,
-      "total": 705.09,
+      "subtotal": 766.95,
+      "itbis": 138.05,
+      "propina": 76.7,
+      "total": 981.7,
+      "estado": "ENTREGADO",
       "pagado": true,
-      "ncf": "E310000000001",
-      "clienteDelivery": null
+      "fecha": "2026-11-16T13:10:00.000Z"
+    },
+    {
+      "id": "ORD-2005",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 360
+        }
+      ],
+      "subtotal": 1906.78,
+      "itbis": 343.22,
+      "propina": 0,
+      "total": 2250,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T13:35:45.000Z"
+    },
+    {
+      "id": "ORD-2006",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 1950
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 660
+        },
+        {
+          "id": 10,
+          "nombre": "Dulce de Leche Cortada",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 300
+        }
+      ],
+      "subtotal": 2805.08,
+      "itbis": 504.92,
+      "propina": 280.51,
+      "total": 3590.51,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T14:05:20.000Z"
+    },
+    {
+      "id": "ORD-2007",
+      "mesaId": 6,
+      "mesaNombre": "Mesa 06",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1067.8,
+      "itbis": 192.2,
+      "propina": 106.78,
+      "total": 1366.78,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T14:45:00.000Z"
+    },
+    {
+      "id": "ORD-2008",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 652.54,
+      "itbis": 117.46,
+      "propina": 65.25,
+      "total": 835.25,
+      "estado": "CANCELADO",
+      "pagado": true,
+      "fecha": "2026-11-16T15:20:15.000Z"
+    },
+    {
+      "id": "ORD-2009",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1644.07,
+      "itbis": 295.93,
+      "propina": 164.41,
+      "total": 2104.41,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T18:30:00.000Z"
+    },
+    {
+      "id": "ORD-2010",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 150
+        }
+      ],
+      "subtotal": 1601.69,
+      "itbis": 288.31,
+      "propina": 160.17,
+      "total": 2050.17,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-16T19:15:22.000Z"
+    },
+    {
+      "id": "ORD-2011",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 2160
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 600
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 4,
+          "categoria": "Bebidas",
+          "subtotal": 880
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 3,
+          "categoria": "Postres",
+          "subtotal": 480
+        }
+      ],
+      "subtotal": 3491.53,
+      "itbis": 628.47,
+      "propina": 349.15,
+      "total": 4469.15,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-15T12:30:00.000Z"
+    },
+    {
+      "id": "ORD-2012",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1559.32,
+      "itbis": 280.68,
+      "propina": 155.93,
+      "total": 1995.93,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-15T13:15:10.000Z"
+    },
+    {
+      "id": "ORD-2013",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
+        }
+      ],
+      "subtotal": 741.53,
+      "itbis": 133.47,
+      "propina": 74.15,
+      "total": 949.15,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-15T14:00:00.000Z"
+    },
+    {
+      "id": "ORD-2014",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 360
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1610.17,
+      "itbis": 289.83,
+      "propina": 0,
+      "total": 1900,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-15T14:45:30.000Z"
+    },
+    {
+      "id": "ORD-2015",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1152.54,
+      "itbis": 207.46,
+      "propina": 115.25,
+      "total": 1475.25,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-15T19:40:00.000Z"
+    },
+    {
+      "id": "ORD-2016",
+      "mesaId": 6,
+      "mesaNombre": "Mesa 06",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 4,
+          "categoria": "Carnes",
+          "subtotal": 2600
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 5,
+          "categoria": "Bebidas",
+          "subtotal": 1100
+        },
+        {
+          "id": 10,
+          "nombre": "Dulce de Leche Cortada",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Postres",
+          "subtotal": 450
+        }
+      ],
+      "subtotal": 3898.31,
+      "itbis": 701.69,
+      "propina": 389.83,
+      "total": 4989.83,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-14T13:00:00.000Z"
+    },
+    {
+      "id": "ORD-2017",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 805.08,
+      "itbis": 144.92,
+      "propina": 80.51,
+      "total": 1030.51,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-14T13:50:20.000Z"
+    },
+    {
+      "id": "ORD-2018",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 150
+        }
+      ],
+      "subtotal": 1686.44,
+      "itbis": 303.56,
+      "propina": 168.64,
+      "total": 2158.64,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-14T14:30:00.000Z"
+    },
+    {
+      "id": "ORD-2019",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1728.81,
+      "itbis": 311.19,
+      "propina": 172.88,
+      "total": 2212.88,
+      "estado": "CANCELADO",
+      "pagado": true,
+      "fecha": "2026-11-14T20:10:00.000Z"
+    },
+    {
+      "id": "ORD-2020",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 1950
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 360
+        }
+      ],
+      "subtotal": 2338.98,
+      "itbis": 421.02,
+      "propina": 233.9,
+      "total": 2993.9,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-13T12:45:00.000Z"
+    },
+    {
+      "id": "ORD-2021",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
+        }
+      ],
+      "subtotal": 843.22,
+      "itbis": 151.78,
+      "propina": 84.32,
+      "total": 1079.32,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-13T13:40:15.000Z"
+    },
+    {
+      "id": "ORD-2022",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 779.66,
+      "itbis": 140.34,
+      "propina": 0,
+      "total": 920,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-13T19:30:00.000Z"
+    },
+    {
+      "id": "ORD-2023",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 805.08,
+      "itbis": 144.92,
+      "propina": 80.51,
+      "total": 1030.51,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-12T12:30:00.000Z"
+    },
+    {
+      "id": "ORD-2024",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 220
+        }
+      ],
+      "subtotal": 923.73,
+      "itbis": 166.27,
+      "propina": 92.37,
+      "total": 1182.37,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-12T13:20:00.000Z"
+    },
+    {
+      "id": "ORD-2025",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 320
+        }
+      ],
+      "subtotal": 1711.86,
+      "itbis": 308.14,
+      "propina": 171.19,
+      "total": 2191.19,
+      "estado": "ENTREGADO",
+      "pagado": true,
+      "fecha": "2026-11-12T14:15:00.000Z"
+    },
+    {
+      "id": "ORD-2098",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "subtotal": 300
+        }
+      ],
+      "total": 1735.59,
+      "estado": "PREPARANDO",
+      "pagado": false,
+      "fecha": "2026-11-16T13:21:58.160Z"
+    },
+    {
+      "id": "ORD-2099",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "subtotal": 200
+        }
+      ],
+      "total": 920,
+      "estado": "RECIBIDO",
+      "pagado": false,
+      "fecha": "2026-11-16T13:21:58.160Z"
     }
   ],
   "facturas": [
     {
-      "id": "FAC-2214",
-      "pedidoId": "ORD-3094",
-      "ncf": "E310000001368",
-      "tipoComprobante": "E31",
-      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
-      "fecha": "2026-10-20T21:45:52.214Z",
-      "mesaId": 4,
-      "mesaNombre": "Mesa 04",
+      "id": "FAC-1001",
+      "pedidoId": "ORD-2001",
+      "ncf": "E320000000001",
+      "encf": "E320000000001",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T11:45:00.000Z",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
       "origen": "MESA",
-      "rncCliente": "130827372",
-      "razonSocial": "ED & RAC PRODUCCIONES BANANERAS SRL",
+      "rncCliente": null,
+      "razonSocial": null,
       "items": [
         {
           "id": 1,
@@ -313,15 +1315,31 @@
           "cantidad": 1,
           "categoria": "Carnes",
           "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
         }
       ],
-      "subtotal": 550.85,
-      "itbis": 99.15,
-      "propina": 55.09,
-      "total": 705.09,
+      "subtotal": 779.66,
+      "itbis": 140.34,
+      "propina": 77.97,
+      "total": 997.97,
       "metodoPago": "Efectivo con el mesero",
-      "estadoPago": "ANULADA",
-      "anulada": true,
+      "estadoPago": "PAGADA",
+      "anulada": false,
       "restaurante": {
         "nombre": "Restaurante Chivo al Campo SRL",
         "rnc": "132-90740-1",
@@ -332,44 +1350,92 @@
         "propinaLegalPorcentaje": 0.1
       },
       "ecf": {
-        "encf": "E310000001368",
-        "codigoSeguridad": "hWPXBw",
-        "trackId": "3b619bc7-4d98-442f-bc65-45ea4f248411",
-        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&RncComprador=130827372&encf=E310000001368&fechaemision=20-10-2026&montototal=705.09&fechafirma=20-10-2026%2017%3A45%3A53&codigoseguridad=hWPXBw",
-        "xmlUrl": "https://ecf-platform-backend-50801509587.us-central1.run.app/api/v1/ecf/ddbc3171-b510-46c8-b3b7-5cfd5de23670/xml",
+        "encf": "E320000000001",
+        "codigoSeguridad": "ZRL0WQ",
+        "trackId": "track-fac-1001",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000001&montototal=997.97",
         "timbreElectronico": true,
         "ambiente": "DGII TesteCF Live (IMECF)",
         "estadoDGII": "Aceptado",
         "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
         "timbradoExitosoAPI": true
-      },
-      "encf": "E310000001368",
-      "fechaAnulacion": "2026-10-20T21:46:51.508Z",
-      "motivoAnulacion": "1 - Error en la orden o comanda del cliente",
-      "notaCredito": {
-        "encf": "E340000001145",
-        "codigoSeguridad": "oQnsNS",
-        "trackId": "e12edb72-3abe-4ff5-adbd-d80cc31350b2",
-        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&RncComprador=130827372&encf=E340000001145&fechaemision=20-10-2026&montototal=705.09&fechafirma=20-10-2026%2017%3A46%3A49&codigoseguridad=oQnsNS",
-        "xmlUrl": "https://ecf-platform-backend-50801509587.us-central1.run.app/api/v1/ecf/8d254a16-7f4b-4954-b5f1-6920478ad2d4/xml",
-        "ncfModificado": "E310000001368",
-        "motivo": "1 - Error en la orden o comanda del cliente",
-        "fechaEmision": "2026-10-20T21:46:51.508Z",
-        "timbreElectronico": true,
-        "ambiente": "DGII TesteCF Live (IMECF)",
-        "estadoDGII": "Aceptado",
-        "mensajeServicio": "Nota de Crédito E34 emitida y aceptada oficialmente por la DGII",
-        "timbradoExitosoAPI": true
-      },
-      "ncfNotaCredito": "E340000001145"
+      }
     },
     {
-      "id": "FAC-1826",
-      "pedidoId": "ORD-7993",
-      "ncf": "E310000001366",
+      "id": "FAC-1002",
+      "pedidoId": "ORD-2002",
+      "ncf": "E320000000002",
+      "encf": "E320000000002",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T12:15:30.000Z",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1152.54,
+      "itbis": 207.46,
+      "propina": 115.25,
+      "total": 1475.25,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000002",
+        "codigoSeguridad": "BFEIWP",
+        "trackId": "track-fac-1002",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000002&montototal=1475.25",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1003",
+      "pedidoId": "ORD-2003",
+      "ncf": "E310000000001",
+      "encf": "E310000000001",
       "tipoComprobante": "E31",
       "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
-      "fecha": "2026-10-20T21:20:21.826Z",
+      "fecha": "2026-11-16T12:40:10.000Z",
       "mesaId": 4,
       "mesaNombre": "Mesa 04",
       "origen": "MESA",
@@ -380,15 +1446,374 @@
           "id": 1,
           "nombre": "Servicio de Chivo Liniero",
           "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 320
+        }
+      ],
+      "subtotal": 1830.51,
+      "itbis": 329.49,
+      "propina": 183.05,
+      "total": 2343.05,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000001",
+        "codigoSeguridad": "9VO19S",
+        "trackId": "track-fac-1003",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000001&montototal=2343.05",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1004",
+      "pedidoId": "ORD-2004",
+      "ncf": "E320000000003",
+      "encf": "E320000000003",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T13:10:00.000Z",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
           "cantidad": 1,
           "categoria": "Carnes",
           "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
         }
       ],
-      "subtotal": 550.85,
-      "itbis": 99.15,
-      "propina": 55.09,
-      "total": 705.09,
+      "subtotal": 766.95,
+      "itbis": 138.05,
+      "propina": 76.7,
+      "total": 981.7,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000003",
+        "codigoSeguridad": "793WHX",
+        "trackId": "track-fac-1004",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000003&montototal=981.7",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1005",
+      "pedidoId": "ORD-2005",
+      "ncf": "E320000000004",
+      "encf": "E320000000004",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T13:35:45.000Z",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 360
+        }
+      ],
+      "subtotal": 1906.78,
+      "itbis": 343.22,
+      "propina": 0,
+      "total": 2250,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000004",
+        "codigoSeguridad": "DYG4NR",
+        "trackId": "track-fac-1005",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000004&montototal=2250",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1006",
+      "pedidoId": "ORD-2006",
+      "ncf": "E310000000002",
+      "encf": "E310000000002",
+      "tipoComprobante": "E31",
+      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
+      "fecha": "2026-11-16T14:05:20.000Z",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "rncCliente": "101001234",
+      "razonSocial": "AGROPECUARIA DEL NORTE SRL",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 1950
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 660
+        },
+        {
+          "id": 10,
+          "nombre": "Dulce de Leche Cortada",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 300
+        }
+      ],
+      "subtotal": 2805.08,
+      "itbis": 504.92,
+      "propina": 280.51,
+      "total": 3590.51,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000002",
+        "codigoSeguridad": "Y357A1",
+        "trackId": "track-fac-1006",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000002&montototal=3590.51",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1007",
+      "pedidoId": "ORD-2007",
+      "ncf": "E320000000005",
+      "encf": "E320000000005",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T14:45:00.000Z",
+      "mesaId": 6,
+      "mesaNombre": "Mesa 06",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1067.8,
+      "itbis": 192.2,
+      "propina": 106.78,
+      "total": 1366.78,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000005",
+        "codigoSeguridad": "IH15B5",
+        "trackId": "track-fac-1007",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000005&montototal=1366.78",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1008",
+      "pedidoId": "ORD-2008",
+      "ncf": "E320000000006",
+      "encf": "E320000000006",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T15:20:15.000Z",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 652.54,
+      "itbis": 117.46,
+      "propina": 65.25,
+      "total": 835.25,
       "metodoPago": "Efectivo con el mesero",
       "estadoPago": "ANULADA",
       "anulada": true,
@@ -402,36 +1827,1205 @@
         "propinaLegalPorcentaje": 0.1
       },
       "ecf": {
-        "encf": "E310000001366",
-        "codigoSeguridad": "aSJRsN",
-        "trackId": "2fc232ca-563b-4951-8623-007c659b4634",
-        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&RncComprador=130827372&encf=E310000001366&fechaemision=20-10-2026&montototal=705.09&fechafirma=20-10-2026%2017%3A20%3A23&codigoseguridad=aSJRsN",
-        "xmlUrl": "https://ecf-platform-backend-50801509587.us-central1.run.app/api/v1/ecf/ff9234d6-19ba-4679-88a6-938ffa367dbb/xml",
+        "encf": "E320000000006",
+        "codigoSeguridad": "3WCXNE",
+        "trackId": "track-fac-1008",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000006&montototal=835.25",
         "timbreElectronico": true,
         "ambiente": "DGII TesteCF Live (IMECF)",
         "estadoDGII": "Aceptado",
         "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
         "timbradoExitosoAPI": true
       },
-      "encf": "E310000001366",
-      "fechaAnulacion": "2026-10-20T21:21:36.813Z",
+      "fechaAnulacion": "2026-11-16T15:35:15.000Z",
       "motivoAnulacion": "1 - Error en la orden o comanda del cliente",
+      "ncfNotaCredito": "E340000000001",
       "notaCredito": {
-        "encf": "E340000001142",
-        "codigoSeguridad": "Uj43Nf",
-        "trackId": "e3929ef3-46a9-4eb2-afca-034faeb374a9",
-        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&RncComprador=130827372&encf=E340000001142&fechaemision=20-10-2026&montototal=705.09&fechafirma=20-10-2026%2017%3A21%3A34&codigoseguridad=Uj43Nf",
-        "xmlUrl": "https://ecf-platform-backend-50801509587.us-central1.run.app/api/v1/ecf/863beff3-c09c-4d15-8319-fb027716215d/xml",
-        "ncfModificado": "E310000001366",
+        "encf": "E340000000001",
+        "codigoSeguridad": "SMRBR6",
+        "trackId": "track-nc-e340000000001",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E340000000001&montototal=835.25",
+        "ncfModificado": "E320000000006",
         "motivo": "1 - Error en la orden o comanda del cliente",
-        "fechaEmision": "2026-10-20T21:21:36.813Z",
+        "fechaEmision": "2026-11-16T15:35:15.000Z",
         "timbreElectronico": true,
         "ambiente": "DGII TesteCF Live (IMECF)",
         "estadoDGII": "Aceptado",
         "mensajeServicio": "Nota de Crédito E34 emitida y aceptada oficialmente por la DGII",
         "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1009",
+      "pedidoId": "ORD-2009",
+      "ncf": "E320000000007",
+      "encf": "E320000000007",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-16T18:30:00.000Z",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1644.07,
+      "itbis": 295.93,
+      "propina": 164.41,
+      "total": 2104.41,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
       },
-      "ncfNotaCredito": "E340000001142"
+      "ecf": {
+        "encf": "E320000000007",
+        "codigoSeguridad": "AXX74P",
+        "trackId": "track-fac-1009",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000007&montototal=2104.41",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1010",
+      "pedidoId": "ORD-2010",
+      "ncf": "E310000000003",
+      "encf": "E310000000003",
+      "tipoComprobante": "E31",
+      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
+      "fecha": "2026-11-16T19:15:22.000Z",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "rncCliente": "130987652",
+      "razonSocial": "TRANSPORTES CIBAO EXPRESS SRL",
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 150
+        }
+      ],
+      "subtotal": 1601.69,
+      "itbis": 288.31,
+      "propina": 160.17,
+      "total": 2050.17,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000003",
+        "codigoSeguridad": "W8T3GP",
+        "trackId": "track-fac-1010",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000003&montototal=2050.17",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1011",
+      "pedidoId": "ORD-2011",
+      "ncf": "E320000000008",
+      "encf": "E320000000008",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-15T12:30:00.000Z",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 2160
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 600
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 4,
+          "categoria": "Bebidas",
+          "subtotal": 880
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 3,
+          "categoria": "Postres",
+          "subtotal": 480
+        }
+      ],
+      "subtotal": 3491.53,
+      "itbis": 628.47,
+      "propina": 349.15,
+      "total": 4469.15,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000008",
+        "codigoSeguridad": "3CS9AY",
+        "trackId": "track-fac-1011",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000008&montototal=4469.15",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1012",
+      "pedidoId": "ORD-2012",
+      "ncf": "E310000000004",
+      "encf": "E310000000004",
+      "tipoComprobante": "E31",
+      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
+      "fecha": "2026-11-15T13:15:10.000Z",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "rncCliente": "101554431",
+      "razonSocial": "DISTRIBUIDORA MONTE CRISTI CXA",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1559.32,
+      "itbis": 280.68,
+      "propina": 155.93,
+      "total": 1995.93,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000004",
+        "codigoSeguridad": "42SLYK",
+        "trackId": "track-fac-1012",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000004&montototal=1995.93",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1013",
+      "pedidoId": "ORD-2013",
+      "ncf": "E320000000009",
+      "encf": "E320000000009",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-15T14:00:00.000Z",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
+        }
+      ],
+      "subtotal": 741.53,
+      "itbis": 133.47,
+      "propina": 74.15,
+      "total": 949.15,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000009",
+        "codigoSeguridad": "0EHH6J",
+        "trackId": "track-fac-1013",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000009&montototal=949.15",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1014",
+      "pedidoId": "ORD-2014",
+      "ncf": "E320000000010",
+      "encf": "E320000000010",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-15T14:45:30.000Z",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 360
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 240
+        }
+      ],
+      "subtotal": 1610.17,
+      "itbis": 289.83,
+      "propina": 0,
+      "total": 1900,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000010",
+        "codigoSeguridad": "QK25FD",
+        "trackId": "track-fac-1014",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000010&montototal=1900",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1015",
+      "pedidoId": "ORD-2015",
+      "ncf": "E320000000011",
+      "encf": "E320000000011",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-15T19:40:00.000Z",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1152.54,
+      "itbis": 207.46,
+      "propina": 115.25,
+      "total": 1475.25,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000011",
+        "codigoSeguridad": "D5AOT4",
+        "trackId": "track-fac-1015",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000011&montototal=1475.25",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1016",
+      "pedidoId": "ORD-2016",
+      "ncf": "E310000000005",
+      "encf": "E310000000005",
+      "tipoComprobante": "E31",
+      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
+      "fecha": "2026-11-14T13:00:00.000Z",
+      "mesaId": 6,
+      "mesaNombre": "Mesa 06",
+      "origen": "MESA",
+      "rncCliente": "131778899",
+      "razonSocial": "CONSTRUCTORA FRONTERIZA SRL",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 4,
+          "categoria": "Carnes",
+          "subtotal": 2600
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 5,
+          "categoria": "Bebidas",
+          "subtotal": 1100
+        },
+        {
+          "id": 10,
+          "nombre": "Dulce de Leche Cortada",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Postres",
+          "subtotal": 450
+        }
+      ],
+      "subtotal": 3898.31,
+      "itbis": 701.69,
+      "propina": 389.83,
+      "total": 4989.83,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000005",
+        "codigoSeguridad": "0Q10TP",
+        "trackId": "track-fac-1016",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000005&montototal=4989.83",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1017",
+      "pedidoId": "ORD-2017",
+      "ncf": "E320000000012",
+      "encf": "E320000000012",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-14T13:50:20.000Z",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 805.08,
+      "itbis": 144.92,
+      "propina": 80.51,
+      "total": 1030.51,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000012",
+        "codigoSeguridad": "4ICREU",
+        "trackId": "track-fac-1017",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000012&montototal=1030.51",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1018",
+      "pedidoId": "ORD-2018",
+      "ncf": "E320000000013",
+      "encf": "E320000000013",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-14T14:30:00.000Z",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1440
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 150
+        }
+      ],
+      "subtotal": 1686.44,
+      "itbis": 303.56,
+      "propina": 168.64,
+      "total": 2158.64,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000013",
+        "codigoSeguridad": "ZVJNNR",
+        "trackId": "track-fac-1018",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000013&montototal=2158.64",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1019",
+      "pedidoId": "ORD-2019",
+      "ncf": "E320000000014",
+      "encf": "E320000000014",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-14T20:10:00.000Z",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 300
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 2,
+          "categoria": "Bebidas",
+          "subtotal": 440
+        }
+      ],
+      "subtotal": 1728.81,
+      "itbis": 311.19,
+      "propina": 172.88,
+      "total": 2212.88,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "ANULADA",
+      "anulada": true,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000014",
+        "codigoSeguridad": "1892NI",
+        "trackId": "track-fac-1019",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000014&montototal=2212.88",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      },
+      "fechaAnulacion": "2026-11-14T20:25:00.000Z",
+      "motivoAnulacion": "1 - Error en la orden o comanda del cliente",
+      "ncfNotaCredito": "E340000000002",
+      "notaCredito": {
+        "encf": "E340000000002",
+        "codigoSeguridad": "412E8C",
+        "trackId": "track-nc-e340000000002",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E340000000002&montototal=2212.88",
+        "ncfModificado": "E320000000014",
+        "motivo": "1 - Error en la orden o comanda del cliente",
+        "fechaEmision": "2026-11-14T20:25:00.000Z",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Nota de Crédito E34 emitida y aceptada oficialmente por la DGII",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1020",
+      "pedidoId": "ORD-2020",
+      "ncf": "E310000000006",
+      "encf": "E310000000006",
+      "tipoComprobante": "E31",
+      "descripcionComprobante": "Factura de Crédito Fiscal Electrónica (E31)",
+      "fecha": "2026-11-13T12:45:00.000Z",
+      "mesaId": 4,
+      "mesaNombre": "Mesa 04",
+      "origen": "MESA",
+      "rncCliente": "131482931",
+      "razonSocial": "GANADEROS LINIERO DEL YAQUE SRL",
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 3,
+          "categoria": "Carnes",
+          "subtotal": 1950
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 3,
+          "categoria": "Guarniciones",
+          "subtotal": 450
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 3,
+          "categoria": "Bebidas",
+          "subtotal": 360
+        }
+      ],
+      "subtotal": 2338.98,
+      "itbis": 421.02,
+      "propina": 233.9,
+      "total": 2993.9,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E310000000006",
+        "codigoSeguridad": "QSW5Y1",
+        "trackId": "track-fac-1020",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E310000000006&montototal=2993.9",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1021",
+      "pedidoId": "ORD-2021",
+      "ncf": "E320000000015",
+      "encf": "E320000000015",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-13T13:40:15.000Z",
+      "mesaId": 1,
+      "mesaNombre": "Mesa 01",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 200
+        },
+        {
+          "id": 8,
+          "nombre": "Refresco Embotellado",
+          "precio": 75,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 75
+        }
+      ],
+      "subtotal": 843.22,
+      "itbis": 151.78,
+      "propina": 84.32,
+      "total": 1079.32,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000015",
+        "codigoSeguridad": "P9VMT4",
+        "trackId": "track-fac-1021",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000015&montototal=1079.32",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1022",
+      "pedidoId": "ORD-2022",
+      "ncf": "E320000000016",
+      "encf": "E320000000016",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-13T19:30:00.000Z",
+      "mesaId": 99,
+      "mesaNombre": "DELIVERY (Mesa 99)",
+      "origen": "DELIVERY",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 779.66,
+      "itbis": 140.34,
+      "propina": 0,
+      "total": 920,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000016",
+        "codigoSeguridad": "AUBUT0",
+        "trackId": "track-fac-1022",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000016&montototal=920",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1023",
+      "pedidoId": "ORD-2023",
+      "ncf": "E320000000017",
+      "encf": "E320000000017",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-12T12:30:00.000Z",
+      "mesaId": 3,
+      "mesaNombre": "Mesa 03",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 650
+        },
+        {
+          "id": 4,
+          "nombre": "Arroz Blanco y Habichuelas",
+          "precio": 180,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 180
+        },
+        {
+          "id": 6,
+          "nombre": "Jugo Natural de Chinola",
+          "precio": 120,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 120
+        }
+      ],
+      "subtotal": 805.08,
+      "itbis": 144.92,
+      "propina": 80.51,
+      "total": 1030.51,
+      "metodoPago": "Efectivo con el mesero",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000017",
+        "codigoSeguridad": "9IOYO7",
+        "trackId": "track-fac-1023",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000017&montototal=1030.51",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1024",
+      "pedidoId": "ORD-2024",
+      "ncf": "E320000000018",
+      "encf": "E320000000018",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-12T13:20:00.000Z",
+      "mesaId": 2,
+      "mesaNombre": "Mesa 02",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 2,
+          "nombre": "Chivo Asado Familiar",
+          "precio": 720,
+          "cantidad": 1,
+          "categoria": "Carnes",
+          "subtotal": 720
+        },
+        {
+          "id": 3,
+          "nombre": "Tostones Crujientes Criollos",
+          "precio": 150,
+          "cantidad": 1,
+          "categoria": "Guarniciones",
+          "subtotal": 150
+        },
+        {
+          "id": 7,
+          "nombre": "Cerveza Presidente Vestida de Novia",
+          "precio": 220,
+          "cantidad": 1,
+          "categoria": "Bebidas",
+          "subtotal": 220
+        }
+      ],
+      "subtotal": 923.73,
+      "itbis": 166.27,
+      "propina": 92.37,
+      "total": 1182.37,
+      "metodoPago": "Tarjeta de Crédito / Débito (POS)",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000018",
+        "codigoSeguridad": "T5JXII",
+        "trackId": "track-fac-1024",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000018&montototal=1182.37",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
+    },
+    {
+      "id": "FAC-1025",
+      "pedidoId": "ORD-2025",
+      "ncf": "E320000000019",
+      "encf": "E320000000019",
+      "tipoComprobante": "E32",
+      "descripcionComprobante": "Factura de Consumo Electrónica (E32)",
+      "fecha": "2026-11-12T14:15:00.000Z",
+      "mesaId": 5,
+      "mesaNombre": "Mesa 05",
+      "origen": "MESA",
+      "rncCliente": null,
+      "razonSocial": null,
+      "items": [
+        {
+          "id": 1,
+          "nombre": "Servicio de Chivo Liniero",
+          "precio": 650,
+          "cantidad": 2,
+          "categoria": "Carnes",
+          "subtotal": 1300
+        },
+        {
+          "id": 5,
+          "nombre": "Moro de Guandules con Coco",
+          "precio": 200,
+          "cantidad": 2,
+          "categoria": "Guarniciones",
+          "subtotal": 400
+        },
+        {
+          "id": 9,
+          "nombre": "Majarete Tradicional con Canela",
+          "precio": 160,
+          "cantidad": 2,
+          "categoria": "Postres",
+          "subtotal": 320
+        }
+      ],
+      "subtotal": 1711.86,
+      "itbis": 308.14,
+      "propina": 171.19,
+      "total": 2191.19,
+      "metodoPago": "PayPal QR Checkout",
+      "estadoPago": "PAGADA",
+      "anulada": false,
+      "restaurante": {
+        "nombre": "Restaurante Chivo al Campo SRL",
+        "rnc": "132-90740-1",
+        "direccion": "Carretera Duarte Km 2, Villa Elisa, Monte Cristi, R.D.",
+        "telefono": "(809) 555-0199",
+        "email": "contacto@chivoalcampo.com.do",
+        "itbisPorcentaje": 0.18,
+        "propinaLegalPorcentaje": 0.1
+      },
+      "ecf": {
+        "encf": "E320000000019",
+        "codigoSeguridad": "TGNJ26",
+        "trackId": "track-fac-1025",
+        "qrFiscalURL": "https://ecf.dgii.gov.do/testecf/consultatimbre?rncemisor=132907401&encf=E320000000019&montototal=2191.19",
+        "timbreElectronico": true,
+        "ambiente": "DGII TesteCF Live (IMECF)",
+        "estadoDGII": "Aceptado",
+        "mensajeServicio": "Emitido, Firmado Digitalmente y Aceptado por DGII (IMECF)",
+        "timbradoExitosoAPI": true
+      }
     }
   ],
   "inventario": [
