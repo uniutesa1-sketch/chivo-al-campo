@@ -58,8 +58,11 @@ async function cargarPedidos() {
   try {
     const res = await fetch('/api/pedidos');
     const todos = await res.json();
-    // En KDS mostramos órdenes no despachadas y no pagadas
-    pedidosActivos = todos.filter(p => p.estatus !== 'despachado' && !p.pagado);
+    // En KDS mostramos órdenes pendientes o en preparación (no despachadas ni pagadas)
+    pedidosActivos = (todos || []).filter(p => {
+      const est = String(p.estatus || p.estado || 'pendiente').toLowerCase();
+      return est !== 'despachado' && est !== 'liberado' && !p.pagado && !p.despachado;
+    });
     renderizarTarjetasKDS();
   } catch (err) {
     console.error('Error cargando pedidos KDS:', err);
@@ -88,11 +91,11 @@ function renderizarTarjetasKDS() {
     const horaEnvio = new Date(pedido.fecha).toLocaleTimeString('es-DO', { hour: '2-digit', minute: '2-digit' });
     const diffMins = Math.max(0, Math.floor((Date.now() - new Date(pedido.fecha).getTime()) / 60000));
     const minsStr = diffMins <= 1 ? '1 MIN' : `${diffMins} MINS`;
-    const subheaderText = `${pedido.mesaNombre.toUpperCase()} / ${horaEnvio} / ${minsStr}`;
+    const subheaderText = `${(pedido.mesaNombre || 'MESA').toUpperCase()} / ${horaEnvio} / ${minsStr}`;
 
     // Lista de platos con bullet dot azul
     let itemsHtml = '';
-    pedido.items.forEach(item => {
+    (pedido.items || []).forEach(item => {
       itemsHtml += `
         <div class="kds-dish-line">
           <span class="kds-bullet"></span>
@@ -102,24 +105,29 @@ function renderizarTarjetasKDS() {
     });
 
     // Botón de acción según el estado
-    let btnHtml = '';
-    if (pedido.estatus === 'listo') {
-      btnHtml = `
-        <button onclick="marcarDespachoFinal('${pedido.id}')" class="kds-state-btn btn-ready-pdf">
-          <i class="fa-solid fa-check"></i> LISTO PARA ENTREGAR
+    const estatusNorm = String(pedido.estatus || pedido.estado || 'en_preparacion').toLowerCase();
+    const esListo = (estatusNorm === 'listo' || estatusNorm === 'preparado');
+
+    let btnHtml = `
+      <div style="display: flex; gap: 0.5rem; width: 100%;">
+        ${!esListo ? `
+          <button onclick="marcarListoParaEntregar('${pedido.id}')" class="kds-state-btn btn-prep-pdf" style="flex: 1.2;">
+            <i class="fa-solid fa-fire"></i> EN PREPARACIÓN
+          </button>
+        ` : `
+          <button onclick="marcarDespachoFinal('${pedido.id}')" class="kds-state-btn btn-ready-pdf" style="flex: 1.2;">
+            <i class="fa-solid fa-bell-concierge"></i> LISTO / ENTREGAR
+          </button>
+        `}
+        <button onclick="marcarDespachoFinal('${pedido.id}')" class="kds-state-btn" style="flex: 1; background: #10b981; color: #fff; border: 1px solid #059669; font-weight: 700; border-radius: 6px; cursor: pointer; padding: 0.7rem; font-size: 0.82rem;" title="Despachar y retirar del monitor KDS">
+          <i class="fa-solid fa-check-double"></i> DESPACHAR
         </button>
-      `;
-    } else {
-      btnHtml = `
-        <button onclick="marcarListoParaEntregar('${pedido.id}')" class="kds-state-btn btn-prep-pdf">
-          <i class="fa-solid fa-fire"></i> EN PREPARACIÓN
-        </button>
-      `;
-    }
+      </div>
+    `;
 
     card.innerHTML = `
       <div class="kds-order-header">
-        <div class="kds-table-num">${pedido.mesaNombre.toUpperCase()}</div>
+        <div class="kds-table-num">${(pedido.mesaNombre || 'MESA').toUpperCase()}</div>
         <div class="kds-meta-sub">${subheaderText}</div>
       </div>
 
@@ -158,10 +166,9 @@ async function marcarListoParaEntregar(pedidoId) {
 async function marcarDespachoFinal(pedidoId) {
   if (window.AudioEngine) window.AudioEngine.playClick();
   try {
-    const res = await fetch(`/api/pedidos/${pedidoId}/estatus`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ estatus: 'despachado' })
+    const res = await fetch(`/api/pedidos/${pedidoId}/despachar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
     });
     const result = await res.json();
     if (result.success) {

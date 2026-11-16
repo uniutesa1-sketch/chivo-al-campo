@@ -1624,10 +1624,28 @@ async function liberarMesaDirecto(mesaId) {
     const result = await res.json();
     if (result.success) {
       if (window.AudioEngine) window.AudioEngine.playSuccessChime();
+      mostrarToastAdmin(`✅ Mesa ${mesaId} liberada con éxito.`, 'success');
       cargarMesasAdmin();
     }
   } catch (err) {
     console.error('Error liberando mesa:', err);
+    mostrarToastAdmin('❌ Error al intentar liberar la mesa.', 'error');
+  }
+}
+
+async function liberarTodasLasMesas() {
+  if (!confirm('¿Confirma que desea liberar todas las mesas físicas del restaurante y limpiar comandas activas?')) return;
+  try {
+    const res = await fetch('/api/mesas/liberar-todas', { method: 'POST' });
+    const result = await res.json();
+    if (result.success) {
+      if (window.AudioEngine) window.AudioEngine.playSuccessChime();
+      mostrarToastAdmin('✅ Todas las mesas han sido liberadas y se encuentran disponibles.', 'success');
+      cargarMesasAdmin();
+    }
+  } catch (err) {
+    console.error('Error liberando todas las mesas:', err);
+    mostrarToastAdmin('❌ Error al liberar las mesas.', 'error');
   }
 }
 

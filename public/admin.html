@@ -760,7 +760,10 @@
           <h3 style="font-size: 1.3rem; font-weight: 800; color: #fff;">Plano de Mesas & Salón en Vivo</h3>
           <p style="color: var(--text-muted); font-size: 0.85rem;">Supervisión en tiempo real de ocupación, comensales y llamados de asistencia.</p>
         </div>
-        <div style="display: flex; gap: 0.75rem; align-items: center;">
+        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+          <button onclick="liberarTodasLasMesas()" class="btn btn-sm btn-outline" style="border-color: rgba(239, 68, 68, 0.45); color: #f87171; background: rgba(239, 68, 68, 0.08); font-weight: 700;">
+            <i class="fa-solid fa-broom"></i> Liberar Todas las Mesas
+          </button>
           <button onclick="cargarMesasAdmin()" class="btn btn-outline btn-sm">
             <i class="fa-solid fa-rotate"></i> Actualizar Salón
           </button>

@@ -276,9 +276,11 @@
       "itbis": 140.34,
       "propina": 77.97,
       "total": 997.97,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T11:45:00.000Z"
+      "fecha": "2026-11-16T11:45:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2002",
@@ -315,9 +317,11 @@
       "itbis": 207.46,
       "propina": 115.25,
       "total": 1475.25,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T12:15:30.000Z"
+      "fecha": "2026-11-16T12:15:30.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2003",
@@ -362,9 +366,11 @@
       "itbis": 329.49,
       "propina": 183.05,
       "total": 2343.05,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T12:40:10.000Z"
+      "fecha": "2026-11-16T12:40:10.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2004",
@@ -401,9 +407,11 @@
       "itbis": 138.05,
       "propina": 76.7,
       "total": 981.7,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T13:10:00.000Z"
+      "fecha": "2026-11-16T13:10:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2005",
@@ -440,9 +448,11 @@
       "itbis": 343.22,
       "propina": 0,
       "total": 2250,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T13:35:45.000Z"
+      "fecha": "2026-11-16T13:35:45.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2006",
@@ -487,9 +497,11 @@
       "itbis": 504.92,
       "propina": 280.51,
       "total": 3590.51,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T14:05:20.000Z"
+      "fecha": "2026-11-16T14:05:20.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2007",
@@ -526,9 +538,11 @@
       "itbis": 192.2,
       "propina": 106.78,
       "total": 1366.78,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T14:45:00.000Z"
+      "fecha": "2026-11-16T14:45:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2008",
@@ -557,9 +571,11 @@
       "itbis": 117.46,
       "propina": 65.25,
       "total": 835.25,
-      "estado": "CANCELADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T15:20:15.000Z"
+      "fecha": "2026-11-16T15:20:15.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2009",
@@ -596,9 +612,11 @@
       "itbis": 295.93,
       "propina": 164.41,
       "total": 2104.41,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T18:30:00.000Z"
+      "fecha": "2026-11-16T18:30:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2010",
@@ -635,9 +653,11 @@
       "itbis": 288.31,
       "propina": 160.17,
       "total": 2050.17,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-16T19:15:22.000Z"
+      "fecha": "2026-11-16T19:15:22.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2011",
@@ -682,9 +702,11 @@
       "itbis": 628.47,
       "propina": 349.15,
       "total": 4469.15,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-15T12:30:00.000Z"
+      "fecha": "2026-11-15T12:30:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2012",
@@ -721,9 +743,11 @@
       "itbis": 280.68,
       "propina": 155.93,
       "total": 1995.93,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-15T13:15:10.000Z"
+      "fecha": "2026-11-15T13:15:10.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2013",
@@ -760,9 +784,11 @@
       "itbis": 133.47,
       "propina": 74.15,
       "total": 949.15,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-15T14:00:00.000Z"
+      "fecha": "2026-11-15T14:00:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2014",
@@ -799,9 +825,11 @@
       "itbis": 289.83,
       "propina": 0,
       "total": 1900,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-15T14:45:30.000Z"
+      "fecha": "2026-11-15T14:45:30.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2015",
@@ -838,9 +866,11 @@
       "itbis": 207.46,
       "propina": 115.25,
       "total": 1475.25,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-15T19:40:00.000Z"
+      "fecha": "2026-11-15T19:40:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2016",
@@ -885,9 +915,11 @@
       "itbis": 701.69,
       "propina": 389.83,
       "total": 4989.83,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-14T13:00:00.000Z"
+      "fecha": "2026-11-14T13:00:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2017",
@@ -924,9 +956,11 @@
       "itbis": 144.92,
       "propina": 80.51,
       "total": 1030.51,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-14T13:50:20.000Z"
+      "fecha": "2026-11-14T13:50:20.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2018",
@@ -963,9 +997,11 @@
       "itbis": 303.56,
       "propina": 168.64,
       "total": 2158.64,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-14T14:30:00.000Z"
+      "fecha": "2026-11-14T14:30:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2019",
@@ -1002,9 +1038,11 @@
       "itbis": 311.19,
       "propina": 172.88,
       "total": 2212.88,
-      "estado": "CANCELADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-14T20:10:00.000Z"
+      "fecha": "2026-11-14T20:10:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2020",
@@ -1041,9 +1079,11 @@
       "itbis": 421.02,
       "propina": 233.9,
       "total": 2993.9,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-13T12:45:00.000Z"
+      "fecha": "2026-11-13T12:45:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2021",
@@ -1080,9 +1120,11 @@
       "itbis": 151.78,
       "propina": 84.32,
       "total": 1079.32,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-13T13:40:15.000Z"
+      "fecha": "2026-11-13T13:40:15.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2022",
@@ -1119,9 +1161,11 @@
       "itbis": 140.34,
       "propina": 0,
       "total": 920,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-13T19:30:00.000Z"
+      "fecha": "2026-11-13T19:30:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2023",
@@ -1158,9 +1202,11 @@
       "itbis": 144.92,
       "propina": 80.51,
       "total": 1030.51,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-12T12:30:00.000Z"
+      "fecha": "2026-11-12T12:30:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2024",
@@ -1197,9 +1243,11 @@
       "itbis": 166.27,
       "propina": 92.37,
       "total": 1182.37,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-12T13:20:00.000Z"
+      "fecha": "2026-11-12T13:20:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2025",
@@ -1236,9 +1284,11 @@
       "itbis": 308.14,
       "propina": 171.19,
       "total": 2191.19,
-      "estado": "ENTREGADO",
+      "estado": "LIBERADO",
       "pagado": true,
-      "fecha": "2026-11-12T14:15:00.000Z"
+      "fecha": "2026-11-12T14:15:00.000Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2098",
@@ -1262,9 +1312,11 @@
         }
       ],
       "total": 1735.59,
-      "estado": "PREPARANDO",
-      "pagado": false,
-      "fecha": "2026-11-16T13:21:58.160Z"
+      "estado": "LIBERADO",
+      "pagado": true,
+      "fecha": "2026-11-16T13:21:58.160Z",
+      "estatus": "despachado",
+      "despachado": true
     },
     {
       "id": "ORD-2099",
@@ -1288,9 +1340,11 @@
         }
       ],
       "total": 920,
-      "estado": "RECIBIDO",
-      "pagado": false,
-      "fecha": "2026-11-16T13:21:58.160Z"
+      "estado": "LIBERADO",
+      "pagado": true,
+      "fecha": "2026-11-16T13:21:58.160Z",
+      "estatus": "despachado",
+      "despachado": true
     }
   ],
   "facturas": [

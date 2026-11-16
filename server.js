@@ -381,28 +381,76 @@ app.patch('/api/pedidos/:id/estatus', (req, res) => {
   const { estatus } = req.body; // 'pendiente' | 'en_preparacion' | 'listo' | 'despachado'
 
   const db = readDB();
-  const pedido = db.pedidos.find(p => p.id === id);
+  const pedido = (db.pedidos || []).find(p => p.id === id);
   if (!pedido) {
     return res.status(404).json({ error: 'Pedido no encontrado' });
   }
 
-  pedido.estatus = estatus;
+  const estatusNorm = (estatus || 'pendiente').toLowerCase();
+  pedido.estatus = estatusNorm;
+  pedido.estado = estatusNorm.toUpperCase();
   pedido.fechaEstatus = new Date().toISOString();
+
+  if (estatusNorm === 'despachado') {
+    pedido.despachado = true;
+    pedido.fechaDespacho = new Date().toISOString();
+    // Si es delivery, se completa la orden
+    if (pedido.mesaId === 99 || pedido.origen === 'DELIVERY') {
+      pedido.pagado = true;
+    }
+  }
+
   writeDB(db);
 
   let mensaje = 'Orden actualizada';
-  if (estatus === 'en_preparacion') {
+  if (estatusNorm === 'en_preparacion') {
     mensaje = 'El chef está preparando su comida';
-  } else if (estatus === 'listo' || estatus === 'despachado') {
+  } else if (estatusNorm === 'listo') {
     mensaje = '¡Su comida está lista y va en camino a su mesa!';
+  } else if (estatusNorm === 'despachado') {
+    mensaje = 'Comanda despachada por cocina';
   }
 
   io.emit('estatus_pedido_actualizado', {
     pedidoId: id,
     mesaId: pedido.mesaId,
-    estatus,
+    estatus: estatusNorm,
     mensaje
   });
+
+  io.emit('mesas_actualizadas', db.mesas);
+
+  res.json({ success: true, pedido });
+});
+
+// Despachar comanda directamente desde el KDS o Admin
+app.post('/api/pedidos/:id/despachar', (req, res) => {
+  const { id } = req.params;
+  const db = readDB();
+  const pedido = (db.pedidos || []).find(p => p.id === id);
+  if (!pedido) {
+    return res.status(404).json({ error: 'Pedido no encontrado' });
+  }
+
+  pedido.estatus = 'despachado';
+  pedido.estado = 'DESPACHADO';
+  pedido.despachado = true;
+  pedido.fechaDespacho = new Date().toISOString();
+
+  if (pedido.mesaId === 99 || pedido.origen === 'DELIVERY') {
+    pedido.pagado = true;
+  }
+
+  writeDB(db);
+
+  io.emit('estatus_pedido_actualizado', {
+    pedidoId: id,
+    mesaId: pedido.mesaId,
+    estatus: 'despachado',
+    mensaje: 'Comanda despachada por cocina'
+  });
+
+  io.emit('mesas_actualizadas', db.mesas);
 
   res.json({ success: true, pedido });
 });
@@ -1555,14 +1603,66 @@ app.post('/api/mesas/:id/liberar', (req, res) => {
   const mesa = (db.mesas || []).find(m => m.id === mId);
   if (!mesa) return res.status(404).json({ error: 'Mesa no encontrada' });
 
+  // 1. Poner mesa en estado disponible
   mesa.estado = 'disponible';
+
+  // 2. Cerrar y liberar todos los pedidos activos no pagados de esta mesa
+  (db.pedidos || []).forEach(p => {
+    if (p.mesaId === mId && !p.pagado) {
+      p.pagado = true;
+      p.estatus = 'despachado';
+      p.estado = 'LIBERADO';
+      p.despachado = true;
+      p.fechaLiberacion = new Date().toISOString();
+    }
+  });
+
+  // 3. Limpiar llamadas de mesero pendientes de esta mesa
   if (db.llamadasMesero) {
     db.llamadasMesero = db.llamadasMesero.filter(l => l.mesaId !== mId);
   }
+
   writeDB(db);
+
+  // 4. Sincronizar en tiempo real con Cocina, Tablets y Gerencia
   io.emit('mesas_actualizadas', db.mesas);
   io.emit('mesero_atendido', { mesaId: mId });
-  res.json({ success: true, mesa });
+  io.emit('estatus_pedido_actualizado', { mesaId: mId, estatus: 'despachado' });
+  io.emit('pago_procesado', { mesaId: mId });
+  io.emit('nuevo_pedido', { cancelado: true, mesaId: mId });
+
+  res.json({ success: true, mesa, message: `Mesa ${mId} liberada exitosamente.` });
+});
+
+// Liberar todas las mesas simultáneamente
+app.post('/api/mesas/liberar-todas', (req, res) => {
+  const db = readDB();
+
+  (db.mesas || []).forEach(m => {
+    m.estado = 'disponible';
+  });
+
+  (db.pedidos || []).forEach(p => {
+    if (!p.pagado) {
+      p.pagado = true;
+      p.estatus = 'despachado';
+      p.estado = 'LIBERADO';
+      p.despachado = true;
+      p.fechaLiberacion = new Date().toISOString();
+    }
+  });
+
+  db.llamadasMesero = [];
+
+  writeDB(db);
+
+  io.emit('mesas_actualizadas', db.mesas);
+  io.emit('mesero_atendido', { todos: true });
+  io.emit('estatus_pedido_actualizado', { estatus: 'despachado' });
+  io.emit('pago_procesado', {});
+  io.emit('nuevo_pedido', { cancelado: true });
+
+  res.json({ success: true, message: 'Todas las mesas han sido liberadas exitosamente.' });
 });
 
 // ----------------- ALMACÉN E INVENTARIO DE INSUMOS & KARDEX -----------------
