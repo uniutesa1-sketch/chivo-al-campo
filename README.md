@@ -109,20 +109,14 @@ Acceso a los módulos en local:
 
 ## 📚 Documentación y Manuales Oficiales (UTESA)
 
-El proyecto cuenta con manuales completos en formato Markdown y HTML con diseño institucional para la evaluación docente:
+El proyecto cuenta con manuales completos en formato **PDF formal académico** con portada institucional, índice dinámico, diagramado técnico y formato Markdown:
 
-1. **[Manual de Instalación y Despliegue en la Nube](docs/MANUAL_DE_INSTALACION.md):**
-   - Requisitos de hardware y software.
-   - Configuración de variables de entorno `.env`.
-   - Instalación local con Node.js 20 LTS.
-   - Contenedorización con Dockerfile Alpine Linux.
-   - Despliegue continuo en **Google Cloud Build** y **Google Cloud Run (HTTPS)**.
-   - Verificación de instalación y troubleshooting.
+1. **Manual de Instalación y Despliegue en la Nube:**
+   - 📄 **[Descargar / Ver PDF Oficial](docs/MANUAL_DE_INSTALACION.pdf)**
+   - 📝 [Versión Markdown](docs/MANUAL_DE_INSTALACION.md)
+   - Contenido: Requisitos de hardware y software, arquitectura del stack tecnológico, `.env`, ejecución local Node.js 20 LTS, contenedorización Docker Alpine, CI/CD en **Google Cloud Build**, despliegue serverless en **Google Cloud Run (HTTPS)**, pruebas de humo y troubleshooting exhaustivo.
 
-2. **[Manual de Usuario y Guía de Operación](docs/MANUAL_DE_USUARIO.md):**
-   - Operación del Modo Tablet en Mesa (`PGM_CLIENTE`) y sugerencias con IA Google Gemini.
-   - Operación del Monitor de Cocina KDS (`PGM_COCINA`) con alertas sonoras y botón Despachar.
-   - Panel de Gerencia (`PGM_ADMIN`), Caja, Delivery ("Mesa 99") y Plano de Mesas en vivo.
-   - Auditoría Fiscal DGII Ley 32-23 (Comprobantes E31, E32 y Notas de Crédito E34).
-   - Catálogo Maestro de las **36 Consultas y Reportes** con exportación a Excel e impresión en PDF.
-   - Inventario, Kardex, Suplidores de Monte Cristi y Personal.
+2. **Manual de Usuario y Guía Integral de Operación:**
+   - 📄 **[Descargar / Ver PDF Oficial](docs/MANUAL_DE_USUARIO.pdf)**
+   - 📝 [Versión Markdown](docs/MANUAL_DE_USUARIO.md)
+   - Contenido: Operación del Modo Tablet en Mesa (`PGM_CLIENTE`) y sugerencias con IA Google Gemini Flash, KDS de cocina (`PGM_COCINA`) con alertas audibles y botón directo Despachar, Panel de Gerencia (`PGM_ADMIN`), Plano de mesas con liberación permanente, Caja/Delivery Mesa 99, Auditoría Fiscal DGII Ley 32-23 (E31, E32, Notas de Crédito E34), **Catálogo Completo de las 36 Consultas y Reportes** con exportación a Excel e impresión en PDF, Almacén, Kardex, Suplidores locales y Gestión de Personal.

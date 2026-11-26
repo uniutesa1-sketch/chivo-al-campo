@@ -48,11 +48,13 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }));
 
-// Servir la carpeta de documentación oficial (Manual de Instalación y Manual de Usuario)
+// Servir la carpeta de documentación oficial (Manual de Instalación y Manual de Usuario en PDF y MD)
 app.use('/docs', express.static(path.join(__dirname, 'docs'), {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.md')) {
       res.set('Content-Type', 'text/markdown; charset=utf-8');
+    } else if (filePath.endsWith('.pdf')) {
+      res.set('Content-Type', 'application/pdf');
     }
   }
 }));
