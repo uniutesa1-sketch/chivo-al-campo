@@ -39,9 +39,9 @@ function buildUsuarioContent(doc, pageTracker) {
   drawH2(doc, '1.1', 'Marco Legal Tributario de la República Dominicana');
   drawParagraph(doc, 'El sistema ha sido homologado bajo las regulaciones fiscales vigentes impuestas por la Dirección General de Impuestos Internos (DGII):');
   drawBullet(doc, 'Ley 32-23 de Facturación Electrónica:', 'Obligatoriedad de emisión, timbrado digital y validación en tiempo real de comprobantes fiscales electrónicos (e-CF) estructurados bajo el estándar XML con firma digital.');
-  drawBullet(doc, 'Comprobante de Crédito Fiscal Electrónico (e-CF Tipo 31 / B01):', 'Destinado a personas jurídicas o físicas registradas que requieren sustentar costos y gastos deducibles del Impuesto Sobre la Renta (ISR) o adelantar el ITBIS.');
-  drawBullet(doc, 'Comprobante de Consumo Electrónico (e-CF Tipo 32 / B02):', 'Emitido a consumidores finales para consumos individuales o familiares sin valor para crédito fiscal.');
-  drawBullet(doc, 'Nota de Crédito Electrónica (e-CF Tipo 34 / B04):', 'Documento tributario obligatorio para modificar, anular facturas emitidas o aplicar devoluciones de platos y servicios, con reintegro contable y de almacén.');
+  drawBullet(doc, 'Comprobante de Crédito Fiscal Electrónico (e-CF Serie E31):', 'Destinado a personas jurídicas o físicas registradas que requieren sustentar costos y gastos deducibles del Impuesto Sobre la Renta (ISR) o adelantar el ITBIS.');
+  drawBullet(doc, 'Comprobante de Consumo Electrónico (e-CF Serie E32):', 'Emitido a consumidores finales para consumos individuales o familiares sin valor para crédito fiscal.');
+  drawBullet(doc, 'Nota de Crédito Electrónica (e-CF Serie E34):', 'Documento tributario obligatorio para modificar, anular facturas emitidas o aplicar devoluciones de platos y servicios, con reintegro contable y de almacén.');
   drawBullet(doc, 'Ley 253-12 (ITBIS del 18%):', 'Aplicación del Impuesto a la Transferencia de Bienes Industrializados y Servicios sobre la base imponible neta.');
   drawBullet(doc, 'Ley 18-88 (Propina Legal del 10%):', 'Retención obligatoria del 10% por concepto de servicio de salón para su distribución equitativa y mensual entre el personal de camareros (excluida automáticamente en órdenes de delivery para llevar).');
 

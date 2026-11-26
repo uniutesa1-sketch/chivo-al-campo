@@ -120,8 +120,8 @@ En la esquina inferior de la tablet, el comensal dispone del botón **"Llamar al
 
 ### 3.5 Solicitud de Comprobante Fiscal (DGII Ley 32-23)
 Al solicitar la cuenta, la tablet permite elegir el tipo de comprobante requerido:
-- **Consumo (e-CF E32 / B02):** Para comensales individuales o familias. Se genera sin necesidad de RNC.
-- **Crédito Fiscal (e-CF E31 / B01):** Para empresas y deducibilidad de impuestos. La tablet despliega un teclado numérico táctil en pantalla para ingresar el **RNC o Cédula** del cliente. El sistema valida el dígito verificador y asocia la razón social automáticamente.
+- **Comprobante de Consumo Electrónico (e-CF Serie E32):** Para comensales individuales o familias. Se genera sin necesidad de RNC.
+- **Factura de Crédito Fiscal Electrónica (e-CF Serie E31):** Para empresas y deducibilidad de impuestos. La tablet despliega un teclado numérico táctil en pantalla para ingresar el **RNC o Cédula** del cliente. El sistema valida el dígito verificador y asocia la razón social automáticamente.
 
 ### 3.6 Pasarela Digital con Código QR PayPal y Pago en Efectivo
 El cliente elige su método de pago preferido:
