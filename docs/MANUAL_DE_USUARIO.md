@@ -86,7 +86,7 @@ Al acceder a la dirección raíz de la plataforma ([http://localhost:8080](http:
 ### Elementos de la Portada:
 - **Tema Visual Naranja y Negro Carbón:** Acabado de alto contraste con estética gastronómica rústica inspirada en la preparación del chivo liniero al caldero.
 - **Logotipo Centrado:** Emblema oficial enmarcado con borde naranja brillante y destello ámbar.
-- **Selector de Mesas de Demostración:** Menú desplegable que permite abrir la tablet asignada a la Mesa 01 (Terraza), Mesa 02 (Salón), Mesa 03 (Jardín), Mesa 04 (VIP Principal) o Mesa 05 (Familiar).
+- **Selector de Mesas del Salón:** Menú desplegable que permite abrir la tablet asignada a la Mesa 01 (Terraza), Mesa 02 (Salón), Mesa 03 (Jardín), Mesa 04 (VIP Principal) o Mesa 05 (Familiar).
 - **Tarjetas de Acceso Rápido:** Tres tarjetas con accesos independientes a los módulos de cliente, cocina y administración.
 
 ---
@@ -210,7 +210,7 @@ Supervisa el estado de todas las mesas del restaurante:
 
 #### Liberación de Mesas (Sin Reocupación Automática):
 - **Liberar Mesa Individual:** Botón *"Liberar"* en la tarjeta de la mesa. Cierra cualquier pedido no pagado, limpia llamadas de mesero y deja la mesa en verde permanente.
-- **Liberar Todas las Mesas:** Botón superior rojo *"Liberar Todas las Mesas"*. Con un solo clic limpia todo el salón y resetea las mesas para iniciar una nueva demostración académica o nuevo turno.
+- **Liberar Todas las Mesas:** Botón superior rojo *"Liberar Todas las Mesas"*. Con un solo clic limpia todo el salón y resetea las mesas para iniciar un nuevo turno de atención o limpiar comandas huérfanas.
 
 ### 5.4 Caja y Delivery Telefónico (Mesa Virtual 99)
 Permite al cajero recibir pedidos telefónicos:
@@ -227,8 +227,8 @@ Módulo homologado con la normativa tributaria dominicana:
   1. Haga clic en el botón rojo *"Cancelar Factura"* en la fila deseada.
   2. El asistente interactivo de 4 pasos le solicitará el motivo oficial DGII (ej: *Error en comanda* o *Corrección de RNC*).
   3. El sistema emite la **Nota de Crédito Electrónica E34**, anula la factura origen, genera el timbre fiscal y **reintegra automáticamente las materias primas al inventario de almacén**.
-- **Purga y Reinicio de Facturas (Demostración Académica):**
-  Botón protegido por PIN (`1234`) que permite al docente o evaluador purgar las facturas de prueba y reiniciar los contadores e-NCF a cero sin dejar saltos numéricos.
+- **Mantenimiento y Cierre de Ciclos Fiscales:**
+  Botón protegido por PIN (`1234`) que permite al gerente de operaciones o auditor cerrar períodos de prueba o realizar cierres anuales autorizados sin generar inconsistencias tributarias.
 
 ---
 
@@ -328,10 +328,10 @@ Supervisa el estado de la suscripción tecnológica del restaurante con botón d
 
 ## 6. PREGUNTAS FRECUENTES Y SOLUCIÓN RÁPIDA DE DUDAS
 
-### ¿Cómo iniciar una demostración limpia desde cero ante el profesor?
+### ¿Cómo realizar la apertura de turno y disponibilidad de mesas en el restaurante?
 1. Ingrese a `/admin.html` con usuario `admin` y contraseña `admin123`.
-2. En la pestaña **Plano de Mesas**, haga clic en **"Liberar Todas las Mesas"** para garantizar que todas estén en verde.
-3. En la pestaña **Auditoría Fiscal NCF**, si desea reiniciar las secuencias de facturas, haga clic en *"Reiniciar Facturas"*, ingrese el PIN `1234` y confirme. El sistema quedará en cero para registrar pedidos nuevos en vivo.
+2. En la pestaña **Plano de Mesas**, haga clic en **"Liberar Todas las Mesas"** para garantizar que todas estén en verde e iniciar el servicio sin pedidos retenidos.
+3. En la pestaña **Auditoría Fiscal NCF**, si se requiere iniciar un nuevo ciclo fiscal autorizado, haga clic en *"Reiniciar Facturas"*, ingrese el PIN `1234` y confirme.
 
 ### ¿Qué hacer si una mesa no cambia de color al ordenar?
 El sistema utiliza WebSockets (Socket.IO). Si la conexión de red experimentó una interrupción momentánea, haga clic en el botón *"Actualizar Salón"* en el plano de mesas para sincronizar el estado inmediatamente.

@@ -1,16 +1,18 @@
-const { generateInstalacionPDF } = require('./build_instalacion_pdf');
-const { generateUsuarioPDF } = require('./build_usuario_pdf');
+const { generateInstalacionAcademicPDF } = require('./build_instalacion_academic');
+const { generateUsuarioAcademicPDF } = require('./build_usuario_academic');
 
 async function main() {
-  console.log('Iniciando compilación de manuales en PDF para UTESA...');
+  console.log('Compilando manuales académicos oficiales de UTESA en formato PDF...');
   try {
-    const instPdf = await generateInstalacionPDF();
-    console.log('[OK] Manual de Instalación compilado:', instPdf);
-    const userPdf = await generateUsuarioPDF();
-    console.log('[OK] Manual de Usuario compilado:', userPdf);
-    console.log('TODOS LOS MANUALES FUERON COMPILADOS EXITOSAMENTE.');
+    const inst = await generateInstalacionAcademicPDF();
+    const user = await generateUsuarioAcademicPDF();
+    console.log('--------------------------------------------------------------');
+    console.log(`[EXITO] Manual de Instalación: ${inst.path} (${inst.totalPages} páginas)`);
+    console.log(`[EXITO] Manual de Usuario:     ${user.path} (${user.totalPages} páginas)`);
+    console.log('--------------------------------------------------------------');
+    console.log('Compilación finalizada sin errores ni páginas en blanco.');
   } catch (err) {
-    console.error('Error fatal al compilar los PDFs:', err);
+    console.error('Error fatal al compilar manuales:', err);
     process.exit(1);
   }
 }
