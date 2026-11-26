@@ -215,7 +215,16 @@ Este comando instalará las dependencias requeridas:
 - `cors`: Habilitador de intercambio de recursos de origen cruzado.
 - `dotenv`: Administrador de variables de entorno.
 
-### Paso 6.3: Iniciar el Servidor
+### Paso 6.3: Iniciar el Servidor (Consola o Script .BAT)
+
+El sistema ofrece dos alternativas de arranque:
+
+#### Opción A: Ejecución con Doble Clic (`iniciar_sistema.bat` - Recomendado en Windows)
+En la raíz del proyecto se incluye el script ejecutable `iniciar_sistema.bat`. Una vez instaladas las dependencias (`npm install`), simplemente haga **doble clic sobre `iniciar_sistema.bat`**:
+- El script levantará de inmediato el servidor Node.js.
+- Abrirá automáticamente su navegador web en el portal de autoservicio del restaurante sin necesidad de escribir comandos adicionales.
+
+#### Opción B: Arranque por Consola de Comandos
 Inicie la aplicación con el comando estándar:
 ```bash
 npm start

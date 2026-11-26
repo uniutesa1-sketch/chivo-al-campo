@@ -155,8 +155,8 @@ app.post('/api/auth/login', (req, res) => {
     user = usuarios.find(u => String(u.pin).trim() === String(pin).trim());
   } else if (usuario && password) {
     const pHash = crypto.createHash('sha256').update(String(password).trim()).digest('hex');
-    user = usuarios.find(u => 
-      (u.usuario.toLowerCase() === String(usuario).trim().toLowerCase() || u.email.toLowerCase() === String(usuario).trim().toLowerCase()) && 
+    user = usuarios.find(u =>
+      (u.usuario.toLowerCase() === String(usuario).trim().toLowerCase() || u.email.toLowerCase() === String(usuario).trim().toLowerCase()) &&
       (u.passwordHash === pHash || u.password === password)
     );
   }
@@ -671,7 +671,7 @@ async function obtenerRazonSocialDGII(rnc) {
         };
       }
     }
-  } catch (e) {}
+  } catch (e) { }
 
   // 3. Diccionario local de contingencia
   if (RNC_REGISTRO_LOCAL[rncLimpio]) {
@@ -737,7 +737,7 @@ async function timbrarFacturaElectronica(factura, db) {
   if (apiKey) {
     try {
       const rncCompradorLimpio = factura.rncCliente ? factura.rncCliente.replace(/\D/g, '') : '';
-      
+
       // Forma de pago DGII: 1=Efectivo, 2=Cheque/Transferencia, 3=Tarjeta Débito/Crédito
       let formaPagoDGII = 1;
       const metodoUpper = (factura.metodoPago || '').toUpperCase();
@@ -935,7 +935,7 @@ async function emitirNotaCreditoE34(factura, motivo, db) {
     const mm = String(fDate.getMonth() + 1).padStart(2, '0');
     const yyyy = fDate.getFullYear();
     fechaDocModificado = `${dd}-${mm}-${yyyy}`;
-  } catch (_) {}
+  } catch (_) { }
 
   const ncfModificadoDoc = factura.encf || factura.ncf;
 
@@ -1225,7 +1225,7 @@ function procesarSalidaInventarioPorFactura(factura, db) {
           insumo.cantidad = Math.max(0, Math.round((stockAnterior - totalADescontar) * 100) / 100);
 
           const mov = {
-            id: `MOV-${Date.now()}-${Math.floor(Math.random()*1000)}`,
+            id: `MOV-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
             fecha: new Date().toISOString(),
             tipo: 'SALIDA_VENTA',
             insumoId: insumo.id,
@@ -1735,7 +1735,7 @@ app.post('/api/inventario/movimiento', (req, res) => {
   }
 
   const mov = {
-    id: `MOV-${Date.now()}-${Math.floor(Math.random()*1000)}`,
+    id: `MOV-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
     fecha: new Date().toISOString(),
     tipo: esEntrada ? 'ENTRADA_COMPRA' : 'SALIDA_MANUAL',
     insumoId: insumo.id,
@@ -1777,7 +1777,7 @@ app.post('/api/inventario/ajuste', (req, res) => {
   }
 
   const mov = {
-    id: `MOV-${Date.now()}-${Math.floor(Math.random()*1000)}`,
+    id: `MOV-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
     fecha: new Date().toISOString(),
     tipo: esSalida ? 'SALIDA_MANUAL' : 'ENTRADA_COMPRA',
     insumoId: item.id,
@@ -2096,7 +2096,7 @@ Debes responder ÚNICAMENTE con un objeto JSON válido con la siguiente estructu
         const textoGenerado = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
         if (textoGenerado) {
           const parsed = JSON.parse(textoGenerado);
-          
+
           let ahorroStr = 'RD$ 8,450.00 al consolidar compra anticipada';
           if (parsed.ahorroEstimadoRD) {
             if (typeof parsed.ahorroEstimadoRD === 'number') {
@@ -2216,7 +2216,7 @@ app.post('/api/auth/login', (req, res) => {
     userEncontrado = usuarios.find(u => String(u.pin).trim() === String(pin).trim());
   } else if (usuario && password) {
     const pHash = crypto.createHash('sha256').update(String(password).trim()).digest('hex');
-    userEncontrado = usuarios.find(u => 
+    userEncontrado = usuarios.find(u =>
       (u.usuario.toLowerCase() === String(usuario).trim().toLowerCase() || u.email.toLowerCase() === String(usuario).trim().toLowerCase()) &&
       (u.passwordHash === pHash || u.password === password)
     );

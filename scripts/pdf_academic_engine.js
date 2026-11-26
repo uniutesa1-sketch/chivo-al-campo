@@ -10,7 +10,7 @@ if (!fs.existsSync(OUT_DIR)) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 }
 
-// Paleta de Colores Académica UTESA (Azul Marino Institucional, Grafito y Acento Cobre/Naranja)
+// Paleta de Colores Académica UTESA (Azul Marino Institucional, Grafito y Acento Ámbar/Oro)
 const THEME = {
   navy: '#0f2b48',         // Azul marino institucional UTESA
   navyLight: '#1e3a5f',    // Azul intermedio
@@ -50,11 +50,15 @@ function createAcademicDoc(docTitle) {
 }
 
 /**
- * Dibuja la Portada Institucional Universitaria (Formato Tesis / Proyecto de Grado UTESA)
+ * Dibuja la Portada Institucional Universitaria (Página 1 estricta, sin desborde a Página 2)
  */
 function drawAcademicCover(doc, meta) {
   const { pageWidth, pageHeight, marginLeft, contentWidth } = THEME;
   const centerX = pageWidth / 2;
+
+  // Desactivar temporalmente el bottom margin para evitar auto-pagebreak accidental
+  const oldBottom = doc.page.margins.bottom;
+  doc.page.margins.bottom = 0;
 
   // Borde perimetral sobrio (doble línea académica)
   doc.rect(36, 36, pageWidth - 72, pageHeight - 72)
@@ -67,7 +71,7 @@ function drawAcademicCover(doc, meta) {
      .strokeColor(THEME.navyLight)
      .stroke();
 
-  let y = 60;
+  let y = 56;
 
   // 1. Membrete Institucional UTESA
   doc.font('Helvetica-Bold').fontSize(13.5).fillColor(THEME.navy)
@@ -92,40 +96,40 @@ function drawAcademicCover(doc, meta) {
 
   // Línea divisora
   doc.moveTo(100, y).lineTo(pageWidth - 100, y).lineWidth(1).strokeColor(THEME.gold).stroke();
-  y += 20;
+  y += 18;
 
   // 2. Logotipo Oficial del Restaurante
   if (fs.existsSync(LOGO_PATH)) {
     try {
-      const logoW = 85;
+      const logoW = 82;
       doc.image(LOGO_PATH, centerX - (logoW / 2), y, { width: logoW });
-      y += 94;
+      y += 90;
     } catch (e) {
-      y += 10;
+      y += 8;
     }
   } else {
-    y += 10;
+    y += 8;
   }
 
   // 3. Título del Proyecto y Documento
-  doc.font('Helvetica-Bold').fontSize(16).fillColor(THEME.navy)
+  doc.font('Helvetica-Bold').fontSize(15.5).fillColor(THEME.navy)
      .text(meta.title, marginLeft, y, { width: contentWidth, align: 'center' });
-  y += doc.heightOfString(meta.title, { width: contentWidth, fontSize: 16 }) + 6;
+  y += doc.heightOfString(meta.title, { width: contentWidth, fontSize: 15.5 }) + 6;
 
   if (meta.subtitle) {
-    doc.font('Helvetica-Bold').fontSize(10).fillColor(THEME.gold)
+    doc.font('Helvetica-Bold').fontSize(9.5).fillColor(THEME.gold)
        .text(meta.subtitle, marginLeft, y, { width: contentWidth, align: 'center' });
-    y += doc.heightOfString(meta.subtitle, { width: contentWidth, fontSize: 10 }) + 8;
+    y += doc.heightOfString(meta.subtitle, { width: contentWidth, fontSize: 9.5 }) + 7;
   }
 
-  doc.font('Helvetica').fontSize(9).fillColor(THEME.body)
+  doc.font('Helvetica').fontSize(8.8).fillColor(THEME.body)
      .text('Sistema Multi-Modo de Autoservicio, Monitor KDS y Facturación Fiscal DGII (Ley 32-23)', marginLeft, y, { width: contentWidth, align: 'center' });
-  y += 24;
+  y += 20;
 
   // 4. Bloque de Datos Académicos (Cuadro formal)
   const boxX = marginLeft + 15;
   const boxW = contentWidth - 30;
-  const boxH = 140;
+  const boxH = 136;
 
   doc.roundedRect(boxX, y, boxW, boxH, 4)
      .fillAndStroke('#f8fafc', THEME.border);
@@ -133,7 +137,7 @@ function drawAcademicCover(doc, meta) {
   // Franja lateral
   doc.roundedRect(boxX, y, 4, boxH, 2).fill(THEME.navy);
 
-  let mY = y + 14;
+  let mY = y + 12;
   const rows = [
     ['Empresa Usuaria:', 'Restaurante "Chivo al Campo SRL" (Villa Elisa, Monte Cristi)'],
     ['RNC Contribuyente:', '132-90740-1 (Certificación e-CF DGII Ley 32-23)'],
@@ -146,18 +150,21 @@ function drawAcademicCover(doc, meta) {
 
   rows.forEach(([lbl, val]) => {
     doc.font('Helvetica-Bold').fontSize(8.8).fillColor(THEME.navy)
-       .text(lbl, boxX + 16, mY, { width: 140 });
+       .text(lbl, boxX + 16, mY, { width: 140, lineBreak: false });
     doc.font('Helvetica').fontSize(8.8).fillColor(THEME.dark)
-       .text(val, boxX + 160, mY, { width: boxW - 175 });
-    mY += 17;
+       .text(val, boxX + 160, mY, { width: boxW - 175, lineBreak: false });
+    mY += 16.5;
   });
 
-  // Pie de portada
-  const footY = pageHeight - 65;
+  // Pie de portada fijo al fondo de la página 1
+  const footY = pageHeight - 68;
   doc.font('Helvetica-Bold').fontSize(9).fillColor(THEME.navy)
-     .text('Santiago de los Caballeros, República Dominicana', marginLeft, footY, { width: contentWidth, align: 'center' });
+     .text('Santiago de los Caballeros, República Dominicana', marginLeft, footY, { width: contentWidth, align: 'center', lineBreak: false });
   doc.font('Helvetica').fontSize(8.5).fillColor(THEME.muted)
-     .text('Período Académico 3-2026', marginLeft, footY + 13, { width: contentWidth, align: 'center' });
+     .text('Período Académico 3-2026', marginLeft, footY + 12, { width: contentWidth, align: 'center', lineBreak: false });
+
+  // Restaurar margen inferior
+  doc.page.margins.bottom = oldBottom;
 }
 
 /**
@@ -171,7 +178,6 @@ function finalizeDocument(doc, docShortTitle) {
   for (let i = 1; i < total; i++) {
     doc.switchToPage(i);
 
-    // Evitar que PDFKit dispare auto-salto de página seteando margins en 0
     const oldB = doc.page.margins.bottom;
     const oldT = doc.page.margins.top;
     doc.page.margins.bottom = 0;
@@ -227,8 +233,8 @@ function drawH1(doc, num, title) {
   doc.rect(THEME.marginLeft, startY, 4, 20)
      .fill(THEME.navy);
 
-  doc.font('Helvetica-Bold').fontSize(10.5).fillColor(THEME.navy)
-     .text(textFull, THEME.marginLeft + 12, startY + 4.5, { width: THEME.contentWidth - 20 });
+  doc.font('Helvetica-Bold').fontSize(10.2).fillColor(THEME.navy)
+     .text(textFull, THEME.marginLeft + 12, startY + 4.5, { width: THEME.contentWidth - 20, lineBreak: false });
 
   doc.y = startY + 26;
 }
@@ -270,7 +276,6 @@ function drawBullet(doc, boldPrefix, text) {
   if (doc.y > 720) doc.addPage();
   const y = doc.y;
 
-  // Punto formal
   doc.circle(THEME.marginLeft + 6, y + 4.5, 2).fill(THEME.navy);
 
   doc.font('Helvetica-Bold').fontSize(8.5).fillColor(THEME.dark)
@@ -300,7 +305,7 @@ function drawCodeBlock(doc, codeText) {
   let textY = startY + 7;
   lines.forEach(line => {
     doc.font('Courier').fontSize(7.2).fillColor(THEME.dark)
-       .text(line, THEME.marginLeft + 10, textY, { width: THEME.contentWidth - 20 });
+       .text(line, THEME.marginLeft + 10, textY, { width: THEME.contentWidth - 20, lineBreak: false });
     textY += lineHeight;
   });
 
@@ -315,7 +320,6 @@ function drawTable(doc, tableTitle, headers, rows, colWidths) {
   if (doc.y > 660) doc.addPage();
   doc.moveDown(0.3);
 
-  // Título de la tabla (formato APA / Tesis)
   if (tableTitle) {
     doc.font('Helvetica-Bold').fontSize(8.2).fillColor(THEME.navy)
        .text(tableTitle, THEME.marginLeft, doc.y);
@@ -351,7 +355,6 @@ function drawTable(doc, tableTitle, headers, rows, colWidths) {
       doc.addPage();
       currentY = 48;
 
-      // Repetir cabecera en nueva página con leyenda (Cont.)
       doc.rect(tableX, currentY, totalTableWidth, headerHeight).fill(THEME.tableHeader);
       let repeatColX = tableX;
       headers.forEach((h, i) => {
@@ -395,7 +398,6 @@ function drawCallout(doc, type, title, text) {
   doc.roundedRect(THEME.marginLeft, startY, boxW, boxH, 3)
      .fillAndStroke('#f8fafc', THEME.border);
 
-  // Barra de acento
   const barColor = type === 'warning' ? THEME.gold : THEME.navy;
   doc.roundedRect(THEME.marginLeft, startY, 3.5, boxH, 1.5).fill(barColor);
 
@@ -416,32 +418,28 @@ function drawCallout(doc, type, title, text) {
  * Dibuja una galería de fotos de especialidades gastronómicas en 2 columnas
  */
 function drawDishGallery(doc, items, caption) {
-  if (doc.y > 600) doc.addPage();
+  if (doc.y > 580) doc.addPage();
   doc.moveDown(0.4);
 
   const startY = doc.y;
   const colW = 238;
   const gap = 24;
   const imgW = 75;
-  const imgH = 55;
 
   items.forEach((item, idx) => {
     const isRight = idx % 2 === 1;
     const itemX = THEME.marginLeft + (isRight ? colW + gap : 0);
     const itemY = startY + (Math.floor(idx / 2) * 65);
 
-    // Caja
     doc.roundedRect(itemX, itemY, colW, 60, 3)
        .fillAndStroke('#ffffff', THEME.border);
 
-    // Imagen si existe
     if (fs.existsSync(item.imgPath)) {
       try {
         doc.image(item.imgPath, itemX + 4, itemY + 4, { width: imgW, height: 52 });
       } catch (e) {}
     }
 
-    // Texto descriptivo al lado
     doc.font('Helvetica-Bold').fontSize(8.2).fillColor(THEME.navy)
        .text(item.name, itemX + imgW + 10, itemY + 6, { width: colW - imgW - 14 });
     doc.font('Helvetica').fontSize(7.5).fillColor(THEME.gold)
@@ -471,7 +469,6 @@ function drawArchitectureDiagram(doc) {
   const diagW = THEME.contentWidth;
   const boxH = 46;
 
-  // 1. Capa Superior (Clientes)
   const topBoxes = [
     { title: 'TABLETS EN MESA', sub: 'Autoservicio Comensal\nUpselling Gemini IA' },
     { title: 'MONITOR KDS COCINA', sub: 'Display Táctil de Cocción\nAlertas Web Audio' },
@@ -491,22 +488,18 @@ function drawArchitectureDiagram(doc) {
        .text(b.sub, x + 4, startY + 20, { width: colW - 8, align: 'center', lineGap: 1.5 });
   });
 
-  // Flechas hacia el centro
   const midY = startY + boxH + 16;
   doc.moveTo(THEME.pageWidth / 2, startY + boxH).lineTo(THEME.pageWidth / 2, midY).lineWidth(1).strokeColor(THEME.navy).stroke();
 
-  // 2. Capa Central (Cloud Run & Express Server)
   doc.roundedRect(THEME.marginLeft + 40, midY, diagW - 80, 48, 4).fillAndStroke('#0f2b48', THEME.gold);
   doc.font('Helvetica-Bold').fontSize(9).fillColor('#ffffff')
      .text('GOOGLE CLOUD RUN (SERVERLESS CONTAINER - HTTPS)', THEME.marginLeft + 40, midY + 8, { width: diagW - 80, align: 'center' });
   doc.font('Helvetica').fontSize(7.5).fillColor('#cbd5e1')
      .text('Node.js 20 LTS Alpine • Express 5.3 REST API • Socket.IO WebSockets • Crypto SHA-256', THEME.marginLeft + 40, midY + 22, { width: diagW - 80, align: 'center' });
 
-  // Flechas hacia abajo
   const bottomY = midY + 48 + 16;
   doc.moveTo(THEME.pageWidth / 2, midY + 48).lineTo(THEME.pageWidth / 2, bottomY).lineWidth(1).strokeColor(THEME.navy).stroke();
 
-  // 3. Capa Inferior (Microservicios e Integraciones)
   const botBoxes = [
     { title: 'BASE DE DATOS', sub: 'JSON Store Atómico\n(data/database.json)' },
     { title: 'PLATAFORMA DGII', sub: 'API e-CF Ley 32-23\nE31, E32, E34 & QR' },
@@ -530,10 +523,10 @@ function drawArchitectureDiagram(doc) {
 }
 
 /**
- * Tabla de Contenido Académica (Página 2)
+ * Tabla de Contenido Académica (Página 2 estricta, sin saltos accidentales)
  */
 function drawAcademicTOC(doc, items) {
-  doc.y = 50;
+  doc.y = 52;
 
   doc.font('Helvetica-Bold').fontSize(12).fillColor(THEME.navy)
      .text('ÍNDICE GENERAL', THEME.marginLeft, doc.y);
@@ -544,18 +537,18 @@ function drawAcademicTOC(doc, items) {
      .lineWidth(1)
      .strokeColor(THEME.gold)
      .stroke();
-  doc.moveDown(0.6);
+  doc.moveDown(0.5);
 
   items.forEach(it => {
     const isSub = it.level === 2;
     const indent = isSub ? THEME.marginLeft + 18 : THEME.marginLeft;
     const titleWidth = isSub ? 370 : 390;
-    const y = doc.y;
+    const curY = doc.y;
 
     doc.font(isSub ? 'Helvetica' : 'Helvetica-Bold')
        .fontSize(isSub ? 8.2 : 9)
        .fillColor(isSub ? THEME.body : THEME.navy)
-       .text(it.title, indent, y, { width: titleWidth });
+       .text(it.title, indent, curY, { width: titleWidth, lineBreak: false });
 
     // Puntos de relleno
     const textW = doc.widthOfString(it.title, { fontSize: isSub ? 8.2 : 9 });
@@ -568,14 +561,14 @@ function drawAcademicTOC(doc, items) {
       while (doc.widthOfString(dots + '. ') < (dotsEnd - dotsStart)) {
         dots += '. ';
       }
-      doc.text(dots, dotsStart, y);
+      doc.text(dots, dotsStart, curY, { lineBreak: false });
     }
 
     // Número de página
     doc.font('Helvetica-Bold').fontSize(isSub ? 8.2 : 9).fillColor(THEME.gold)
-       .text(String(it.page), THEME.pageWidth - THEME.marginRight - 28, y, { width: 28, align: 'right' });
+       .text(String(it.page), THEME.pageWidth - THEME.marginRight - 28, curY, { width: 28, align: 'right', lineBreak: false });
 
-    doc.moveDown(isSub ? 0.32 : 0.42);
+    doc.y = curY + (isSub ? 14 : 17);
   });
 }
 

@@ -48,11 +48,11 @@ function buildUsuarioContent(doc, pageTracker) {
   // 2.0 PORTAL CENTRAL DE ACCESO (PGM_MAIN)
   mark('2.0', 'Portal Central de Acceso (PGM_MAIN)');
   drawH1(doc, '2.0', 'Portal Central de Acceso (PGM_MAIN)');
-  drawParagraph(doc, 'El portal central (http://localhost:8080/ o la URL en Cloud Run) funciona como enrutador principal para los dispositivos del restaurante. Presenta una interfaz de alto contraste en negro y naranja rústico con el logotipo oficial centrado.');
+  drawParagraph(doc, 'El portal central (http://localhost:8080/ o http://localhost:3000/) funciona como enrutador principal para los dispositivos del restaurante. Presenta una interfaz de alto contraste en negro carbón y naranja liniero con el logotipo oficial centrado.');
   drawParagraph(doc, 'Desde este portal, el personal puede ingresar a cualquiera de los tres módulos operativos:');
-  drawBullet(doc, 'Módulo de Autoservicio Comensal:', 'Permite seleccionar el número de mesa física (Mesa 01 a 05) y abrir la interfaz de tablet.');
-  drawBullet(doc, 'Módulo de Cocina KDS:', 'Lanza la pantalla táctil de preparación para el área de calderos y fogones.');
-  drawBullet(doc, 'Módulo de Gerencia y Administración:', 'Acceso protegido por credenciales SHA-256 para supervisión financiera y fiscal.');
+  drawBullet(doc, 'Módulo de Autoservicio Comensal (PGM_CLIENTE):', 'Selector de mesa (Mesa 01 a 05) que lanza la interfaz táctil del comensal.');
+  drawBullet(doc, 'Módulo de Cocina KDS (PGM_COCINA):', 'Lanza la pantalla táctil de preparación para el área de calderos y fogones.');
+  drawBullet(doc, 'Módulo de Gerencia y Administración (PGM_ADMIN):', 'Acceso protegido por credenciales SHA-256 para supervisión financiera y fiscal.');
 
   // 3.0 MÓDULO DE AUTOSERVICIO EN MESA (PGM_CLIENTE)
   mark('3.0', 'Módulo de Autoservicio en Mesa (PGM_CLIENTE)');
@@ -62,7 +62,6 @@ function buildUsuarioContent(doc, pageTracker) {
   drawH2(doc, '3.1', 'Catálogo Gastronómico Liniero y Fotografías Reales');
   drawParagraph(doc, 'El menú digital presenta los platos organizados en 4 pestañas interactivas con fotografías de alta resolución tomadas directamente de la cocina del restaurante:');
 
-  // Galería fotográfica con fotos reales del proyecto
   const dishes = [
     {
       name: 'Chivo Liniero al Caldero',
@@ -206,24 +205,25 @@ function buildUsuarioContent(doc, pageTracker) {
 }
 
 /**
- * Genera el archivo MANUAL_DE_USUARIO.pdf con dos pasadas exactas
+ * Genera el archivo MANUAL_DE_USUARIO.pdf con correspondencia 1:1 de páginas
  */
 async function generateUsuarioAcademicPDF() {
   const pdfPath = path.join(OUT_DIR, 'MANUAL_DE_USUARIO.pdf');
 
-  // Pasada 1: Simulación en memoria para registrar páginas exactas de cada sección
+  // Pasada 1: Simulación en memoria para registrar páginas exactas
   const simDoc = createAcademicDoc('Simulación Usuario');
   drawAcademicCover(simDoc, {
     title: 'MANUAL DE OPERACIÓN Y USUARIO DEL SISTEMA',
     subtitle: 'GUÍA INTEGRAL DE PROCEDIMIENTOS PARA TABLETS, COCINA KDS, AUDITORÍA DGII Y 36 REPORTES'
   });
-  simDoc.addPage(); // Reserva de TOC
+  simDoc.addPage(); // Reserva Página 2 (TOC)
+  simDoc.addPage(); // Reserva Página 3 (Inicio contenido)
 
   const tracker = [];
   buildUsuarioContent(simDoc, tracker);
   simDoc.end();
 
-  // Pasada 2: Renderizado final en disco con TOC exacta
+  // Pasada 2: Renderizado final en disco
   return new Promise((resolve, reject) => {
     const doc = createAcademicDoc('Manual de Usuario y Operación');
     const stream = fs.createWriteStream(pdfPath);

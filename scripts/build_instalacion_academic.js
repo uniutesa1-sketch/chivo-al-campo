@@ -18,7 +18,6 @@ const {
 } = require('./pdf_academic_engine');
 
 function buildInstalacionContent(doc, pageTracker) {
-  // Función auxiliar para registrar página
   const mark = (num, title, level = 1) => {
     if (pageTracker) {
       pageTracker.push({
@@ -102,6 +101,7 @@ function buildInstalacionContent(doc, pageTracker) {
 │   ├── cocina.html            # Interfaz de Cocina táctil KDS con alertas sonoras
 │   ├── index.html             # Portal central de enrutamiento y selección de mesas
 │   └── tablet.html            # Interfaz táctil de comensales para autoservicio
+├── iniciar_sistema.bat        # Script ejecutable de arranque rápido con doble clic en Windows
 ├── Dockerfile                 # Definición de contenedor ligero sobre Alpine Linux
 ├── cloudbuild.yaml            # Pipeline de CI/CD automatizado para Google Cloud Build
 ├── package.json               # Dependencias del servidor y scripts de arranque
@@ -149,10 +149,10 @@ TASA_CAMBIO_USD_DOP=60.00`);
 
   drawCallout(doc, 'info', 'Resiliencia del Sistema', 'El software implementa controladores de contingencia local. Si las credenciales de Gemini IA o PayPal no se configuran, el sistema opera con reglas heurísticas internas y simulación de transacciones fiscales sin interrumpir el servicio.');
 
-  // 6.0 PUESTA EN MARCHA EN ENTORNO LOCAL (NODE.JS)
+  // 6.0 PUESTA EN MARCHA EN ENTORNO LOCAL
   mark('6.0', 'Puesta en Marcha en Entorno Local');
   drawH1(doc, '6.0', 'Puesta en Marcha en Entorno Local');
-  drawParagraph(doc, 'Procedimiento estándar para clonar, instalar dependencias e iniciar el sistema en una máquina local:');
+  drawParagraph(doc, 'El sistema puede iniciarse en local tanto por consola de comandos como mediante el lanzador rápido para sistemas Windows:');
 
   drawH2(doc, '6.1', 'Clonar el Repositorio de GitHub');
   drawCodeBlock(doc,
@@ -162,7 +162,10 @@ cd chivo-al-campo`);
   drawH2(doc, '6.2', 'Instalación de Dependencias');
   drawCodeBlock(doc, `npm install`);
 
-  drawH2(doc, '6.3', 'Arranque del Servidor Backend');
+  drawH2(doc, '6.3', 'Ejecución con el Script iniciar_sistema.bat (Recomendado en Windows)');
+  drawParagraph(doc, 'El proyecto cuenta en su directorio raíz con el script ejecutable iniciar_sistema.bat. Una vez completado el comando npm install, el usuario puede iniciar toda la plataforma con un simple doble clic sobre iniciar_sistema.bat; este script arranca de inmediato el servidor backend y abre automáticamente el navegador web en el portal del restaurante.');
+
+  drawH2(doc, '6.4', 'Arranque Manual por Consola');
   drawCodeBlock(doc, `npm start`);
   drawParagraph(doc, 'Al inicializar, el servidor registrará en la consola el siguiente mensaje de conformidad:');
   drawCodeBlock(doc,
@@ -172,7 +175,7 @@ cd chivo-al-campo`);
   Servidor escuchando en: http://localhost:8080
 ==================================================================`);
 
-  drawH2(doc, '6.4', 'Puntos de Acceso Web Local');
+  drawH2(doc, '6.5', 'Puntos de Acceso Web Local');
   const urlHeaders = ['Módulo', 'Ruta Web', 'Destinatario Operativo'];
   const urlRows = [
     ['Portal de Acceso General', 'http://localhost:8080/', 'Pantalla de selección de perfiles del restaurante'],
@@ -273,24 +276,25 @@ gcloud run deploy chivo-al-campo \\
 }
 
 /**
- * Genera el archivo MANUAL_DE_INSTALACION.pdf final con 2 pasadas exactas
+ * Genera el archivo MANUAL_DE_INSTALACION.pdf final con correspondencia 1:1 de páginas
  */
 async function generateInstalacionAcademicPDF() {
   const pdfPath = path.join(OUT_DIR, 'MANUAL_DE_INSTALACION.pdf');
 
-  // Pasada 1: Simulación en memoria para calcular páginas reales de cada sección
+  // Pasada 1: Simulación en memoria para calcular páginas reales exactas
   const simDoc = createAcademicDoc('Simulación Instalación');
   drawAcademicCover(simDoc, {
     title: 'MANUAL TÉCNICO DE INSTALACIÓN Y DESPLIEGUE EN LA NUBE',
     subtitle: 'INFRAESTRUCTURA SERVERLESS EN GOOGLE CLOUD RUN, CONTENEDORES DOCKER Y WEBSOCKETS'
   });
-  simDoc.addPage(); // Reserva de TOC
+  simDoc.addPage(); // Reserva Página 2 (TOC)
+  simDoc.addPage(); // Reserva Página 3 (Inicio contenido)
 
   const tracker = [];
   buildInstalacionContent(simDoc, tracker);
   simDoc.end();
 
-  // Pasada 2: Renderizado final en disco con TOC exacta y sin páginas en blanco
+  // Pasada 2: Renderizado final en disco
   return new Promise((resolve, reject) => {
     const doc = createAcademicDoc('Manual de Instalación y Despliegue');
     const stream = fs.createWriteStream(pdfPath);
