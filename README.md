@@ -100,7 +100,29 @@ npm start
 ```
 
 Acceso a los módulos en local:
-- **Portal Principal:** `http://localhost:3000/`
-- **Tablet Comensal:** `http://localhost:3000/tablet.html?mesa=4`
-- **Monitor de Cocina KDS:** `http://localhost:3000/cocina.html`
-- **Panel Administrativo & Auditoría NCF:** `http://localhost:3000/admin.html`
+- **Portal Principal:** `http://localhost:8080/`
+- **Tablet Comensal:** `http://localhost:8080/tablet.html?mesa=4`
+- **Monitor de Cocina KDS:** `http://localhost:8080/cocina.html`
+- **Panel Administrativo & Auditoría NCF:** `http://localhost:8080/admin.html`
+
+---
+
+## 📚 Documentación y Manuales Oficiales (UTESA)
+
+El proyecto cuenta con manuales completos en formato Markdown y HTML con diseño institucional para la evaluación docente:
+
+1. **[Manual de Instalación y Despliegue en la Nube](docs/MANUAL_DE_INSTALACION.md):**
+   - Requisitos de hardware y software.
+   - Configuración de variables de entorno `.env`.
+   - Instalación local con Node.js 20 LTS.
+   - Contenedorización con Dockerfile Alpine Linux.
+   - Despliegue continuo en **Google Cloud Build** y **Google Cloud Run (HTTPS)**.
+   - Verificación de instalación y troubleshooting.
+
+2. **[Manual de Usuario y Guía de Operación](docs/MANUAL_DE_USUARIO.md):**
+   - Operación del Modo Tablet en Mesa (`PGM_CLIENTE`) y sugerencias con IA Google Gemini.
+   - Operación del Monitor de Cocina KDS (`PGM_COCINA`) con alertas sonoras y botón Despachar.
+   - Panel de Gerencia (`PGM_ADMIN`), Caja, Delivery ("Mesa 99") y Plano de Mesas en vivo.
+   - Auditoría Fiscal DGII Ley 32-23 (Comprobantes E31, E32 y Notas de Crédito E34).
+   - Catálogo Maestro de las **36 Consultas y Reportes** con exportación a Excel e impresión en PDF.
+   - Inventario, Kardex, Suplidores de Monte Cristi y Personal.

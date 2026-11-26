@@ -48,6 +48,15 @@ app.use(express.static(path.join(__dirname, 'public'), {
   }
 }));
 
+// Servir la carpeta de documentación oficial (Manual de Instalación y Manual de Usuario)
+app.use('/docs', express.static(path.join(__dirname, 'docs'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.md')) {
+      res.set('Content-Type', 'text/markdown; charset=utf-8');
+    }
+  }
+}));
+
 // Helpers para base de datos JSON
 function readDB() {
   try {
